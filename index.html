@@ -12,18 +12,23 @@
             letter-spacing: -0.01em; margin: 0; padding: 0; overflow-x: hidden;
         }
         
-        /* 드롭다운 슬라이드 애니메이션 */
+        /* 1. 드롭다운 판넬 애니메이션 설정 */
         .dropdown-panel {
+            position: absolute;
+            top: 44px;
+            left: 0;
+            width: 100%;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(245, 245, 247, 0.98);
             backdrop-filter: blur(20px);
+            z-index: 40;
         }
         
-        /* 마우스 올렸을 때 판넬 높이 조절 */
+        /* 2. 각 메뉴 그룹 호버 시 판넬 확장 */
         .group:hover .dropdown-panel {
-            max-height: 300px;
+            max-height: 400px;
             border-bottom: 1px solid #e5e7eb;
         }
 
@@ -39,30 +44,87 @@
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 group">
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto flex items-center h-[44px] px-6 relative">
             <div class="absolute left-6 h-[22px] cursor-pointer">
-                <img src="image/logo.png" alt="W" class="h-full w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
+                <img src="image/Wayne Ent. logo(symbol.B).png" alt="W" class="h-full w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
             </div>
             
-            <div class="flex space-x-8 text-[12px] font-normal text-[#1d1d1f] mx-auto italic">
-                <div class="relative group/item">
-                    <span class="nav-link">Profile Story</span>
+            <div class="flex space-x-8 text-[12px] font-normal text-[#1d1d1f] mx-auto italic relative">
+                
+                <div class="group py-[14px]">
+                    <span class="nav-link cursor-default">Profile Story</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Corporate Profile</p>
+                            <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">브루스 웨인 프로필</a>
+                            <a href="https://www.notion.so/48d01137da4245e2804efbf963ee5225?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">배트맨으로서 싸워온 지난 날들</a>
+                            <a href="https://www.notion.so/Tmi-of-Bruce-Wayne-23045a5412e880618f40e981021c36e3?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">Tmi of Wayne</a>
+                            <a href="https://www.notion.so/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인가의 유산</a>
+                            <a href="https://walkoffame.com/31056-2/" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">Walk of Fame</a>
+                        </div>
+                    </div>
                 </div>
-                <a href="/open-story" class="nav-link" data-url="wayne.com/open-story">Open Story</a>
-                <a href="/quote" class="nav-link" data-url="wayne.com/quote">Quote</a>
-                <a href="/wayne-records" class="nav-link" data-url="wayne.com/wayne-records">Wayne Records</a>
-                <a href="/wayne-group" class="nav-link" data-url="wayne.com/wayne-group">Wayne Group</a>
-            </div>
-        </div>
 
-        <div class="dropdown-panel w-full">
-            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4">
-                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Corporate Profile</p>
-                <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">브루스 웨인 프로필</a>
-                <a href="https://www.notion.so/48d01137da4245e2804efbf963ee5225?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">배트맨으로서 싸워온 지난 날들</a>
-                <a href="https://www.notion.so/Tmi-of-Bruce-Wayne-23045a5412e880618f40e981021c36e3?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">Tmi of Wayne</a>
-                <a href="https://www.notion.so/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab?source=copy_link" target="_blank" class="text-[17px] font-semibold text-[#FACC15] transition-colors">웨인가의 유산 (미완)</a>
+                <div class="group py-[14px]">
+                    <span class="nav-link cursor-default">Open Story</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Public Relations</p>
+                            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">브루스 웨인</a>
+                            <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 홍보재단</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group py-[14px]">
+                    <span class="nav-link cursor-default">Quote</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Philosophy</p>
+                            <a href="https://www.notion.so/GCN-Breaking-News-The-Wayne-murdered-24745a5412e8801cae2ec261f721b229?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">The Wayne Murdered</a>
+                            <a href="https://www.notion.so/24745a5412e88077b33dc454f7546944?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">우린 어디서 와서 어디로 가는 중인가.</a>
+                            <a href="https://www.notion.so/Paralyzed-Where-is-the-real-me-24745a5412e880b6a05bfaf26d6edb0d?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">Paralyzed: Where is the real me?</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group py-[14px]">
+                    <span class="nav-link cursor-default">Wayne Records</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Archives</p>
+                            <a href="#" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">🎵Bruce Wayne's personal Playlists</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="group py-[14px]">
+                    <span class="nav-link cursor-default">고객 서비스</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Support</p>
+                            <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인재단 이용 안내</a>
+                            <a href="https://open.kakao.com/o/sg8WyyPg" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">개인 연락처 (FAQ)</a>
+                            <a href="https://curious.quizby.me/Wayne53" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">익명으로 말하고 싶을 때</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="group py-[14px]">
+                    <span class="nav-link cursor-default">Wayne Group</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Organization</p>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 기술</a>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 의학</a>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 화학</a>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 산업</a>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 금융</a>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 엔터테인먼트</a>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] font-semibold hover:text-[#FACC15] transition-colors">웨인 재단</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </nav>
@@ -100,6 +162,7 @@
     </script>
 </body>
 </html>
+
 
 
 
