@@ -31,6 +31,48 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
+    <script>
+    window.onload = function() {
+        // 모든 메뉴 그룹(Profile Story 등)을 가져옵니다.
+        const menuGroups = document.querySelectorAll('.group');
+
+        menuGroups.forEach(group => {
+            group.addEventListener('click', function(e) {
+                // 모바일 환경(1024px 미만)일 때만 터치 드롭다운 작동
+                if (window.innerWidth < 1024) {
+                    const panel = this.querySelector('.dropdown-panel');
+                    
+                    // 현재 패널이 열려있는지 상태 확인
+                    const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+
+                    // 다른 모든 패널을 닫아서 하나만 열리게 함
+                    document.querySelectorAll('.dropdown-panel').forEach(p => {
+                        p.style.maxHeight = '0px';
+                    });
+
+                    // 닫혀있었다면 열고, 열려있었다면 닫음
+                    if (!isOpen) {
+                        panel.style.maxHeight = '500px'; 
+                    } else {
+                        panel.style.maxHeight = '0px';
+                    }
+                    
+                    // 클릭 이벤트가 부모 요소로 전달되어 페이지가 튀는 현상 방지
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        // 메뉴 외의 다른 곳을 터치하면 드롭다운이 닫히도록 설정
+        document.addEventListener('click', () => {
+            if (window.innerWidth < 1024) {
+                document.querySelectorAll('.dropdown-panel').forEach(p => {
+                    p.style.maxHeight = '0px';
+                });
+            }
+        });
+    };
+</script>
 <body>
 
     <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-300 h-[60px]">
@@ -44,7 +86,7 @@
                 
                 <div class="group h-full flex items-center flex-shrink-0">
                     <span class="nav-link">Profile Story</span>
-                    <div class="dropdown-panel hidden lg:block">
+                    <div class="dropdown-panel lg:block">
                         <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
                             <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2 not-italic">Chairman Profile</p>
                             <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인 프로필</a>
@@ -58,7 +100,7 @@
 
                 <div class="group h-full flex items-center flex-shrink-0">
                     <span class="nav-link">Open Story</span>
-                    <div class="dropdown-panel hidden lg:block">
+                    <div class="dropdown-panel lg:block">
                         <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
                             <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Public Relations</p>
                             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인</a>
@@ -69,7 +111,7 @@
 
                 <div class="group h-full flex items-center flex-shrink-0">
                     <span class="nav-link">Quote</span>
-                    <div class="dropdown-panel hidden lg:block">
+                    <div class="dropdown-panel lg:block">
                         <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
                             <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Philosophy</p>
                             <a href="https://www.notion.so/GCN-Breaking-News-The-Wayne-murdered-24745a5412e8801cae2ec261f721b229?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">The Wayne Murdered</a>
@@ -81,7 +123,7 @@
 
                 <div class="group h-full flex items-center flex-shrink-0">
                     <span class="nav-link">Wayne Records</span>
-                    <div class="dropdown-panel hidden lg:block">
+                    <div class="dropdown-panel lg:block">
                         <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
                             <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Archives</p>
                             <a href="#" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">🎵Bruce Wayne's personal Playlists</a>
@@ -91,7 +133,7 @@
 
                 <div class="group h-full flex items-center flex-shrink-0">
                     <span class="nav-link">고객 서비스</span>
-                    <div class="dropdown-panel hidden lg:block">
+                    <div class="dropdown-panel lg:block">
                         <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
                             <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Support</p>
                             <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인재단 이용 안내</a>
@@ -103,7 +145,7 @@
 
                 <div class="group h-full flex items-center flex-shrink-0">
                     <span class="nav-link">Wayne Group</span>
-                    <div class="dropdown-panel hidden lg:block">
+                    <div class="dropdown-panel lg:block">
                         <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
                             <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Company</p>
                             <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Wayne Group</a>
@@ -168,3 +210,4 @@
 
 </body>
 </html>
+
