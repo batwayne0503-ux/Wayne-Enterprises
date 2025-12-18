@@ -33,43 +33,54 @@
 </head>
     <script>
     window.onload = function() {
-        // 모든 메뉴 그룹(Profile Story 등)을 가져옵니다.
         const menuGroups = document.querySelectorAll('.group');
 
         menuGroups.forEach(group => {
-            group.addEventListener('click', function(e) {
-                // 모바일 환경(1024px 미만)일 때만 터치 드롭다운 작동
-                if (window.innerWidth < 1024) {
-                    const panel = this.querySelector('.dropdown-panel');
+            // iOS와 안드로이드 모두를 위해 두 가지 이벤트를 모두 등록합니다.
+            ['click', 'touchstart'].forEach(eventType => {
+                group.addEventListener(eventType, function(e) {
                     
-                    // 현재 패널이 열려있는지 상태 확인
-                    const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+                    // 모바일 환경(1024px 미만)일 때만 작동
+                    if (window.innerWidth < 1024) {
+                        const panel = this.querySelector('.dropdown-panel');
+                        
+                        // 현재 패널이 열려있는지 상태 확인
+                        const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
 
-                    // 다른 모든 패널을 닫아서 하나만 열리게 함
-                    document.querySelectorAll('.dropdown-panel').forEach(p => {
-                        p.style.maxHeight = '0px';
-                    });
+                        // 다른 모든 패널을 닫아서 하나만 열리게 함
+                        document.querySelectorAll('.dropdown-panel').forEach(p => {
+                            p.style.maxHeight = '0px';
+                        });
 
-                    // 닫혀있었다면 열고, 열려있었다면 닫음
-                    if (!isOpen) {
-                        panel.style.maxHeight = '500px'; 
-                    } else {
-                        panel.style.maxHeight = '0px';
+                        // 닫혀있었다면 열고, 열려있었다면 닫음
+                        if (!isOpen) {
+                            panel.style.maxHeight = '500px'; 
+                        } else {
+                            panel.style.maxHeight = '0px';
+                        }
+                        
+                        // 클릭 이벤트 전파 방지 (터치 후 클릭이 중복 발생하지 않도록 함)
+                        // 단, touchstart 시에는 기본 동작을 막지 않아야 스크롤이 자연스럽습니다.
+                        if (eventType === 'click') {
+                            e.stopPropagation();
+                        }
                     }
-                    
-                    // 클릭 이벤트가 부모 요소로 전달되어 페이지가 튀는 현상 방지
-                    e.stopPropagation();
-                }
+                }, { passive: true }); // 터치 스크롤 성능 최적화
             });
         });
 
-        // 메뉴 외의 다른 곳을 터치하면 드롭다운이 닫히도록 설정
-        document.addEventListener('click', () => {
-            if (window.innerWidth < 1024) {
-                document.querySelectorAll('.dropdown-panel').forEach(p => {
-                    p.style.maxHeight = '0px';
-                });
-            }
+        // 메뉴 외의 다른 곳을 터치하거나 클릭하면 드롭다운이 닫히도록 설정
+        ['click', 'touchstart'].forEach(eventType => {
+            document.addEventListener(eventType, (e) => {
+                if (window.innerWidth < 1024) {
+                    // 터치한 대상이 메뉴(.group) 내부가 아닐 때만 닫기
+                    if (!e.target.closest('.group')) {
+                        document.querySelectorAll('.dropdown-panel').forEach(p => {
+                            p.style.maxHeight = '0px';
+                        });
+                    }
+                }
+            }, { passive: true });
         });
     };
 </script>
@@ -210,4 +221,5 @@
 
 </body>
 </html>
+
 
