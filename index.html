@@ -9,10 +9,27 @@
         body { 
             background-color: #ffffff; color: #000000; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            letter-spacing: -0.01em; margin: 0; padding: 0;
+            letter-spacing: -0.01em; margin: 0; padding: 0; overflow-x: hidden;
         }
+        
+        /* 드롭다운 슬라이드 애니메이션 */
+        .dropdown-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(245, 245, 247, 0.98);
+            backdrop-filter: blur(20px);
+        }
+        
+        /* 마우스 올렸을 때 판넬 높이 조절 */
+        .group:hover .dropdown-panel {
+            max-height: 300px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
         .nav-link { transition: opacity 0.3s ease; cursor: pointer; }
         .nav-link:hover { opacity: 0.6; }
+        
         .link-feedback {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.05); padding: 8px 16px; border-radius: 20px;
@@ -22,55 +39,45 @@
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 group">
         <div class="max-w-7xl mx-auto flex items-center h-[44px] px-6 relative">
             <div class="absolute left-6 h-[22px] cursor-pointer">
                 <img src="image/logo.png" alt="W" class="h-full w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
             </div>
             
             <div class="flex space-x-8 text-[12px] font-normal text-[#1d1d1f] mx-auto italic">
-                <a href="/profile-story" class="nav-link" data-url="wayne.com/profile-story">Profile Story</a>
+                <div class="relative group/item">
+                    <span class="nav-link">Profile Story</span>
+                </div>
                 <a href="/open-story" class="nav-link" data-url="wayne.com/open-story">Open Story</a>
                 <a href="/quote" class="nav-link" data-url="wayne.com/quote">Quote</a>
                 <a href="/wayne-records" class="nav-link" data-url="wayne.com/wayne-records">Wayne Records</a>
                 <a href="/wayne-group" class="nav-link" data-url="wayne.com/wayne-group">Wayne Group</a>
             </div>
         </div>
+
+        <div class="dropdown-panel w-full">
+            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4">
+                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Corporate Profile</p>
+                <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-blue-600 transition-colors">브루스 웨인 프로필</a>
+                <a href="https://www.notion.so/48d01137da4245e2804efbf963ee5225?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-blue-600 transition-colors">배트맨으로서 싸워온 지난 날들</a>
+                <a href="https://www.notion.so/Tmi-of-Bruce-Wayne-23045a5412e880618f40e981021c36e3?source=copy_link" target="_blank" class="text-[17px] font-semibold hover:text-blue-600 transition-colors">Tmi of Wayne</a>
+                <a href="https://www.notion.so/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab?source=copy_link" target="_blank" class="text-[17px] font-semibold text-gray-300 cursor-not-allowed">웨인가의 유산 (미완)</a>
+            </div>
+        </div>
     </nav>
 
-    <section class="relative w-full h-[85vh] flex items-center justify-center bg-gray-100">
-        <img src="image/hq_wayne tower.jpg" alt="Wayne HQ" class="absolute inset-0 w-full h-full object-cover object-[center_30%]">
-        <div class="absolute inset-0 bg-black/10"></div> 
-
-        <div class="relative z-10 text-center">
-            <h2 class="text-[56px] md:text-[80px] font-semibold tracking-tight leading-none text-white drop-shadow-xl">Wayne Enterprises.</h2>
-            <p class="text-[24px] md:text-[28px] mt-4 font-light italic text-white/90 drop-shadow-lg">Better for All.</p>
-        </div>
-    </section>
-
-    <section class="max-w-[1200px] mx-auto px-6 py-20">
-        <div class="mb-12">
-            <h3 class="text-[40px] font-semibold tracking-tight">The latest. <span class="text-gray-400 font-light">Innovations & Investments.</span></h3>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="relative overflow-hidden rounded-[28px] bg-gray-50 h-[580px] group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
-                <div class="absolute top-12 left-12 z-10">
-                    <p class="text-[12px] font-bold uppercase tracking-widest mb-2 text-gray-500 italic">Profile Story</p>
-                    <h4 class="text-[32px] font-semibold tracking-tight">Heritage of Excellence.</h4>
-                </div>
-                <img src="image/card1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+    <main class="pt-[44px]">
+        <section class="relative w-full h-[85vh] flex items-center justify-center bg-gray-100">
+            <img src="image/hq_image.jpg" alt="Wayne HQ" class="absolute inset-0 w-full h-full object-cover object-[center_30%]">
+            <div class="absolute inset-0 bg-black/10"></div> 
+            <div class="relative z-10 text-center">
+                <h2 class="text-[56px] md:text-[80px] font-semibold tracking-tight leading-none text-white drop-shadow-xl">Wayne Enterprises.</h2>
+                <p class="text-[24px] md:text-[28px] mt-4 font-light italic text-white/90 drop-shadow-lg">Better for All.</p>
             </div>
-
-            <div class="relative overflow-hidden rounded-[28px] bg-[#f5f5f7] h-[580px] group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
-                <div class="absolute top-12 left-12 z-10">
-                    <p class="text-[12px] font-bold uppercase tracking-widest mb-2 text-gray-500 italic">Wayne Group</p>
-                    <h4 class="text-[32px] font-semibold tracking-tight">Expanding Horizons.</h4>
-                </div>
-                <img src="image/card2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
-            </div>
-        </div>
-    </section>
+        </section>
+        
+        </main>
 
     <div id="footer-feedback" class="link-feedback"></div>
 
@@ -80,8 +87,11 @@
 
         navLinks.forEach(link => {
             link.addEventListener('mouseenter', () => {
-                feedback.innerText = `Move to: ${link.getAttribute('data-url')}`;
-                feedback.style.display = 'block';
+                const url = link.getAttribute('data-url');
+                if(url) {
+                    feedback.innerText = `Move to: ${url}`;
+                    feedback.style.display = 'block';
+                }
             });
             link.addEventListener('mouseleave', () => {
                 feedback.style.display = 'none';
@@ -90,4 +100,3 @@
     </script>
 </body>
 </html>
-
