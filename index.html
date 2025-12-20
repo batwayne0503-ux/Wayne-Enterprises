@@ -182,39 +182,73 @@
         </div>
     </nav>
 
-    <main class="pt-[60px]">
-        <section class="relative w-full h-[85vh] flex items-center justify-center bg-gray-100 overflow-hidden">
-            <img src="image/hq_wayne%20tower.jpg" alt="Wayne HQ" class="absolute inset-0 w-full h-full object-cover object-[center_30%]">
-            <div class="absolute inset-0 bg-black/10"></div> 
-            <div class="relative z-10 text-center px-4">
-                <h2 class="text-[48px] md:text-[80px] font-semibold tracking-tight leading-none text-white drop-shadow-xl">Wayne Enterprises.</h2>
-                <p class="text-[24px] md:text-[28px] mt-4 font-light italic text-white/90 drop-shadow-lg">Better for All.</p>
-            </div>
-        </section>
+   <style>
+    @keyframes slide-hint {
+        0%, 100% { transform: translateX(0); opacity: 0.5; }
+        50% { transform: translateX(5px); opacity: 1; }
+    }
+    .animate-slide-hint {
+        animation: slide-hint 1.5s ease-in-out infinite;
+    }
+</style>
 
-        <section class="max-w-[1200px] mx-auto px-6 py-24">
-            <div class="mb-12">
-                <h3 class="text-[40px] md:text-[48px] font-semibold tracking-tight">The latest. <span class="text-gray-400 font-light">Innovations & Investments.</span></h3>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="relative overflow-hidden rounded-[28px] bg-gray-50 h-[580px] group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
-                    <div class="absolute top-12 left-12 z-10">
-                        <p class="text-[12px] font-bold uppercase tracking-widest mb-2 text-gray-500 italic">Company History</p>
-                        <h4 class="text-[32px] font-semibold tracking-tight leading-tight">Heritage of Excellence.<br>The Wayne Legacy.</h4>
-                    </div>
-                    <img src="image/wall poster.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
-                </div>
+<section class="py-10 pl-6 md:pl-24 bg-white overflow-hidden relative min-h-[600px] flex flex-col justify-center">
+    
+    <div class="mb-6 md:mb-10 pr-6 flex justify-between items-end">
+        <div>
+            <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">
+                The latest. 
+                <br class="md:hidden">
+                <span class="text-gray-400 font-light text-[24px] md:text-[40px]">Innovations.</span>
+            </h3>
+        </div>
 
-                <div class="relative overflow-hidden rounded-[28px] bg-[#f5f5f7] h-[580px] group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
-                    <div class="absolute top-12 left-12 z-10">
-                        <p class="text-[12px] font-bold uppercase tracking-widest mb-2 text-gray-500 italic">Wayne Foundation</p>
-                        <h4 class="text-[32px] font-semibold tracking-tight leading-tight">Game Changer.<br>Fast than ever.</h4>
-                    </div>
-                    <img src="image/wfd office glass.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
-                </div>
+        <div class="flex items-center text-gray-400 text-sm font-medium animate-slide-hint mb-2 md:hidden">
+            <span class="mr-1">Scroll</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-l from-white via-white/80 to-transparent"></div>
+
+    <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8 pr-20 items-center">
+        
+        <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
+            <img src="image/wall poster.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-5 text-white pr-4">
+                <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-yellow-400">Chairman</p>
+                <h4 class="text-[20px] font-semibold leading-tight">The Wayne<br>Legacy</h4>
             </div>
-        </section>
+        </a>
+
+        <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
+            <img src="image/wfd office glass.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-5 text-white pr-4">
+                <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-blue-300">Foundation</p>
+                <h4 class="text-[20px] font-semibold leading-tight">Better<br>for All</h4>
+            </div>
+        </a>
+
+        <a href="https://www.notion.so/24745a5412e88077b33dc454f7546944" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
+            <img src="image/hq_wayne tower.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-5 text-white pr-4">
+                <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-gray-300">Philosophy</p>
+                <h4 class="text-[20px] font-semibold leading-tight">Where<br>we go</h4>
+            </div>
+        </a>
+
+        <div class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] bg-gray-50 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-400">
+            <span class="text-2xl mb-2">+</span>
+            <span class="text-xs font-medium tracking-wider uppercase">More Coming</span>
+        </div>
+
+    </div>
+</section>
     </main>
 
     <footer class="max-w-[1200px] mx-auto px-6 py-12 border-t border-gray-400">
@@ -235,6 +269,7 @@
 
 </body>
 </html>
+
 
 
 
