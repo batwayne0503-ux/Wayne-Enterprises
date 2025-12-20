@@ -43,40 +43,51 @@
 </head>
     <script>
     window.onload = function() {
-        const menuGroups = document.querySelectorAll('.group');
+    // --- 여기서부터 시작 ---
+    const menuGroups = document.querySelectorAll('.group');
 
-        menuGroups.forEach(group => {
-            // iOS와 안드로이드 모두를 위해 두 가지 이벤트를 모두 등록합니다.
-            ['click', 'touchstart'].forEach(eventType => {
-                group.addEventListener(eventType, function(e) {
-                    
-                    // 모바일 환경(1024px 미만)일 때만 작동
-                    if (window.innerWidth < 1024) {
-                        const panel = this.querySelector('.dropdown-panel');
-                        
-                        // 현재 패널이 열려있는지 상태 확인
-                        const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+    menuGroups.forEach(group => {
+        // [수정 핵심: 즉각적인 터치 반응을 위해 touchstart를 최우선으로 처리]
+        group.addEventListener('touchstart', function(e) {
+            if (window.innerWidth < 1024) {
+                const panel = this.querySelector('.dropdown-panel');
+                const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
 
-                        // 다른 모든 패널을 닫아서 하나만 열리게 함
-                        document.querySelectorAll('.dropdown-panel').forEach(p => {
-                            p.style.maxHeight = '0px';
-                        });
+                // 모든 패널을 즉시 닫아 초기화
+                document.querySelectorAll('.dropdown-panel').forEach(p => {
+                    p.style.maxHeight = '0px';
+                });
 
-                        // 닫혀있었다면 열고, 열려있었다면 닫음
-                        if (!isOpen) {
-                            panel.style.maxHeight = '500px'; 
-                        } else {
-                            panel.style.maxHeight = '0px';
-                        }
-                        
-                        // 클릭 이벤트 전파 방지 (터치 후 클릭이 중복 발생하지 않도록 함)
-                        // 단, touchstart 시에는 기본 동작을 막지 않아야 스크롤이 자연스럽습니다.
-                        if (eventType === 'click') {
-                            e.stopPropagation();
-                        }
-                    }
-                }, { passive: true }); // 터치 스크롤 성능 최적화
-            });
+                // 누르는 즉시(손을 떼기 전) 패널 오픈
+                if (!isOpen) {
+                    panel.style.maxHeight = '500px';
+                    // 시스템의 '길게 누르기(텍스트 선택)' 및 스크롤 간섭을 물리적으로 차단
+                    if (e.cancelable) e.preventDefault(); 
+                }
+            }
+        }, { passive: false }); // 브라우저 스크롤보다 이 로직을 우선 실행
+
+        // 모바일에서 클릭 이벤트가 중복 발생하여 패널이 닫히는 현상 방지
+        group.addEventListener('click', function(e) {
+            if (window.innerWidth < 1024) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    });
+
+    // 메뉴 외 영역 터치 시 닫기 (이 루프까지 포함해서 대체하세요)
+    ['click', 'touchstart'].forEach(eventType => {
+        document.addEventListener(eventType, (e) => {
+            if (window.innerWidth < 1024 && !e.target.closest('.group')) {
+                document.querySelectorAll('.dropdown-panel').forEach(p => {
+                    p.style.maxHeight = '0px';
+                });
+            }
+        }, { passive: true });
+    });
+    // --- 여기까지 끝 ---
+};
         });
 
         // 메뉴 외의 다른 곳을 터치하거나 클릭하면 드롭다운이 닫히도록 설정
@@ -231,6 +242,7 @@
 
 </body>
 </html>
+
 
 
 
