@@ -42,68 +42,68 @@
     </style>
 </head>
     <script>
-    window.onload = function() {
-    // --- 여기서부터 시작 ---
-    const menuGroups = document.querySelectorAll('.group');
+    /**
+     * 웨인 엔터프라이즈 모바일 UX 최적화 스크립트
+     * 1. 터치 지연(300ms) 제거
+     * 2. 드래그/길게 누르기 간섭 차단
+     * 3. 즉각적인 패널 토글 로직 적용
+     */
+    function initMobileMenu() {
+        const menuGroups = document.querySelectorAll('.group');
 
-    menuGroups.forEach(group => {
-        // [수정 핵심: 즉각적인 터치 반응을 위해 touchstart를 최우선으로 처리]
-        group.addEventListener('touchstart', function(e) {
-            if (window.innerWidth < 1024) {
-                const panel = this.querySelector('.dropdown-panel');
-                const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+        menuGroups.forEach(group => {
+            // [핵심] touchstart 이벤트를 사용하여 손가락이 닿는 즉시 반응
+            group.addEventListener('touchstart', function(e) {
+                if (window.innerWidth < 1024) {
+                    const panel = this.querySelector('.dropdown-panel');
+                    // 현재 상태 확인 (inline 스타일과 계산된 스타일 모두 고려)
+                    const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
 
-                // 모든 패널을 즉시 닫아 초기화
-                document.querySelectorAll('.dropdown-panel').forEach(p => {
-                    p.style.maxHeight = '0px';
-                });
+                    // 1. 다른 모든 패널을 즉시 닫음
+                    document.querySelectorAll('.dropdown-panel').forEach(p => {
+                        p.style.maxHeight = '0px';
+                    });
 
-                // 누르는 즉시(손을 떼기 전) 패널 오픈
-                if (!isOpen) {
-                    panel.style.maxHeight = '500px';
-                    // 시스템의 '길게 누르기(텍스트 선택)' 및 스크롤 간섭을 물리적으로 차단
-                    if (e.cancelable) e.preventDefault(); 
+                    // 2. 현재 패널 토글
+                    if (!isOpen) {
+                        panel.style.maxHeight = '500px';
+                        // 브라우저의 스크롤이나 텍스트 선택 등 기본 동작이 JS 실행을 방해하지 못하게 함
+                        if (e.cancelable) e.preventDefault(); 
+                    } else {
+                        panel.style.maxHeight = '0px';
+                        if (e.cancelable) e.preventDefault();
+                    }
+                    
+                    // 이벤트 버블링 방지 (문서 전체 터치 이벤트와 충돌 방지)
+                    e.stopPropagation();
                 }
-            }
-        }, { passive: false }); // 브라우저 스크롤보다 이 로직을 우선 실행
+            }, { passive: false }); // preventDefault 사용을 위해 passive를 false로 설정
 
-        // 모바일에서 클릭 이벤트가 중복 발생하여 패널이 닫히는 현상 방지
-        group.addEventListener('click', function(e) {
-            if (window.innerWidth < 1024) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
+            // 모바일에서 touchstart 이후 발생하는 유령 클릭(Ghost Click) 방지
+            group.addEventListener('click', function(e) {
+                if (window.innerWidth < 1024) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
         });
-    });
 
-    // 메뉴 외 영역 터치 시 닫기 (이 루프까지 포함해서 대체하세요)
-    ['click', 'touchstart'].forEach(eventType => {
-        document.addEventListener(eventType, (e) => {
+        // 메뉴 외부 터치 시 모든 드롭다운 닫기
+        document.addEventListener('touchstart', function(e) {
             if (window.innerWidth < 1024 && !e.target.closest('.group')) {
                 document.querySelectorAll('.dropdown-panel').forEach(p => {
                     p.style.maxHeight = '0px';
                 });
             }
         }, { passive: true });
-    });
-    // --- 여기까지 끝 ---
-};
-        });
+    }
 
-        // 메뉴 외의 다른 곳을 터치하거나 클릭하면 드롭다운이 닫히도록 설정
-        ['click', 'touchstart'].forEach(eventType => {
-            document.addEventListener(eventType, (e) => {
-                if (window.innerWidth < 1024) {
-                    // 터치한 대상이 메뉴(.group) 내부가 아닐 때만 닫기
-                    if (!e.target.closest('.group')) {
-                        document.querySelectorAll('.dropdown-panel').forEach(p => {
-                            p.style.maxHeight = '0px';
-                        });
-                    }
-                }
-            }, { passive: true });
-        });
-    };
+    // 문서가 준비되면 즉시 실행
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        initMobileMenu();
+    }
 </script>
 <body>
 
@@ -242,6 +242,7 @@
 
 </body>
 </html>
+
 
 
 
