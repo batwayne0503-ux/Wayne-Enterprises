@@ -13,7 +13,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wayne Enterprises</title>
-    
+    <link rel="icon" type="image/png" href="image/Wayne%20Ent.%20logo(symbol.B).png">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="image/official-wayne-2025.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
@@ -194,69 +196,70 @@
 
     <style>
         @keyframes slide-hint {
-            0%, 100% { transform: translateX(0); opacity: 0.5; }
-            50% { transform: translateX(5px); opacity: 1; }
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
         }
         .animate-slide-hint {
             animation: slide-hint 1.5s ease-in-out infinite;
         }
     </style>
 
-    <section class="py-10 pl-6 md:pl-24 bg-white overflow-hidden relative min-h-[600px] flex flex-col justify-center">
+    <section class="py-10 bg-white overflow-hidden relative min-h-[600px] flex flex-col justify-center md:pl-24">
         
-        <div class="mb-6 md:mb-10 pr-6 flex justify-between items-end">
-            <div>
-                <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">
-                    The latest. 
-                    <br class="md:hidden">
-                    <span class="text-gray-400 font-light text-[24px] md:text-[40px]">Innovations.</span>
-                </h3>
-            </div>
+        <div class="mb-8 pl-6 md:pl-0 pr-6">
+            <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">
+                The latest. 
+                <br class="md:hidden">
+                <span class="text-gray-400 font-light text-[24px] md:text-[40px]">Innovations.</span>
+            </h3>
+        </div>
     
-            <div class="flex items-center text-gray-400 text-sm font-medium animate-slide-hint mb-2 md:hidden">
+        <div class="relative pl-6 md:pl-0">
+            
+            <div class="absolute top-[-40px] right-6 z-20 flex items-center text-gray-500 text-sm font-medium animate-slide-hint md:hidden bg-white/90 px-3 py-1.5 rounded-full shadow-sm backdrop-blur-sm border border-gray-100">
                 <span class="mr-1">Scroll</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
                 </svg>
             </div>
-        </div>
-    
-        <div class="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-l from-white via-white/80 to-transparent"></div>
-    
-        <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8 pr-20 items-center">
-            
-            <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
-                <img src="image/wall poster.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-5 text-white pr-4">
-                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-yellow-400">Chairman</p>
-                    <h4 class="text-[20px] font-semibold leading-tight">The Wayne<br>Legacy</h4>
+
+            <div class="absolute right-0 top-0 bottom-0 w-20 md:w-32 z-10 pointer-events-none bg-gradient-to-l from-white via-white/80 to-transparent"></div>
+        
+            <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-10 pr-20 items-center">
+                
+                <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
+                    <img src="image/wfd office glass.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-5 text-white pr-4">
+                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-blue-300">Foundation</p>
+                        <h4 class="text-[20px] font-semibold leading-tight">Better<br>for All</h4>
+                    </div>
+                </a>
+
+                <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
+                    <img src="image/wall poster.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-5 text-white pr-4">
+                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-yellow-400">Chairman</p>
+                        <h4 class="text-[20px] font-semibold leading-tight">오지않은<br>화양연화</h4>
+                    </div>
+                </a>
+        
+                <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
+                    <img src="image/hq_wayne tower.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-5 text-white pr-4">
+                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-gray-300">Philosophy</p>
+                        <h4 class="text-[20px] font-semibold leading-tight">Where<br>we go</h4>
+                    </div>
+                </a>
+        
+                <div class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] bg-gray-50 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-400">
+                    <span class="text-2xl mb-2">+</span>
+                    <span class="text-xs font-medium tracking-wider uppercase">More Coming</span>
                 </div>
-            </a>
-    
-            <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
-                <img src="image/wfd office glass.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-5 text-white pr-4">
-                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-blue-300">Foundation</p>
-                    <h4 class="text-[20px] font-semibold leading-tight">Better<br>for All</h4>
-                </div>
-            </a>
-    
-            <a href="https://www.notion.so/24745a5412e88077b33dc454f7546944" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
-                <img src="image/hq_wayne tower.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-5 text-white pr-4">
-                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-gray-300">Philosophy</p>
-                    <h4 class="text-[20px] font-semibold leading-tight">Where<br>we go</h4>
-                </div>
-            </a>
-    
-            <div class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] bg-gray-50 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-400">
-                <span class="text-2xl mb-2">+</span>
-                <span class="text-xs font-medium tracking-wider uppercase">More Coming</span>
+        
             </div>
-    
         </div>
     </section>
 </main>
@@ -279,6 +282,7 @@
 
 </body>
 </html>
+
 
 
 
