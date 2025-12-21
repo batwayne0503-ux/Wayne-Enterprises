@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     
     <meta property="og:title" content="Wayne Enterprises">
-    <meta property="og:description" content=" "> 
+    <meta property="og:description" content="Better for All."> 
     <meta property="og:image" content="https://batwayne0503-ux.github.io/Wayne-Enterprises/image/official-wayne-2025.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -14,8 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wayne Enterprises</title>
     <link rel="icon" type="image/png" href="image/Wayne%20Ent.%20logo(symbol.B).png">
-
     <link rel="apple-touch-icon" sizes="180x180" href="image/official-wayne-2025.jpg">
+    
+    <link rel="preload" as="image" href="image/Wayne Ent. logo(white).png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
@@ -23,7 +25,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             letter-spacing: -0.01em; margin: 0; padding: 0; overflow-x: hidden;
         }
-      /* --- Splash Screen Styles (Final Re-check) --- */
+
+        /* --- 1. 스플래시 스크린 스타일 --- */
         #splash-screen {
             position: fixed; 
             top: 0; left: 0; 
@@ -33,15 +36,14 @@
             flex-direction: column; 
             justify-content: center; 
             align-items: center;
-            z-index: 10000; /* 네비게이션 바보다 높게 설정 */
+            z-index: 10000;
             transition: opacity 0.8s ease-in-out, visibility 0.8s;
         }
 
         .splash-logo {
-            /* 크기가 튀지 않도록 강제 고정 */
             width: 180px !important; 
             height: auto !important;
-            max-width: 40% !important; /* 모바일 대응 */
+            max-width: 40% !important;
             opacity: 0;
             transform: scale(0.95);
             animation: splashFadeIn 1.2s forwards cubic-bezier(0.4, 0, 0.2, 1);
@@ -61,7 +63,22 @@
         }
 
         .fade-out { opacity: 0; visibility: hidden; }
-        /* 1. 드롭다운 판넬 (PC 환경에서만 호버 시 노출) */
+
+        /* --- 2. 모바일 전체화면 메뉴 스타일 --- */
+        #mobile-menu-overlay.active {
+            transform: translateY(0);
+        }
+        
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* 햄버거 메뉴 내 링크 호버 효과 */
+        #mobile-menu-overlay a:hover {
+            color: rgb(53, 127, 129);
+        }
+
+        /* --- 3. 데스크탑 드롭다운 및 유틸리티 --- */
         .dropdown-panel {
             position: absolute; top: 60px; left: 0; width: 100%; max-height: 0;
             overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -75,187 +92,9 @@
         .nav-link { transition: opacity 0.3s ease; cursor: pointer; display: flex; align-items: center; height: 100%; white-space: nowrap; }
         .nav-link:hover { opacity: 0.6; }
 
-        /* 2. 모바일 가로 스크롤바 숨기기 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-</head>
-    <script>
-        function initApp() {
-        // 1. Splash Screen 제어 로직
-        const splash = document.getElementById('splash-screen');
-        const hasVisited = sessionStorage.getItem('wayne_visited');
-
-        if (hasVisited) {
-            // 이미 방문했다면 스플래시 화면 없이 즉시 메인 노출
-            if (splash) splash.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        } else {
-            // 첫 방문 시 스크롤 방지 및 3초 대기
-            document.body.style.overflow = 'hidden'; 
-            setTimeout(() => {
-                if (splash) {
-                    splash.classList.add('fade-out');
-                    // 애니메이션(0.8초) 후 완전히 제거하여 뒷배경 클릭 가능하게 처리
-                    setTimeout(() => {
-                        splash.style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                    }, 800);
-                }
-                sessionStorage.setItem('wayne_visited', 'true');
-            }, 3000);
-        }
-
-        // 2. 모바일 메뉴(Drop-down) 및 아이폰 대응 로직
-        const menuGroups = document.querySelectorAll('.group');
-        menuGroups.forEach(group => {
-            group.style.cursor = 'pointer';
-
-            const handleInteraction = function(e) {
-                if (window.innerWidth < 1024) {
-                    const panel = group.querySelector('.dropdown-panel');
-                    if (!panel) return;
-                    
-                    const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
-
-                    // 다른 모든 패널 닫기
-                    document.querySelectorAll('.dropdown-panel').forEach(p => {
-                        p.style.maxHeight = '0px';
-                    });
-
-                    // 현재 패널 토글
-                    if (!isOpen) {
-                        panel.style.maxHeight = '500px';
-                    } else {
-                        panel.style.maxHeight = '0px';
-                    }
-
-                    if (e.type === 'touchstart' && e.cancelable) {
-                        e.preventDefault();
-                    }
-                    e.stopPropagation();
-                }
-            };
-
-            group.addEventListener('touchstart', handleInteraction, { passive: false });
-            group.addEventListener('click', handleInteraction);
-        });
-
-        // 외부 영역 터치 시 메뉴 닫기
-        document.addEventListener('touchstart', function(e) {
-            if (window.innerWidth < 1024 && !e.target.closest('.group')) {
-                document.querySelectorAll('.dropdown-panel').forEach(p => {
-                    p.style.maxHeight = '0px';
-                });
-            }
-        }, { passive: true });
-    }
-
-    // 실행: DOM 로드 완료 후 initApp 호출
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initApp);
-    } else {
-        initApp();
-    }
-</script>
-<body>
-<div id="splash-screen">
-    <img src="image/Wayne Ent. logo(white).png" alt="Wayne Enterprises" class="splash-logo" onerror="this.src='image/Wayne%20Ent.%20logo(symbol.B).png'">
-    <p class="splash-text">Secure Connection Established</p>
-</div>
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-300 h-[60px]">
-        <div class="max-w-7xl mx-auto flex items-center h-full px-4 relative">
-            
-            <div class="flex items-center flex-shrink-0 mr-4">
-                <img src="image/Wayne%20Ent.%20logo(symbol.B).png" alt="W" class="h-5 md:h-6 w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
-            </div>
-            
-            <div class="flex items-center space-x-6 md:space-x-12 text-[16px] md:text-[20px] font-bold text-[#1d1d1f] w-full overflow-x-auto no-scrollbar lg:justify-center px-2">
-                
-                <div class="group h-full flex items-center flex-shrink-0">
-                    <span class="nav-link">Profile Story</span>
-                    <div class="dropdown-panel lg:block">
-                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2 not-italic">Chairman Profile</p>
-                            <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인 프로필</a>
-                            <a href="https://www.notion.so/48d01137da4245e2804efbf963ee5225?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">배트맨으로서 싸워온 지난 날들</a>
-                            <a href="https://www.notion.so/Tmi-of-Bruce-Wayne-23045a5412e880618f40e981021c36e3?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Tmi of Wayne</a>
-                            <a href="https://www.notion.so/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인가의 유산</a>
-                            <a href="https://walkoffame.com/31056-2/" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Walk of Fame</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group h-full flex items-center flex-shrink-0">
-                    <span class="nav-link">Open Story</span>
-                    <div class="dropdown-panel lg:block">
-                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Public Relations</p>
-                            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인</a>
-                            <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인 홍보재단</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group h-full flex items-center flex-shrink-0">
-                    <span class="nav-link">Quote</span>
-                    <div class="dropdown-panel lg:block">
-                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Philosophy</p>
-                            <a href="https://www.notion.so/GCN-Breaking-News-The-Wayne-murdered-24745a5412e8801cae2ec261f721b229?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">The Wayne Murdered</a>
-                            <a href="https://www.notion.so/24745a5412e88077b33dc454f7546944?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">우린 어디서 와서 어디로 가는 중인가.</a>
-                            <a href="https://www.notion.so/Paralyzed-Where-is-the-real-me-24745a5412e880b6a05bfaf26d6edb0d?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Paralyzed: Where is the real me?</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group h-full flex items-center flex-shrink-0">
-                    <span class="nav-link">Wayne Records</span>
-                    <div class="dropdown-panel lg:block">
-                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Archives</p>
-                            <a href="#" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">🎵Bruce Wayne's personal Playlists</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group h-full flex items-center flex-shrink-0">
-                    <span class="nav-link">고객 서비스</span>
-                    <div class="dropdown-panel lg:block">
-                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Support</p>
-                            <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인재단 이용 안내</a>
-                            <a href="https://open.kakao.com/o/sg8WyyPg" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">개인 연락처 (FAQ)</a>
-                            <a href="https://curious.quizby.me/Wayne53" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">익명으로 말하고 싶을 때</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group h-full flex items-center flex-shrink-0">
-                    <span class="nav-link">Wayne Group</span>
-                    <div class="dropdown-panel lg:block">
-                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Company</p>
-                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Wayne Group</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </nav>
-
-<main class="pt-[60px]">
-    <section class="relative w-full h-[85vh] flex items-center justify-center bg-gray-100 overflow-hidden">
-        <img src="image/hq_wayne%20tower.jpg" alt="Wayne HQ" class="absolute inset-0 w-full h-full object-cover object-[center_30%]">
-        <div class="absolute inset-0 bg-black/10"></div> 
-        <div class="relative z-10 text-center px-4">
-            <h2 class="text-[48px] md:text-[80px] font-semibold tracking-tight leading-none text-white drop-shadow-xl">Wayne Enterprises.</h2>
-            <p class="text-[24px] md:text-[28px] mt-4 font-light italic text-white/90 drop-shadow-lg">Better for All.</p>
-        </div>
-    </section>
-
-    <style>
+        
         @keyframes slide-hint {
             0%, 100% { transform: translateX(0); }
             50% { transform: translateX(5px); }
@@ -264,117 +103,170 @@
             animation: slide-hint 1.5s ease-in-out infinite;
         }
     </style>
+</head>
 
-    <section class="py-10 bg-white overflow-hidden relative min-h-[600px] flex flex-col justify-center md:pl-24">
+<body>
+    <div id="splash-screen">
+        <img src="image/Wayne Ent. logo(white).png" alt="Wayne Enterprises" class="splash-logo" onerror="this.src='image/Wayne%20Ent.%20logo(symbol.B).png'">
+        <p class="splash-text">Secure Connection Established</p>
+    </div>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white/95 backdrop-blur-xl z-[60] flex flex-col items-center justify-center translate-y-full transition-transform duration-500 ease-in-out">
+        <button id="menu-close-btn" class="absolute top-5 right-5 p-2 text-gray-800">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
         
-        <div class="mb-8 pl-6 md:pl-0 pr-6">
-            <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">
-                The latest. 
-                <br class="md:hidden">
-                <span class="text-gray-400 font-light text-[24px] md:text-[40px]">Innovations.</span>
-            </h3>
+        <div class="flex flex-col items-center gap-8">
+            <a href="#" class="text-2xl font-medium hover:text-emerald-600 transition-colors">Wayne Enterprises</a>
+            <a href="#" class="text-2xl font-medium hover:text-emerald-600 transition-colors">Our Vision</a>
+            <a href="#" class="text-2xl font-medium hover:text-emerald-600 transition-colors">Impact Investing</a>
+            <a href="#" class="text-2xl font-medium hover:text-emerald-600 transition-colors">Foundation News</a>
         </div>
-    
-        <div class="relative pl-6 md:pl-0">
+    </div>
+
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-300 h-[60px]">
+        <div class="max-w-7xl mx-auto flex items-center justify-between h-full px-4 relative">
             
-            <div class="absolute top-1/2 -translate-y-1/2 right-4 z-20 flex items-center text-gray-500 text-sm font-medium animate-slide-hint md:hidden bg-white/90 px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md border border-gray-200">
-                <span class="mr-1 font-bold text-xs tracking-wide">Drag</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                </svg>
-            </div>
-
-            <div class="absolute right-0 top-0 bottom-0 w-20 md:w-32 z-10 pointer-events-none bg-gradient-to-l from-white via-white/80 to-transparent"></div>
-        
-            <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-10 pr-20 items-center">
-                
-                <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
-                    <img src="image/wfd office glass.jpg" alt="Wayne Foundation Office" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-5 text-white pr-4">
-                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-blue-300">Foundation</p>
-                        <h4 class="text-[20px] font-semibold leading-tight">Better<br>for All</h4>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
-                    <img src="image/wall poster.jpg" alt="Chairman Profile Poster" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-5 text-white pr-4">
-                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-yellow-400">Chairman</p>
-                        <h4 class="text-[20px] font-semibold leading-tight">오지않은<br>화양연화</h4>
-                    </div>
-                </a>
-        
-                <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] overflow-hidden relative group shadow-md transform transition-all duration-300 hover:-translate-y-2">
-                    <img src="image/Time Magazine_BW.jpg" alt="Mr. Wayne on Time Magazine" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-5 text-white pr-4">
-                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-80 mb-1 text-gray-300">Open Story</p>
-                        <h4 class="text-[20px] font-semibold leading-tight">Mr. Wayne</h4>
-                    </div>
-                </a>
-        
-                <div class="snap-center flex-shrink-0 w-[240px] h-[400px] md:w-[280px] md:h-[460px] rounded-[20px] bg-gray-50 border border-gray-200 flex items-center justify-center">
-                    <img src="image/Wayne%20Ent.%20logo(black).png" alt="Wayne Enterprises" class="w-20 md:w-24 opacity-60 object-contain">
+            <div class="flex items-center w-full overflow-hidden">
+                <div class="flex items-center flex-shrink-0 mr-4">
+                    <img src="image/Wayne%20Ent.%20logo(symbol.B).png" alt="W" class="h-5 md:h-6 w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
                 </div>
-        
+                
+                <div class="hidden lg:flex items-center space-x-12 text-[14px] font-medium text-[#1d1d1f] w-full justify-center">
+                    <div class="group h-full flex items-center"><span class="nav-link">Profile Story</span>
+                        <div class="dropdown-panel"><div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12" target="_blank" class="hover:text-[#FACC15]">Chairman Profile</a>
+                        </div></div>
+                    </div>
+                    <div class="group h-full flex items-center"><span class="nav-link">Open Story</span></div>
+                    <div class="group h-full flex items-center"><span class="nav-link">Quote</span></div>
+                    <div class="group h-full flex items-center"><span class="nav-link">Wayne Records</span></div>
+                    <div class="group h-full flex items-center"><span class="nav-link">고객 서비스</span></div>
+                    <div class="group h-full flex items-center"><span class="nav-link">Wayne Group</span></div>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section class="py-12 px-6 md:px-24 bg-white border-t border-gray-100">
-        <div class="mb-8">
-            <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">Latest News from Gotham.</h3>
-        </div>
+            <button id="hamburger-btn" class="lg:hidden p-2 text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
 
-        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="aspect-video w-full rounded-[24px] bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center">
-                <img src="image/Wayne%20Ent.%20logo(black).png" alt="More Coming" class="w-16 md:w-20 opacity-40 object-contain">
+        </div>
+    </nav>
+
+    <main class="pt-[60px]">
+        <section class="relative w-full h-[85vh] flex items-center justify-center bg-gray-100 overflow-hidden">
+            <img src="image/hq_wayne%20tower.jpg" alt="Wayne HQ" class="absolute inset-0 w-full h-full object-cover object-[center_30%]">
+            <div class="absolute inset-0 bg-black/10"></div> 
+            <div class="relative z-10 text-center px-4">
+                <h2 class="text-[48px] md:text-[80px] font-semibold tracking-tight leading-none text-white drop-shadow-xl">Wayne Enterprises.</h2>
+                <p class="text-[24px] md:text-[28px] mt-4 font-light italic text-white/90 drop-shadow-lg">Better for All.</p>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+
+        <section class="py-10 bg-white overflow-hidden relative min-h-[600px] flex flex-col justify-center md:pl-24">
+            <div class="mb-8 pl-6 md:pl-0 pr-6">
+                <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">
+                    The latest. <br class="md:hidden">
+                    <span class="text-gray-400 font-light text-[24px] md:text-[40px]">Innovations.</span>
+                </h3>
+            </div>
+            
+            <div class="relative pl-6 md:pl-0">
+                <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-10 pr-20 items-center">
+                    <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df" class="snap-center flex-shrink-0 w-[240px] h-[400px] rounded-[20px] overflow-hidden relative group shadow-md">
+                        <img src="image/wfd office glass.jpg" class="w-full h-full object-cover">
+                        <div class="absolute bottom-6 left-5 text-white"><h4 class="text-[20px] font-semibold">Better<br>for All</h4></div>
+                    </a>
+                     <a href="#" class="snap-center flex-shrink-0 w-[240px] h-[400px] rounded-[20px] bg-gray-50 border border-gray-200 flex items-center justify-center">
+                        <img src="image/Wayne%20Ent.%20logo(black).png" class="w-20 opacity-60">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 px-6 md:px-24 bg-white border-t border-gray-100">
+            <div class="mb-8">
+                <h3 class="text-[32px] md:text-[40px] font-semibold tracking-tight leading-tight">Latest News from Gotham.</h3>
+            </div>
+            <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="aspect-video w-full rounded-[24px] bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center">
+                    <img src="image/Wayne%20Ent.%20logo(black).png" alt="More Coming" class="w-16 md:w-20 opacity-40 object-contain">
+                </div>
+            </div>
+        </section>
+    </main>
     
     <footer class="max-w-[1200px] mx-auto px-6 py-12 border-t border-gray-400">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-[#86868b] text-[12px]">
             <div class="flex flex-col md:flex-row md:space-x-6 items-center">
                 <span>Copyright © 2025 Wayne Enterprises. All rights reserved.</span>
-                <div class="flex space-x-4 mt-2 md:mt-0">
-                    <a href="#" class="hover:underline">Privacy Policy</a>
-                    <span class="text-gray-300">|</span>
-                    <a href="#" class="hover:underline">Terms of Use</a>
-                    <span class="text-gray-300">|</span>
-                    <a href="#" class="hover:underline">Sales Policy</a>
-                </div>
             </div>
             <div class="italic font-medium">Gotham City, USA</div>
         </div>
     </footer>
 
+    <script>
+        function initApp() {
+            // 1. Splash Screen 제어
+            const splash = document.getElementById('splash-screen');
+            const hasVisited = sessionStorage.getItem('wayne_visited');
+
+            if (hasVisited) {
+                if (splash) splash.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                document.body.style.overflow = 'hidden'; 
+                setTimeout(() => {
+                    if (splash) {
+                        splash.classList.add('fade-out');
+                        setTimeout(() => {
+                            splash.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }, 800);
+                    }
+                    sessionStorage.setItem('wayne_visited', 'true');
+                }, 3000);
+            }
+
+            // 2. 모바일 메뉴(전체화면 오버레이) 제어
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menuCloseBtn = document.getElementById('menu-close-btn');
+
+            if (hamburgerBtn && menuOverlay) {
+                hamburgerBtn.onclick = () => {
+                    menuOverlay.classList.add('active');
+                    document.body.classList.add('menu-open');
+                };
+            }
+            if (menuCloseBtn) {
+                menuCloseBtn.onclick = () => {
+                    menuOverlay.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                };
+            }
+
+            // 3. 기존 데스크탑/모바일 드롭다운 대응 로직
+            const menuGroups = document.querySelectorAll('.group');
+            menuGroups.forEach(group => {
+                group.style.cursor = 'pointer';
+                const handleInteraction = function(e) {
+                    if (window.innerWidth < 1024) {
+                        // 모바일에서는 사실상 오버레이 메뉴를 쓰므로 이 로직은 보조적 역할
+                        // 필요시 여기에 추가 로직 구현
+                    }
+                };
+                group.addEventListener('click', handleInteraction);
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
