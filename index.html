@@ -25,7 +25,7 @@
             letter-spacing: -0.01em; margin: 0; padding: 0; overflow-x: hidden;
         }
 
-        /* --- 1. 스플래시 스크린 (수정완료) --- */
+        /* --- 스플래시 스크린 스타일 --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: radial-gradient(circle, rgb(63, 137, 139) 0%, rgb(33, 87, 89) 100%);
@@ -45,27 +45,42 @@
         @keyframes splashFadeIn { to { opacity: 1; transform: scale(1); } }
         .fade-out { opacity: 0; visibility: hidden; }
 
-        /* --- 2. 모바일 전체화면 메뉴 --- */
+        /* --- 모바일 메뉴 오버레이 --- */
         #mobile-menu-overlay.active { transform: translateY(0); }
         body.menu-open { overflow: hidden; }
         #mobile-menu-overlay a:hover { color: rgb(53, 127, 129); }
 
-        /* --- 3. 유틸리티 및 드롭다운 --- */
+        /* --- [중요] PC 드롭다운 패널 스타일 복구 --- */
         .dropdown-panel {
-            position: absolute; top: 60px; left: 0; width: 100%; max-height: 0;
-            overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(245, 245, 247, 0.98); backdrop-filter: blur(20px); z-index: 40;
+            position: absolute; 
+            top: 60px; /* 네비바 높이만큼 아래에 위치 */
+            left: 0; 
+            width: 100vw; /* 화면 전체 너비 */
+            max-height: 0;
+            overflow: hidden; 
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-bottom 0.4s;
+            background: rgba(245, 245, 247, 0.98); 
+            backdrop-filter: blur(20px); 
+            z-index: 40;
+            border-bottom: 0px solid transparent; /* 초기 테두리 없음 */
         }
+        
+        /* PC 화면(lg 이상)에서만 호버 시 작동 */
         @media (min-width: 1024px) {
-            .group:hover .dropdown-panel { max-height: 500px; border-bottom: 1px solid #e5e7eb; }
+            .group { position: static; } /* 패널이 화면 전체 너비를 쓰려면 부모가 static이어야 함 */
+            
+            .group:hover .dropdown-panel { 
+                max-height: 500px; 
+                border-bottom: 1px solid #e5e7eb; 
+                visibility: visible;
+            }
         }
+
         .nav-link { transition: opacity 0.3s ease; cursor: pointer; display: flex; align-items: center; height: 100%; white-space: nowrap; }
         .nav-link:hover { opacity: 0.6; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        @keyframes slide-hint {
-            0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); }
-        }
+        @keyframes slide-hint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
         .animate-slide-hint { animation: slide-hint 1.5s ease-in-out infinite; }
     </style>
 </head>
@@ -91,85 +106,82 @@
     <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-300 h-[60px]">
         <div class="max-w-7xl mx-auto flex items-center justify-between h-full px-4 relative">
             
-            <div class="flex items-center w-full overflow-hidden">
-                <div class="flex items-center flex-shrink-0 mr-4">
-                    <img src="image/Wayne%20Ent.%20logo(symbol.B).png" alt="W" class="h-5 md:h-6 w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
-                </div>
+            <div class="flex items-center flex-shrink-0 mr-4 z-50"> <img src="image/Wayne%20Ent.%20logo(symbol.B).png" alt="W" class="h-5 md:h-6 w-auto object-contain" onerror="this.style.display='none'; this.parentElement.innerText='W';">
+            </div>
+            
+            <div class="hidden lg:flex items-center space-x-12 text-[14px] font-medium text-[#1d1d1f] w-full justify-center h-full">
                 
-                <div class="hidden lg:flex items-center space-x-12 text-[14px] font-medium text-[#1d1d1f] w-full justify-center">
-                    
-                    <div class="group h-full flex items-center">
-                        <span class="nav-link">Profile Story</span>
-                        <div class="dropdown-panel">
-                            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2 not-italic">Chairman Profile</p>
-                                <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인 프로필</a>
-                                <a href="https://www.notion.so/48d01137da4245e2804efbf963ee5225?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">배트맨으로서 싸워온 지난 날들</a>
-                                <a href="https://www.notion.so/Tmi-of-Bruce-Wayne-23045a5412e880618f40e981021c36e3?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Tmi of Wayne</a>
-                                <a href="https://www.notion.so/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인가의 유산</a>
-                                <a href="https://walkoffame.com/31056-2/" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Walk of Fame</a>
-                            </div>
+                <div class="group h-full flex items-center">
+                    <span class="nav-link">Profile Story</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2 not-italic">Chairman Profile</p>
+                            <a href="https://www.notion.so/4fbd59ec177b4047bf6a36b45e73af12" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인 프로필</a>
+                            <a href="https://www.notion.so/48d01137da4245e2804efbf963ee5225" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">배트맨으로서 싸워온 지난 날들</a>
+                            <a href="https://www.notion.so/Tmi-of-Bruce-Wayne-23045a5412e880618f40e981021c36e3" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Tmi of Wayne</a>
+                            <a href="https://www.notion.so/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인가의 유산</a>
+                            <a href="https://walkoffame.com/31056-2/" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Walk of Fame</a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="group h-full flex items-center">
-                        <span class="nav-link">Open Story</span>
-                        <div class="dropdown-panel">
-                            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Public Relations</p>
-                                <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인</a>
-                                <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인 홍보재단</a>
-                            </div>
+                <div class="group h-full flex items-center">
+                    <span class="nav-link">Open Story</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Public Relations</p>
+                            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">브루스 웨인</a>
+                            <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인 홍보재단</a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="group h-full flex items-center">
-                        <span class="nav-link">Quote</span>
-                        <div class="dropdown-panel">
-                            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Philosophy</p>
-                                <a href="https://www.notion.so/GCN-Breaking-News-The-Wayne-murdered-24745a5412e8801cae2ec261f721b229?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">The Wayne Murdered</a>
-                                <a href="https://www.notion.so/24745a5412e88077b33dc454f7546944?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">우린 어디서 와서 어디로 가는 중인가.</a>
-                                <a href="https://www.notion.so/Paralyzed-Where-is-the-real-me-24745a5412e880b6a05bfaf26d6edb0d?v=23a45a5412e880f1a50c000c946ae891&source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Paralyzed: Where is the real me?</a>
-                            </div>
+                <div class="group h-full flex items-center">
+                    <span class="nav-link">Quote</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Philosophy</p>
+                            <a href="https://www.notion.so/GCN-Breaking-News-The-Wayne-murdered-24745a5412e8801cae2ec261f721b229" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">The Wayne Murdered</a>
+                            <a href="https://www.notion.so/24745a5412e88077b33dc454f7546944" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">우린 어디서 와서 어디로 가는 중인가.</a>
+                            <a href="https://www.notion.so/Paralyzed-Where-is-the-real-me-24745a5412e880b6a05bfaf26d6edb0d" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Paralyzed: Where is the real me?</a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="group h-full flex items-center">
-                        <span class="nav-link">Wayne Records</span>
-                        <div class="dropdown-panel">
-                            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Archives</p>
-                                <a href="#" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">🎵Bruce Wayne's personal Playlists</a>
-                            </div>
+                <div class="group h-full flex items-center">
+                    <span class="nav-link">Wayne Records</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Archives</p>
+                            <a href="#" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">🎵Bruce Wayne's personal Playlists</a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="group h-full flex items-center">
-                        <span class="nav-link">고객 서비스</span>
-                        <div class="dropdown-panel">
-                            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Support</p>
-                                <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df?source=copy_link" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인재단 이용 안내</a>
-                                <a href="https://open.kakao.com/o/sg8WyyPg" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">개인 연락처 (FAQ)</a>
-                                <a href="https://curious.quizby.me/Wayne53" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">익명으로 말하고 싶을 때</a>
-                            </div>
+                <div class="group h-full flex items-center">
+                    <span class="nav-link">고객 서비스</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Support</p>
+                            <a href="https://www.notion.so/Wayne-Foundation-1f2432515d724acaadd1eac6048bc7df" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">웨인재단 이용 안내</a>
+                            <a href="https://open.kakao.com/o/sg8WyyPg" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">개인 연락처 (FAQ)</a>
+                            <a href="https://curious.quizby.me/Wayne53" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">익명으로 말하고 싶을 때</a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="group h-full flex items-center">
-                        <span class="nav-link">Wayne Group</span>
-                        <div class="dropdown-panel">
-                            <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
-                                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Company</p>
-                                <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Wayne Group</a>
-                            </div>
+                <div class="group h-full flex items-center">
+                    <span class="nav-link">Wayne Group</span>
+                    <div class="dropdown-panel">
+                        <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col space-y-4 text-left italic font-medium">
+                            <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-2">Company</p>
+                            <a href="https://namu.wiki/w/%EC%9B%A8%EC%9D%B8%20%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88" target="_blank" class="text-[17px] hover:text-[#FACC15] transition-colors">Wayne Group</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button id="hamburger-btn" class="lg:hidden p-2 text-gray-800 focus:outline-none">
+            <button id="hamburger-btn" class="lg:hidden absolute right-4 top-1/2 -translate-y-1/2 p-2 text-gray-800 focus:outline-none z-50">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -332,3 +344,4 @@
     </script>
 </body>
 </html>
+
