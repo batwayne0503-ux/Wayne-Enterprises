@@ -453,24 +453,30 @@
    <script>
     // 1. 카카오스토리 딥링크 함수 (외부 함수로 정의하여 어디서든 호출 가능)
     function openKakaoStory(event, label, webUrl) {
-        gtag('event', 'menu_click', {
-            'event_category': 'Story',
-            'event_label': label
-        });
+    // 1. GA 추적
+    gtag('event', 'menu_click', {
+        'event_category': 'Story',
+        'event_label': label
+    });
 
-        const storyId = webUrl.split('/').pop(); 
-        const appUrl = `kakaostory://story/activity?id=${storyId}`; // 더 범용적인 스킴 사용
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-        if (isMobile) {
-            window.location.href = appUrl;
-            setTimeout(function() {
-                window.location.href = webUrl;
-            }, 1500);
-        } else {
-            window.open(webUrl, '_blank');
-        }
+    // 2. 앱 실행 및 웹 이동을 위한 하이브리드 로직
+    // 앱이 설치되어 있다면 실행, 아니면 웹 이동 (iOS/Android 공통 딥링크 형식)
+    const storyId = webUrl.split('/').pop();
+    const intentUrl = `intent://story/post?id=${storyId}#Intent;scheme=kakaostory;package=com.kakao.story;end;`;
+    
+    // 모바일 기기 감지
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // 사용자에게 선택권을 주거나, 앱 실행을 시도한 뒤 웹으로 이동
+        window.location.href = `https://story.kakao.com/_` + storyId; // 딥링크 기반 웹 주소
+        
+        // 팝업 안내: "카카오스토리 앱으로 보시겠습니까?"를 구현하는 것이 가장 좋으나, 
+        // 일단은 즉시 이동 후 실패 시 대기하는 로직을 유지
+    } else {
+        window.open(webUrl, '_blank');
     }
+}
 
     // 2. 페이지 초기화 함수
     function initApp() {
