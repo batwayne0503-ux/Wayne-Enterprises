@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -152,10 +152,12 @@
                 <div class="accordion-content">
                     <div class="flex flex-col space-y-4 pb-6 pl-2">
                         <p class="text-[11px] text-gray-400 uppercase tracking-widest font-bold text-gray-500">Public Relations</p>
-                        <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" onclick="gtag('event', 'menu_click', {'event_category': 'Story', 'event_label': 'Bruce_Wayne_Kakao'});" 
-                            class="text-lg text-gray-600 hover:text-emerald-600">브루스 웨인</a>
-                        <a href="https://story.kakao.com/waynefoundation/D1cDiWaGCu0" target="_blank" onclick="gtag('event', 'menu_click', {'event_category': 'Story', 'event_label': 'Wayne_Foundation_Kakao'});"
-                            class="text-lg text-gray-600 hover:text-emerald-600">웨인 홍보재단</a>
+                        <a href="javascript:void(0);" 
+                        onclick="openKakaoStory(event, 'Bruce_Wayne_Kakao', 'https://story.kakao.com/batwayne0503/2MqO79yjWZ8');" 
+                        class="text-lg text-gray-600 hover:text-emerald-600 block py-2">브루스 웨인</a>
+                        <a href="javascript:void(0);" 
+                        onclick="openKakaoStory(event, 'Wayne_Foundation_Kakao', 'https://story.kakao.com/waynefoundation/D1cDiWaGCu0');" 
+                        class="text-lg text-gray-600 hover:text-emerald-600 block py-2">웨인 홍보재단</a>
                     </div>
                 </div>
             </div>
@@ -449,6 +451,28 @@
     </footer>
 
     <script>
+        function openKakaoStory(event, label, webUrl) {
+        // 1. 구글 애널리틱스 이벤트 먼저 전송
+        gtag('event', 'menu_click', {
+        'event_category': 'Story',
+        'event_label': label
+        });
+
+        // 2. 앱 실행 시도 (커스텀 스킴)
+        const appUrl = 'kakaostory://story/home'; 
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+        window.location.href = appUrl;
+        // 앱이 설치되어 있지 않을 경우 1초 뒤 웹으로 이동
+        setTimeout(function() {
+            window.location.href = webUrl;
+        }, 1000);
+        } else {
+        // 모바일이 아니면 바로 웹으로 이동
+        window.open(webUrl, '_blank');
+            }
+        }
         function initApp() {
             // 1. Splash Screen 제어
             const splash = document.getElementById('splash-screen');
@@ -551,11 +575,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
