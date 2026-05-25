@@ -452,24 +452,28 @@
 
     <script>
         function openKakaoStory(event, label, webUrl) {
-        // 1. 구글 애널리틱스 이벤트 먼저 전송
+        // 1. 구글 애널리틱스 이벤트 전송
         gtag('event', 'menu_click', {
         'event_category': 'Story',
         'event_label': label
         });
 
-        // 2. 앱 실행 시도 (커스텀 스킴)
-        const appUrl = 'kakaostory://story/home'; 
+        // 2. 게시물 ID 추출 (webUrl에서 마지막 경로 추출)
+        // 예: https://story.kakao.com/batwayne0503/2MqO79yjWZ8 -> 2MqO79yjWZ8
+        const storyId = webUrl.split('/').pop(); 
+    
+        // 3. 카카오스토리 상세 페이지 딥링크 스킴
+        const appUrl = `kakaostory://story/activity?id=${storyId}`; 
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         if (isMobile) {
         window.location.href = appUrl;
-        // 앱이 설치되어 있지 않을 경우 1초 뒤 웹으로 이동
+        
+        // 앱이 없거나 실행 실패 시 웹으로 이동
         setTimeout(function() {
             window.location.href = webUrl;
-        }, 1000);
+            }, 1000);
         } else {
-        // 모바일이 아니면 바로 웹으로 이동
         window.open(webUrl, '_blank');
             }
         }
