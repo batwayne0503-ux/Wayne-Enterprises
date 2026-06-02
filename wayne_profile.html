@@ -381,6 +381,7 @@
                 flex-direction: row !important;     /* 숫자와 명칭을 가로로 배치 */
                 align-items: center;
                 flex-shrink: 0;             /* 화면이 좁아져도 요소 축소 방지 */
+                flex-wrap: nowrap;
                 white-space: nowrap;        /* 텍스트가 아래로 떨어지는 것 차단 */
             }
         }
@@ -406,7 +407,7 @@
             .notice-page p {
             white-space: nowrap;         /* 모바일 환경 자동 줄바꿈(Wrap) 절대 차단 */
             font-size: 13px;             /* 의장님 요청에 따른 글자 크기 축소 지침 반영 */
-            letter-spacing: -0.02em;     /* 자간 압축을 통한 시각적 밸런스 조정 */
+            letter-spacing: -0.03em;     /* 자간 압축을 통한 시각적 밸런스 조정 */
             }
 
         /* 내부 이미지나 텍스트 소스가 마우스 드래그를 가로채는 현상 방지 */
