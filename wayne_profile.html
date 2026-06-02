@@ -194,7 +194,7 @@
                     <!-- 하이라이트 커버 이미지를 넣으려면 내부 div 대신 img 태그를 채우십시오. -->
                     <div class="highlight-inner"></div>
                 </div>
-                <span class="highlight-title">웨인 홍보재단</span>
+                <span class="highlight-title">Body</span>
             </div>
         </div>
 
@@ -217,6 +217,20 @@
             </div>
         </div>
     </div>
-
+    <script>
+        // 웹페이지의 모든 HTML 요소가 로드되면 실행됩니다.
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. 화면에 있는 실제 게시물(.post-item)의 개수를 모두 세어옵니다.
+            const actualPostCount = document.querySelectorAll('.post-item').length;
+            
+            // 2. 게시물 숫자를 표시하는 첫 번째 span 요소를 선택합니다.
+            const postCountElement = document.querySelector('.stats-list li:nth-child(1) span');
+            
+            // 3. 선택한 요소의 텍스트를 실제 게시물 개수로 변경합니다.
+            if (postCountElement) {
+                postCountElement.textContent = actualPostCount;
+            }
+        });
+    </script>
 </body>
 </html>
