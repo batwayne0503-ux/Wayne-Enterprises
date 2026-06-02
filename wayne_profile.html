@@ -1,131 +1,561 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruce Wayne - Official Profile</title>
-    <style>
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff; color: #262626; }
-        .profile-container { max-width: 935px; margin: 0 auto; padding: 30px 20px; }
-        header { display: flex; align-items: center; margin-bottom: 44px; border-bottom: 1px solid #dbdbdb; padding-bottom: 44px; }
-        .profile-pic-area { flex: 1; display: flex; justify-content: center; margin-right: 30px; }
-        .circular-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 1px solid #dbdbdb; }
-        .profile-details { flex: 2; }
-        .username-row { display: flex; align-items: center; margin-bottom: 20px; }
-        .username { font-size: 28px; font-weight: 300; margin: 0; }
-        .stats-list { display: flex; list-style: none; padding: 0; margin: 0 0 20px 0; }
-        .stats-list li { margin-right: 40px; font-size: 16px; }
-        .stats-list span { font-weight: 600; }
-        .bio-space { font-size: 16px; line-height: 24px; }
-        .bio-name { font-weight: 600; margin: 0 0 5px 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruce Wayne - Official Profile</title>
+    <style>
+        /* 전체 배경 및 기본 폰트 설정 */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff; /* 하얀 바탕 지정 */
+            color: #262626;
+        }
+        
+        /* 중앙 정렬 컨테이너 */
+        .profile-container {
+            max-width: 935px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
 
-        /* 하이라이트 */
-        .highlights-section { display: flex; gap: 24px; margin-bottom: 44px; padding-left: 10px; }
-        .highlight-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-        .highlight-circle { width: 77px; height: 77px; border-radius: 50%; border: 1px solid #dbdbdb; padding: 3px; display: flex; align-items: center; justify-content: center; }
-        .highlight-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .highlight-title { font-size: 12px; font-weight: 600; margin-top: 8px; }
+        /* 상단 프로필 헤더 레이아웃 */
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 44px;
+            border-bottom: 1px solid #dbdbdb;
+            padding-bottom: 44px;
+        }
 
-        /* 그리드 */
-        .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 28px; }
-        .post-item { position: relative; padding-bottom: 100%; cursor: pointer; overflow: hidden; border: 1px solid #dbdbdb; }
-        .post-item img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
-        .carousel-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.4); padding: 5px; border-radius: 4px; }
+        /* 프로필 사진 영역 */
+        .profile-pic-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin-right: 30px;
+        }
 
-        /* 모달 공통 */
-        .feed-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
-        .feed-modal-content { background: #ffffff; width: 100%; max-width: 600px; height: 90vh; border-radius: 12px; overflow-y: auto; position: relative; }
-        .modal-close-btn { position: sticky; top: 0; float: right; background: none; border: none; font-size: 30px; cursor: pointer; padding: 15px; z-index: 1010; }
-        .feed-media-container { position: relative; width: 100%; padding-bottom: 133.33%; background: #fafafa; }
-        .carousel-track { position: absolute; width: 100%; height: 100%; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
-        .carousel-slide { flex: 0 0 100%; scroll-snap-align: start; }
-        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
-        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.7); border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer; z-index: 10; }
-        .feed-caption-area { padding: 12px 16px; font-size: 14px; }
-    </style>
+        /* 9:16 GIF 맞춤 원형 프로필 */
+        .circular-profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 20%;
+            border: 1px solid #dbdbdb;
+        }
+
+        /* 상세 정보 영역 */
+        .profile-details {
+            flex: 2;
+        }
+
+        .username-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .username {
+            font-size: 28px;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        /* 통계 지표 */
+        .stats-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .stats-list li {
+            margin-right: 40px;
+            font-size: 16px;
+        }
+
+        .stats-list span {
+            font-weight: 600;
+        }
+
+        /* 바이오(Bio) */
+        .bio-space {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .bio-name {
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+
+        /* 스토리 하이라이트 영역 (3개 정예 구성 및 유튜브 외연 연동) */
+        .highlights-section {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 44px;
+            padding-left: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .highlights-section::-webkit-scrollbar {
+            display: none;
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .highlight-circle {
+            width: 77px;
+            height: 77px;
+            border-radius: 50%;
+            border: 1px solid #dbdbdb;
+            padding: 3px;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-circle img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .highlight-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        /* 게시물 그리드 영역 (인스타 표준 1:1 정사각형 격자 유지) */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 28px;
+        }
+
+        .post-item {
+            position: relative;
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            padding-bottom: 100%; /* 1:1 격자 비율 */
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .post-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 정사각형 격자 크롭 */
+        }
+
+        /* 여러 장 배지 아이콘 */
+        .carousel-badge {
+            position: absolute;
+            top: 10px; right: 10px;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        /* 연속 피드 감상용 라이트박스 모달 */
+        .feed-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feed-modal-content {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            height: 90vh;
+            border-radius: 12px;
+            overflow-y: auto;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .modal-close-btn {
+            position: fixed;
+            top: 20px; right: 30px;
+            background: none; border: none;
+            color: #ffffff; font-size: 40px;
+            cursor: pointer; z-index: 1010;
+        }
+
+        .feed-stream {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        .feed-card {
+            border-bottom: 1px solid #efefef;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            background-color: #ffffff;
+        }
+
+        .feed-card-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+        }
+
+        .feed-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .feed-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* 피드 미디어 컨테이너: 3:4 세로형 비율 */
+        .feed-media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 133.33%; /* 3:4 세로형 완벽 비율 매칭 (4 / 3 * 100) */
+            overflow: hidden;
+            background-color: #fafafa;
+        }
+
+        .carousel-track {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%; height: 100%;
+            scroll-snap-align: start;
+        }
+        .carousel-slide img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        /* 슬라이드 화살표 버튼 */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none; border-radius: 50%;
+            width: 26px; height: 26px;
+            font-size: 12px; font-weight: bold;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .carousel-arrow.prev { left: 12px; }
+        .carousel-arrow.next { right: 12px; }
+
+        /* 피드 텍스트 레이아웃 영역 */
+        .feed-caption-area {
+            padding: 12px 16px 0 16px;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .caption-username {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .caption-text {
+            display: inline;
+            color: #262626;
+        }
+
+        @media (max-width: 768px) {
+            .feed-modal-content { height: 100vh; border-radius: 0; }
+            .modal-close-btn { color: #262626; top: 12px; right: 16px; font-size: 32px; }
+            .profile-container { padding: 15px 10px; }
+            .circular-profile-img { width: 90px; height: 90px; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="profile-container">
-    <header>
-        <div class="profile-pic-area"><img src="image/profile_picture.gif" alt="Bruce Wayne" class="circular-profile-img"></div>
-        <div class="profile-details">
-            <div class="username-row"><h2 class="username">bruce_wayne</h2></div>
-            <ul class="stats-list">
-                <li>게시물 <span>5</span></li>
-                <li>팔로워 <span>331</span></li>
-                <li>팔로잉 <span>8</span></li>
-            </ul>
-            <div class="bio-space">
-                <div class="bio-name">Bruce Wayne</div>
-                <p>웨인 엔터프라이즈(Wayne Enterprises) 회장, 웨인 홍보재단 이사장.<br>
-                190cm, 93kg, 42세, 흑발, 벽안, 숱한 여성 편력과 이혼 경험, 별명은 고담의 박쥐•••. 현재는 워커홀릭. HL only.</p>
-            </div>
-        </div>
-    </header>
+    <div class="profile-container">
+        <header>
+            <div class="profile-pic-area">
+                <img src="image/profile_picture.gif" alt="Bruce Wayne" class="circular-profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <div class="username-row">
+                    <h2 class="username">bruce_wayne</h2>
+                </div>
+                
+                <ul class="stats-list">
+                    <li>게시물 <span>0</span></li>
+                    <li>팔로워 <span>331</span></li>
+                    <li>팔로잉 <span>8</span></li>
+                </ul>
+                
+                <div class="bio-space">
+                    <div class="bio-name">Bruce Wayne</div>
+                    <p>
+                        웨인 엔터프라이즈(Wayne Enterprises) 회장, 웨인 홍보재단 이사장.<br>
+                        190cm, 93kg, 42세, 흑발, 벽안, 숱한 여성 편력과 이혼 경험, 별명은 고담의 박쥐•••. 현재는 워커홀릭. HL only. 
+                    </p>
+                </div>
+            </div>
+        </header>
 
-    <div class="highlights-section">
-        <div class="highlight-item" onclick="openBodyModal()">
-            <div class="highlight-circle"><img src="image/신체1.jpg"></div>
-            <span class="highlight-title">Body</span>
-        </div>
-        <div class="highlight-item" onclick="openFeedAtIndex('post-midage')">
-            <div class="highlight-circle"><img src="image/notice.jpg"></div>
-            <span class="highlight-title">Notice</span>
-        </div>
-        <a href="https://youtu.be/Mv3kTeWit1U?si=WaBn8LhpoqGGHJM5" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="highlight-item">
-                <div class="highlight-circle" style="border: 2px solid #0057ff;"><img src="image/voice.jpg"></div>
-                <span class="highlight-title">Voice</span>
-            </div>
-        </a>
-    </div>
-
-    <div class="posts-grid">
-        <div class="post-item" onclick="openFeedAtIndex('post-walkoffame')"><img src="image/walkoffame.jpg"></div>
-        <div class="post-item" onclick="openFeedAtIndex('post-midage')"><img src="image/중년기2.jpg"></div>
-        <div class="post-item" onclick="openFeedAtIndex('post-mature')"><img src="image/장년기2.jpg"></div>
-        <div class="post-item" onclick="openFeedAtIndex('post-youth')"><img src="image/청년기2.jpg"></div>
-        <div class="post-item" onclick="openFeedAtIndex('post-childhood')"><img src="image/유년기2.jpg"></div>
-    </div>
+        <!-- 📌 업데이트된 스토리 하이라이트 영역 (기능 트리거 주입 완료) -->
+<div class="highlights-section">
+    <div class="highlight-item" onclick="openBodyModal()">
+        <div class="highlight-circle"><img src="image/신체1.jpg" alt="Body Archive"></div>
+        <span class="highlight-title">Body</span>
+    </div>
+    
+    <div class="highlight-item" onclick="openFeedAtIndex('post-midage')">
+        <div class="highlight-circle"><img src="image/notice.JPG" alt="Notice Center"></div>
+        <span class="highlight-title">Notice</span>
+    </div>
+    
+    <a href="https://youtu.be/Mv3kTeWit1U?si=WaBn8LhpoqGGHJM5" target="_blank" style="text-decoration: none; color: inherit;">
+        <div class="highlight-item">
+            <div class="highlight-circle" style="border: 2px solid #0057ff; padding: 2px;">
+                <img src="image/voice.jpg" alt="웨인의 목소리">
+            </div>
+            <span class="highlight-title">Voice</span>
+        </div>
+    </a>
 </div>
 
 <div id="bodyModal" class="feed-modal" onclick="closeBodyModal()">
-    <div class="feed-modal-content" onclick="event.stopPropagation()">
-        <button class="modal-close-btn" onclick="closeBodyModal()">&times;</button>
-        <div style="padding: 20px;">
-            <h3>Physical Training Archive</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <img src="image/신체1.jpg" style="width: 100%; border-radius: 8px;">
-                <img src="image/신체2.jpg" style="width: 100%; border-radius: 8px;">
-                <img src="image/신체3.jpg" style="width: 100%; border-radius: 8px;">
-                <img src="image/신체4.jpg" style="width: 100%; border-radius: 8px;">
-                <img src="image/신체5.jpg" style="width: 100%; border-radius: 8px;">
-                <img src="image/신체6.jpg" style="width: 100%; border-radius: 8px;">
-            </div>
-        </div>
-    </div>
+    <button class="modal-close-btn">&times;</button>
+    <div class="feed-modal-content" onclick="event.stopPropagation()" style="display: flex; flex-direction: column; align-items: center; padding: 20px;">
+        <h3 style="margin-bottom: 20px;">Physical Training Archive</h3>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%;">
+            <img src="image/신체1.jpg" style="width: 100%;">
+            <img src="image/신체2.jpg" style="width: 100%;">
+            <img src="image/신체3.jpg" style="width: 100%;">
+            <img src="image/신체4.jpg" style="width: 100%;">
+            <img src="image/신체5.jpg" style="width: 100%;">
+            <img src="image/신체6.jpg" style="width: 100%;">
+        </div>
+    </div>
 </div>
 
-<div id="feedModal" class="feed-modal" onclick="closeFeedModal()">
-    <div class="feed-modal-content" onclick="event.stopPropagation()">
-        <button class="modal-close-btn" onclick="closeFeedModal()">&times;</button>
-        <div class="feed-stream">
-            <div class="feed-card" id="post-walkoffame">
-                <div class="feed-card-header"><img src="image/profile_picture.gif" class="feed-avatar"><span class="feed-username">bruce_wayne</span></div>
-                <div class="feed-media-container"><div class="carousel-track"><div class="carousel-slide"><img src="image/walkoffame.jpg"></div><div class="carousel-slide"><img src="image/Gotham Times 20241023.jpg"></div></div></div>
-                <div class="feed-caption-area"><span class="caption-username">bruce_wayne</span><p class="caption-text">할리우드 명예의 거리에 고담의 이름이 새겨진 역사적인 날. #TheBatman #WalkOfFame</p></div>
-            </div>
-            </div>
-    </div>
-</div>
+        <div class="posts-grid">
+            <div class="post-item" onclick="openFeedAtIndex('post-walkoffame')">
+                <div class="carousel-badge">
+                    <svg fill="#ffffff" height="12" viewBox="0 0 48 48" width="12"><path d="M34.8 29.8V4.8c0-1.7-1.4-3-3-3H4.8c-1.7 0-3 1.4-3 3v25c0 1.7 1.4 3 3 3h27c1.6 0 3-1.3 3-3zm-1.5 0c0 .8-.7 1.5-1.5 1.5H4.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5h27c.8 0 1.5.7 1.5 1.5v25zm13.2-17V43c0 1.7-1.4 3-3 3H16.5c-1.7 0-3-1.4-3-3v-5.2h3V43c0 .8.7 1.5 1.5 1.5h27c.8 0 1.5-.7 1.5-1.5V12.8c0-.8-.7-1.5-1.5-1.5h-5.2v-3h5.2c1.7 0 3 1.3 3 3z"></path></svg>
+                </div>
+                <img src="image/walkoffame.jpg" alt="할리우드 명예의 거리">
+            </div>
+            <div class="post-item" onclick="openFeedAtIndex('post-midage')">
+                <div class="carousel-badge">
+                    <svg fill="#ffffff" height="12" viewBox="0 0 48 48" width="12"><path d="M34.8 29.8V4.8c0-1.7-1.4-3-3-3H4.8c-1.7 0-3 1.4-3 3v25c0 1.7 1.4 3 3 3h27c1.6 0 3-1.3 3-3zm-1.5 0c0 .8-.7 1.5-1.5 1.5H4.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5h27c.8 0 1.5.7 1.5 1.5v25zm13.2-17V43c0 1.7-1.4 3-3 3H16.5c-1.7 0-3-1.4-3-3v-5.2h3V43c0 .8.7 1.5 1.5 1.5h27c.8 0 1.5-.7 1.5-1.5V12.8c0-.8-.7-1.5-1.5-1.5h-5.2v-3h5.2c1.7 0 3 1.3 3 3z"></path></svg>
+                </div>
+                <img src="image/중년기2.jpg" alt="중년기">
+            </div>
+            <div class="post-item" onclick="openFeedAtIndex('post-mature')">
+                <div class="carousel-badge">
+                    <svg fill="#ffffff" height="12" viewBox="0 0 48 48" width="12"><path d="M34.8 29.8V4.8c0-1.7-1.4-3-3-3H4.8c-1.7 0-3 1.4-3 3v25c0 1.7 1.4 3 3 3h27c1.6 0 3-1.3 3-3zm-1.5 0c0 .8-.7 1.5-1.5 1.5H4.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5h27c.8 0 1.5.7 1.5 1.5v25zm13.2-17V43c0 1.7-1.4 3-3 3H16.5c-1.7 0-3-1.4-3-3v-5.2h3V43c0 .8.7 1.5 1.5 1.5h27c.8 0 1.5-.7 1.5-1.5V12.8c0-.8-.7-1.5-1.5-1.5h-5.2v-3h5.2c1.7 0 3 1.3 3 3z"></path></svg>
+                </div>
+                <img src="image/장년기2.jpg" alt="장년기">
+            </div>
+            <div class="post-item" onclick="openFeedAtIndex('post-youth')">
+                <div class="carousel-badge">
+                    <svg fill="#ffffff" height="12" viewBox="0 0 48 48" width="12"><path d="M34.8 29.8V4.8c0-1.7-1.4-3-3-3H4.8c-1.7 0-3 1.4-3 3v25c0 1.7 1.4 3 3 3h27c1.6 0 3-1.3 3-3zm-1.5 0c0 .8-.7 1.5-1.5 1.5H4.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5h27c.8 0 1.5.7 1.5 1.5v25zm13.2-17V43c0 1.7-1.4 3-3 3H16.5c-1.7 0-3-1.4-3-3v-5.2h3V43c0 .8.7 1.5 1.5 1.5h27c.8 0 1.5-.7 1.5-1.5V12.8c0-.8-.7-1.5-1.5-1.5h-5.2v-3h5.2c1.7 0 3 1.3 3 3z"></path></svg>
+                </div>
+                <img src="image/청년기2.jpg" alt="청년기">
+            </div>
+            <div class="post-item" onclick="openFeedAtIndex('post-childhood')">
+                <div class="carousel-badge">
+                    <svg fill="#ffffff" height="12" viewBox="0 0 48 48" width="12"><path d="M34.8 29.8V4.8c0-1.7-1.4-3-3-3H4.8c-1.7 0-3 1.4-3 3v25c0 1.7 1.4 3 3 3h27c1.6 0 3-1.3 3-3zm-1.5 0c0 .8-.7 1.5-1.5 1.5H4.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5h27c.8 0 1.5.7 1.5 1.5v25zm13.2-17V43c0 1.7-1.4 3-3 3H16.5c-1.7 0-3-1.4-3-3v-5.2h3V43c0 .8.7 1.5 1.5 1.5h27c.8 0 1.5-.7 1.5-1.5V12.8c0-.8-.7-1.5-1.5-1.5h-5.2v-3h5.2c1.7 0 3 1.3 3 3z"></path></svg>
+                </div>
+                <img src="image/유년기2.jpg" alt="유년기">
+            </div>
+        </div>
+    </div>
 
-<script>
-    function openBodyModal() { document.getElementById('bodyModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-    function closeBodyModal() { document.getElementById('bodyModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
-    function openFeedAtIndex(id) { document.getElementById('feedModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; document.getElementById(id).scrollIntoView(); }
-    function closeFeedModal() { document.getElementById('feedModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
-    function moveSlide(b, d) { const t = b.parentElement.querySelector('.carousel-track'); t.scrollBy({ left: t.clientWidth * d, behavior: 'smooth' }); }
-</script>
+    <div id="feedModal" class="feed-modal" onclick="closeFeedModal(event)">
+        <button class="modal-close-btn" onclick="closeFeedModal(event)">&times;</button>
+        <div class="feed-modal-content" onclick="event.stopPropagation()">
+            <div class="feed-stream">
+                
+                <div class="feed-card" id="post-walkoffame">
+                    <div class="feed-card-header">
+                        <img src="image/profile_picture.gif" class="feed-avatar">
+                        <span class="feed-username">bruce_wayne</span>
+                    </div>
+                    <div class="feed-media-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide"><img src="image/walkoffame.jpg"></div>
+                            <div class="carousel-slide"><img src="image/Gotham Times 20241023.jpg"></div>
+                        </div>
+                        <button class="carousel-arrow prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                        <button class="carousel-arrow next" onclick="moveSlide(this, 1)">&#10095;</button>
+                    </div>
+                    <div class="feed-caption-area">
+                        <span class="caption-username">bruce_wayne</span>
+                        <p class="caption-text">할리우드 명예의 거리에 고담의 이름이 새겨진 역사적인 날. 함께해 주신 고담 시민 여러분께 이 영광을 돌립니다. #TheBatman #WalkOfFame #Gotham</p>
+                    </div>
+                </div>
+
+                <div class="feed-card" id="post-midage">
+                    <div class="feed-card-header">
+                        <img src="image/profile_picture.gif" class="feed-avatar">
+                        <span class="feed-username">bruce_wayne</span>
+                    </div>
+                    <div class="feed-media-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide"><img src="image/중년기1.jpg"></div>
+                            <div class="carousel-slide"><img src="image/중년기2.jpg"></div>
+                        </div>
+                        <button class="carousel-arrow prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                        <button class="carousel-arrow next" onclick="moveSlide(this, 1)">&#10095;</button>
+                    </div>
+                    <div class="feed-caption-area">
+                        <span class="caption-username">bruce_wayne</span>
+                        <p class="caption-text">공식 기자회견을 마치며. 때로는 무거운 자리를 내려놓고 기업가이자 시민의 한 사람으로서 고담의 미래를 위해 새로운 변화를 모색할 때입니다. #NewChapter #WayneEnterprises</p>
+                    </div>
+                </div>
+
+                <div class="feed-card" id="post-mature">
+                    <div class="feed-card-header">
+                        <img src="image/profile_picture.gif" class="feed-avatar">
+                        <span class="feed-username">bruce_wayne</span>
+                    </div>
+                    <div class="feed-media-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide"><img src="image/장년기1.jpg"></div>
+                            <div class="carousel-slide"><img src="image/장년기2.jpg"></div>
+                        </div>
+                        <button class="carousel-arrow prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                        <button class="carousel-arrow next" onclick="moveSlide(this, 1)">&#10095;</button>
+                    </div>
+                    <div class="feed-caption-area">
+                        <span class="caption-username">bruce_wayne</span>
+                        <p class="caption-text">가장 치열했던 고담시의 밤, 그리고 수많은 마천루 위에서 마주했던 고독과 결단들. 밤이 깊을수록 새벽은 가까워진다는 믿음 하나로. #DarkKnight #GothamCity</p>
+                    </div>
+                </div>
+
+                <div class="feed-card" id="post-youth">
+                    <div class="feed-card-header">
+                        <img src="image/profile_picture.gif" class="feed-avatar">
+                        <span class="feed-username">bruce_wayne</span>
+                    </div>
+                    <div class="feed-media-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide"><img src="image/청년기1.jpg"></div>
+                            <div class="carousel-slide"><img src="image/청년기2.jpg"></div>
+                        </div>
+                        <button class="carousel-arrow prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                        <button class="carousel-arrow next" onclick="moveSlide(this, 1)">&#10095;</button>
+                    </div>
+                    <div class="feed-caption-area">
+                        <span class="caption-username">bruce_wayne</span>
+                        <p class="caption-text">오랜 방황과 훈련을 거쳐 마침내 고담시로 다시 복귀했던 시절의 기록. 웨인 엔터프라이즈의 이사회를 전격 교체하고 대대적인 경영 정비에 들어갔던 신호탄이었습니다. #Return #Beginning</p>
+                    </div>
+                </div>
+
+                <div class="feed-card" id="post-childhood">
+                    <div class="feed-card-header">
+                        <img src="image/profile_picture.gif" class="feed-avatar">
+                        <span class="feed-username">bruce_wayne</span>
+                    </div>
+                    <div class="feed-media-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide"><img src="image/유년기1.jpg"></div>
+                            <div class="carousel-slide"><img src="image/유년기2.jpg"></div>
+                        </div>
+                        <button class="carousel-arrow prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                        <button class="carousel-arrow next" onclick="moveSlide(this, 1)">&#10095;</button>
+                    </div>
+                    <div class="feed-caption-area">
+                        <span class="caption-username">bruce_wayne</span>
+                        <p class="caption-text">모든 서사가 태동한 나의 유년 시절. 마사와 토마스 웨인 재단이 설계한 가장 숭고한 정신과 고담시를 향한 무한한 유산을 마음 깊이 새겨 나갑니다. #Family #Legacy #Memory</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Body 모달 제어 함수
+    function openBodyModal() {
+        document.getElementById('bodyModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeBodyModal() {
+        document.getElementById('bodyModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            // 게시물 총 개수 세기 및 연동
+            const actualPostCount = document.querySelectorAll('.posts-grid .post-item').length;
+            const postCountElement = document.querySelector('.stats-list li:nth-child(1) span');
+            if (postCountElement) {
+                postCountElement.textContent = actualPostCount;
+            }
+        });
+
+        // 인스타 피드 스크롤 연동형 라이트박스 제어 함수
+        function openFeedAtIndex(targetId) {
+            const modal = document.getElementById('feedModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 부모 스크롤 고정
+
+            setTimeout(() => {
+                const targetCard = document.getElementById(targetId);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'auto', block: 'start' });
+                }
+            }, 10);
+        }
+
+        function closeFeedModal(event) {
+            const modal = document.getElementById('feedModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 부모 스크롤 원복
+        }
+
+        // 카드 내부 개별 가로 이미지 슬라이더 조작 함수
+        function moveSlide(button, direction) {
+            const track = button.parentElement.querySelector('.carousel-track');
+            const slideWidth = track.clientWidth;
+            track.scrollBy({ left: slideWidth * direction, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
