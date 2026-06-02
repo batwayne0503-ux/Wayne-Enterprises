@@ -74,7 +74,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <!-- 카드 1: 바티스타 -->
-                <div class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
+                <div onclick="openModal('vehicle')" class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="h-64 overflow-hidden bg-gray-100">
                         <img src="image/Battista Gotham_1.jpg" alt="Pininfarina Battista" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -84,6 +84,20 @@
                     </div>
                 </div>
 
+                <div id="artifact-modal" class="fixed inset-0 z-50 hidden bg-black/80 flex justify-center items-start pt-10 pb-10 px-4">
+                    <div class="bg-white w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl overflow-y-auto relative flex flex-col">
+        
+                        <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center z-10">
+                            <h2 id="modal-title" class="text-2xl font-bold text-gray-900">Category Title</h2>
+                            <button onclick="closeModal()" class="text-gray-400 hover:text-black font-bold text-2xl focus:outline-none">&times;</button>
+                        </div>
+
+                        <div id="modal-body" class="p-6 space-y-6 flex-1 text-gray-700">
+                            </div>
+        
+                    </div>
+                </div>
+                
                 <!-- 카드 2: 톰 포드 향수 -->
                 <div class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="h-64 overflow-hidden bg-gray-100">
@@ -137,17 +151,90 @@
             </div>
         </section>
 
-        <!-- 스크롤 이벤트 처리를 위한 자바스크립트 -->
         <script>
-            const gallery = document.getElementById('gallery-container');
+        // ========================================================
+        // 1. 전역 변수 및 DOM 요소 초기화 (변수 중복 선언 해결)
+        // ========================================================
+        const modal = document.getElementById('artifact-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const gallery = document.getElementById('gallery-container');
+
+        // ========================================================
+        // 2. Personal Artifacts 동적 콘텐츠 데이터셋 정의
+        // ========================================================
+        const categoryContent = {
+            'vehicle': {
+                title: 'Pininfarina Battista Spec',
+                html: `
+                    <div class="w-full rounded-xl overflow-hidden bg-gray-50 shadow-inner mb-6">
+                        <img src="image/Battista Gotham_2.jpg" alt="Battista Detail View" class="w-full h-auto object-cover">
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-lg font-semibold text-gray-900">순수 전기 하이퍼 GT (Pure Electric Hyper GT)</p>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            웨인 엔터프라이즈(Wayne Enterprises)의 선진 친환경 에너지 모빌리티 연구 부서와 이탈리아의 유명 디자인 하우스가 협업하여 한정 생산한 플래그십 차량입니다. 고담시 환경 개선 프로젝트와 탄소 중립 지표를 달성하기 위한 사회적 투자(Impact Investing)의 일환으로 운영되고 있습니다.
+                        </p>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 text-xs font-mono grid grid-cols-2 gap-3 mt-4">
+                            <div><span class="text-gray-400">최고 출력:</span> 1,900 hp</div>
+                            <div><span class="text-gray-400">0-100 km/h:</span> 1.86 초</div>
+                            <div><span class="text-gray-400">구동 방식:</span> 독립 모터 AWD</div>
+                            <div><span class="text-gray-400">섀시 유형:</span> 풀 카본 파이버</div>
+                        </div>
+                    </div>
+                `
+            }
+            // 향후 추가될 카테고리(정장, 향수 등)는 이 아래에 동일한 구조로 바인딩하십시오.
+        };
+
+        // ========================================================
+        // 3. Personal Artifacts 모달 및 배경 스크롤 잠금 제어 함수
+        // ========================================================
+        // 모달 열기 함수 (부모 윈도우 스크롤 잠금 적용)
+        function openModal(key) {
+            const data = categoryContent[key];
+            if (data && modal && modalTitle && modalBody) {
+                modalTitle.innerText = data.title;
+                modalBody.innerHTML = data.html;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // 부모 페이지 배경 스크롤 차단
+            }
+        }
+
+        // 모달 닫기 함수 (뉴스 이미지 뷰어 상태 검증을 포함한 스크롤 복구)
+        function closeModal() {
+            if (modal) {
+                modal.classList.add('hidden');
+                // 메인 페이지(index.html)에 구현된 Lightbox 프레임워크와의 충돌을 방지하는 방어적 코드
+                const imageViewer = document.getElementById('image-viewer');
+                if (!imageViewer || imageViewer.classList.contains('hidden')) {
+                    document.body.style.overflow = ''; // 정상 스크롤 복구
+                }
+            }
+        }
+
+        // 모달 컨테이너 외곽(어두운 배경 영역) 클릭 시 자동 닫기 안전 장치
+        if (modal) {
+            modal.addEventListener('click', (evt) => {
+                if (evt.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // ========================================================
+        // 4. 글라스 하우스 갤러리 가로 휠 스크롤 제어
+        // ========================================================
+        if (gallery) {
             gallery.addEventListener('wheel', (evt) => {
-                // 트랙패드의 가로 스크롤(deltaX)과 마우스 휠의 세로 스크롤(deltaY)을 구분하여 충돌 방지
+                // 트랙패드의 가로 스크롤(deltaX)과 마우스 휠의 세로 스크롤(deltaY)을 연산하여 간섭 차단
                 if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
                     evt.preventDefault();
                     gallery.scrollLeft += evt.deltaY;
                 }
             }, { passive: false });
-        </script>
+        }
+    </script>
 
     </main>
 
