@@ -20,13 +20,13 @@
 </head>
 <body class="bg-[#f5f5f7] text-gray-900 font-sans antialiased">
 
-    <!-- 1. 히어로 섹션 (글라스 하우스 패럴랙스) -->
-    <!-- 이미지 경로의 공백은 %20을 제거하고 표준 따옴표 표기법으로 수정 -->
-    <header class="parallax-bg h-[60vh] md:h-[80vh] flex items-center justify-center relative" style="background-image: url('image/글라스하우스 전경.jpg');">
+   <!-- 1. 히어로 섹션 (글라스 하우스 패럴랙스) -->
+    <!-- 헤더 높이 축소 및 타이포그래피 사이즈 재조정 -->
+    <header class="parallax-bg h-[40vh] md:h-[50vh] lg:h-[60vh] flex items-center justify-center relative" style="background-image: url('image/글라스하우스 전경.jpg');">
         <div class="absolute inset-0 bg-black/40"></div>
         <div class="relative z-10 text-center text-white px-4">
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4">Bruce Wayne</h1>
-            <p class="text-lg md:text-2xl font-light tracking-widest uppercase opacity-80">The Man Behind the Enterprise</p>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tighter mb-4">Bruce Wayne</h1>
+            <p class="text-base md:text-xl font-light tracking-widest uppercase opacity-80">The Man Behind the Enterprise</p>
         </div>
     </header>
 
@@ -125,14 +125,27 @@
         <!-- 4. 글라스 하우스 갤러리 -->
         <section>
             <h2 class="text-3xl font-bold mb-10 text-center tracking-tight">Ussikita Lake Glass House</h2>
-            <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8">
-                <!-- 이미지 경로 렌더링 오류 방지를 위해 명확한 공백 텍스트 사용 -->
-                <img src="image/글라스하우스3.jpg" alt="Gallery 1" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
-                <img src="image/글라스하우스 겨울.jpg" alt="Gallery 2" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
-                <img src="image/글라스하우스5.jpg" alt="Gallery 3" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
-                <img src="image/글라스하우스 스카이뷰.jpg" alt="Gallery 4" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+            <div id="gallery-container" class="flex flex-nowrap space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8 scroll-smooth">
+                <img src="image/글라스하우스 스카이뷰.jpg" alt="Gallery Skyview" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스3.jpg" alt="Gallery 3" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스4.jpg" alt="Gallery 4" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스5.jpg" alt="Gallery 5" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스6.jpg" alt="Gallery 6" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스 8.jpg" alt="Gallery 8" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스 겨울.jpg" alt="Gallery Winter" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
             </div>
         </section>
+
+        <!-- 스크롤 이벤트 처리를 위한 자바스크립트 -->
+        <script>
+            const gallery = document.getElementById('gallery-container');
+            gallery.addEventListener('wheel', (evt) => {
+                if (evt.deltaY !== 0) {
+                    evt.preventDefault();
+                    gallery.scrollLeft += evt.deltaY;
+                }
+            });
+        </script>
 
     </main>
 
