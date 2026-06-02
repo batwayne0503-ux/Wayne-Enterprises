@@ -367,10 +367,22 @@
         }
 
         @media (max-width: 768px) {
-            .feed-modal-content { height: 100vh; border-radius: 0; }
-            .modal-close-btn { color: #262626; top: 12px; right: 16px; font-size: 32px; }
-            .profile-container { padding: 15px 10px; }
-            .circular-profile-img { width: 90px; height: 90px; }
+            .stats-list {
+                display: flex;
+                flex-direction: row;        /* 가로 정렬 강제 */
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                overflow: hidden;           /* 넘침 현상 방지 */
+            }
+
+            .stats-item {
+                display: flex;
+                flex-direction: column;     /* 숫자와 명칭을 세로로 배치 */
+                align-items: center;
+                flex-shrink: 0;             /* 화면이 좁아져도 요소 축소 방지 */
+                white-space: nowrap;        /* 텍스트가 아래로 떨어지는 것 차단 */
+            }
         }
 
         /* 📌 Notice 슬라이더 컨테이너 레이아웃 보정 */
