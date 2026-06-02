@@ -423,7 +423,6 @@
     </style>
 </head>
 <body>
-
     <div class="profile-container">
         <header>
             <div class="profile-pic-area">
@@ -707,58 +706,57 @@
                 noticeSlider.addEventListener('mouseup', 마우스_제어_종료_함수);
                 noticeSlider.addEventListener('mouseleave', 마우스_제어_종료_함수);
             }    
-        });
 
-        // 📌 Notice 하이라이트 전용 전체화면 모달 제어 엔진
-        function openNoticeModal() {
-            const noticeModal = document.getElementById('noticeModal');
-            noticeModal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // 부모 스크롤 잠금
-            // 항상 첫 번째 장으로 초기 슬라이드 트랙 정렬
-            document.querySelector('.notice-slider-container').scrollLeft = 0;
-        }
+            // 📌 Notice 하이라이트 전용 전체화면 모달 제어 엔진
+                function openNoticeModal() {
+                    const noticeModal = document.getElementById('noticeModal');
+                    noticeModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // 부모 스크롤 잠금
+                    // 항상 첫 번째 장으로 초기 슬라이드 트랙 정렬
+                    document.querySelector('.notice-slider-container').scrollLeft = 0;
+                }    
 
-        function closeNoticeModal() {
-            document.getElementById('noticeModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // 부모 스크롤 해제
-        }
+                function closeNoticeModal() {
+                document.getElementById('noticeModal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // 부모 스크롤 해제
+                }
 
-        // 일반 게시물 피드 단독 활성화 격리 함수
-        function openFeedAtIndex(targetId) {
-            const modal = document.getElementById('feedModal');
-            const cards = document.querySelectorAll('.feed-card');
+            // 일반 게시물 피드 단독 활성화 격리 함수
+            function openFeedAtIndex(targetId) {
+                const modal = document.getElementById('feedModal');
+                const cards = document.querySelectorAll('.feed-card');
         
-            cards.forEach(card => {
-                card.style.display = 'none';
-            });
+                    cards.forEach(card => {
+                    card.style.display = 'none';
+                });
         
-            const targetCard = document.getElementById(targetId);
-            if (targetCard) {
-                targetCard.style.display = 'block';
+                const targetCard = document.getElementById(targetId);
+                if (targetCard) {
+                    targetCard.style.display = 'block';
+                }
+
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; 
+
+                setTimeout(() => {
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    }
+                }, 10);
             }
 
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; 
+            function closeFeedModal(event) {
+                const modal = document.getElementById('feedModal');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
 
-            setTimeout(() => {
-                if (targetCard) {
-                    targetCard.scrollIntoView({ behavior: 'auto', block: 'start' });
-                }
-            }, 10);
-        }
-
-        function closeFeedModal(event) {
-            const modal = document.getElementById('feedModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // 카드 내부 개별 가로 이미지 슬라이더 조작 함수
-        function moveSlide(button, direction) {
-            const track = button.parentElement.querySelector('.carousel-track');
-            const slideWidth = track.clientWidth;
-            track.scrollBy({ left: slideWidth * direction, behavior: 'smooth' });
-        }
-</script>
+            // 카드 내부 개별 가로 이미지 슬라이더 조작 함수
+            function moveSlide(button, direction) {
+                const track = button.parentElement.querySelector('.carousel-track');
+                const slideWidth = track.clientWidth;
+                track.scrollBy({ left: slideWidth * direction, behavior: 'smooth' });
+            }
+    </script>
 </body>
 </html>
