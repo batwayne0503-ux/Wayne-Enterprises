@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토글 기능 테스트 페이지 (Toggle Test)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* 브라우저 기본 화살표(▶)를 제거하고 커스텀 아이콘을 쓰기 위한 호환성 스타일 */
+        details summary {
+            list-style: none;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-xl mx-auto px-6 py-8">
+        
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">토글 기능 테스트</h1>
+            <p class="text-sm text-gray-500 mt-2">사용자 경험(User Experience) 개선을 위한 컴포넌트 동작 확인</p>
+        </header>
+
+        <main class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            
+            <details class="group border border-gray-200 rounded-xl p-4 transition-all duration-300 open:bg-gray-50 open:border-emerald-500">
+                
+                <summary class="flex justify-between items-center font-medium text-base md:text-lg text-gray-800 cursor-pointer focus:outline-none select-none">
+                    <span>여기를 클릭하여 상세 내용을 확인하세요</span>
+                    
+                    <svg class="w-5 h-5 text-gray-400 transition-transform duration-300 group-open:rotate-180 group-open:text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </summary>
+                
+                <div class="mt-4 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-100 pt-3">
+                    <p>이곳에 숨겨져 있던 텍스트가 나타납니다. 앞서 안내해 드린 <strong>굵은 글씨</strong> 등 다양한 HTML 태그를 이 내부에 자유롭게 사용할 수 있습니다.</p>
+                </div>
+                
+            </details>
+            
+        </main>
+
+        <footer class="mt-8 text-center text-xs text-gray-400 font-mono">
+            © 2026 Wayne Enterprises. All rights reserved.
+        </footer>
+        
+    </div>
+
+</body>
+</html>
