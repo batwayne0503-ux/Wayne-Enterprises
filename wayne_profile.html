@@ -83,7 +83,7 @@
 
         /* 바이오(Bio) */
         .bio-space {
-            font-size: 16px;
+            font-size: 15px;
             line-height: 24px;
         }
 
@@ -352,9 +352,15 @@
         }
 
         .notice-page p {
-            font-size: 16px;
+            white-space: normal; /* 자동 줄바꿈 강제 활성화 */
+            font-size: 16px;     /* 가독성을 위해 16px로 환원 */
             line-height: 28px;
             color: #555555;
+        }
+    
+        .notice-slider-container {
+            /* 키보드 포커스 가능하도록 설정 */
+            outline: none;
         }
 
         /* 가로 슬라이딩 인디케이터 도트 힌트 */
@@ -393,14 +399,14 @@
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
     
-        /* 윈도우 환경 마우스 드래그 활성화를 위한 필수 차단 속성 */
-        user-select: none;           /* 드래그 시 텍스트 블록 지정 방지 */
-        -webkit-user-select: none;
-        cursor: grab;
-        }
+            /* 윈도우 환경 마우스 드래그 활성화를 위한 필수 차단 속성 */
+            user-select: none;           /* 드래그 시 텍스트 블록 지정 방지 */
+            -webkit-user-select: none;
+            cursor: grab;
+            }
 
         .notice-slider-container:active {
-        cursor: grabbing;
+            cursor: grabbing;
         }
 
         /* 📌 모바일 줄바꿈 해제 및 텍스트 폰트 크기 축소 */
@@ -495,7 +501,7 @@
         </div>
     </div>
 
-    <div id="noticeModal" class="notice-modal">
+    <div id="noticeSlider" class="notice-slider-container" tabindex="0">
         <button class="notice-close-btn" onclick="closeNoticeModal()">&times;</button>
         <div class="notice-slider-container">
             
@@ -648,12 +654,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 게시물 총 개수 세기 및 연동
-            const actualPostCount = document.querySelectorAll('.posts-grid .post-item').length;
-            const postCountElement = document.querySelector('.stats-list li:nth-child(1) span');
-            if (postCountElement) {
-                postCountElement.textContent = actualPostCount;
-            }
+            const noticeSlider = document.getElementById('noticeSlider');
+        
+            // 키보드 방향키 조작 이벤트 (ArrowLeft, ArrowRight)
+            noticeSlider.addEventListener('keydown', function(e) {
+                const slideWidth = noticeSlider.clientWidth;
+                if (e.key === 'ArrowRight') {
+                    noticeSlider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+                } else if (e.key === 'ArrowLeft') {
+                    noticeSlider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+                }
+            });
 
             // 📌 윈도우 환경 마우스 드래그 앤 드롭 인터랙션 엔진 보강 (변수명 및 로직 수정)
             const noticeSlider = document.getElementById('noticeSlider');
