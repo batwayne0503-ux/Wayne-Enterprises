@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruce Wayne - Official Profile</title>
+    <style>
+        /* 전체 배경 및 기본 폰트 설정 */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff; /* 하얀 바탕 지정 */
+            color: #262626;
+        }
+        
+        /* 중앙 정렬 컨테이너 */
+        .profile-container {
+            max-width: 935px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* 상단 프로필 헤더 레이아웃 */
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 44px;
+            border-bottom: 1px solid #dbdbdb;
+            padding-bottom: 44px;
+        }
+
+        /* 프로필 사진 영역 */
+        .profile-pic-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin-right: 30px;
+        }
+
+        /* GIF 삽입을 위한 원형 이미지 칸 */
+        .circular-profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #dbdbdb;
+        }
+
+        /* 상세 정보 영역 */
+        .profile-details {
+            flex: 2;
+        }
+
+        .username-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .username {
+            font-size: 28px;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        /* 통계 지표 (게시물, 팔로워, 팔로잉) */
+        .stats-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .stats-list li {
+            margin-right: 40px;
+            font-size: 16px;
+        }
+
+        .stats-list span {
+            font-weight: 600;
+        }
+
+        /* 바이오(Bio) 여유 공간 */
+        .bio-space {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .bio-name {
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+
+        /* 스토리 하이라이트 영역 */
+        .highlights-section {
+            display: flex;
+            margin-bottom: 44px;
+            padding-left: 10px;
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .highlight-circle {
+            width: 77px;
+            height: 77px;
+            border-radius: 50%;
+            border: 1px solid #dbdbdb;
+            padding: 3px;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #f1f1f1; /* 썸네일 대체 배경색 */
+        }
+
+        .highlight-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        /* 게시물 그리드 영역 (3열 구조) */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 28px;
+        }
+
+        .post-item {
+            position: relative;
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            padding-bottom: 100%; /* 1:1 정정사각형 비율 유지 */
+            cursor: pointer;
+        }
+
+        .post-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- 상단 헤더: 프로필 이미지 및 정보 -->
+        <header>
+            <div class="profile-pic-area">
+                <!-- 'wayne_animation.gif' 부분에 실제 업로드할 GIF 파일의 경로를 입력하십시오. -->
+                <img src="wayne_animation.gif" alt="Bruce Wayne" class="circular-profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <div class="username-row">
+                    <h2 class="username">bruce_wayne</h2>
+                </div>
+                
+                <ul class="stats-list">
+                    <li>게시물 <span>4</span></li>
+                    <li>팔로워 <span>331</span></li>
+                    <li>팔로잉 <span>8</span></li>
+                </ul>
+                
+                <div class="bio-space">
+                    <div class="bio-name">Bruce Wayne</div>
+                    <p>
+                        웨인 엔터프라이즈(Wayne Enterprises) 의장.<br>
+                        여기는 의장님의 경영 철학, 임팩트 투자(Impact Investing) 실적, 혹은 고담시(Gotham City)를 위한 사회적 책임 활동 내용을 자유롭게 기술할 수 있는 여유 공간입니다.
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 스토리 하이라이트 영역 (1개) -->
+        <div class="highlights-section">
+            <div class="highlight-item">
+                <div class="highlight-circle">
+                    <!-- 하이라이트 커버 이미지를 넣으려면 내부 div 대신 img 태그를 채우십시오. -->
+                    <div class="highlight-inner"></div>
+                </div>
+                <span class="highlight-title">웨인 홍보재단</span>
+            </div>
+        </div>
+
+        <!-- 게시물 영역 (총 4개 배치) -->
+        <div class="posts-grid">
+            <div class="post-item">
+                <!-- <img src="post1.jpg" alt="게시물 1"> -->
+            </div>
+            <div class="post-item">
+                <!-- <img src="post2.jpg" alt="게시물 2"> -->
+            </div>
+            <div class="post-item">
+                <!-- <img src="post3.jpg" alt="게시물 3"> -->
+            </div>
+            <div class="post-item">
+                <!-- <img src="post4.jpg" alt="게시물 4"> -->
+            </div>
+            <div class="post-item">
+                <!-- <img src="post5.jpg" alt="게시물 5"> -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
