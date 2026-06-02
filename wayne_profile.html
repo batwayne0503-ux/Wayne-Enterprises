@@ -384,23 +384,23 @@
         user-select: none;           /* 드래그 시 텍스트 블록 지정 방지 */
         -webkit-user-select: none;
         cursor: grab;
-    }
+        }
 
-    .notice-slider-container:active {
+        .notice-slider-container:active {
         cursor: grabbing;
-    }
+        }
 
-    /* 📌 모바일 줄바꿈 해제 및 텍스트 폰트 크기 축소 */
-    .notice-page p {
-        white-space: nowrap;         /* 모바일 환경 자동 줄바꿈(Wrap) 절대 차단 */
-        font-size: 13px;             /* 의장님 요청에 따른 글자 크기 축소 지침 반영 */
-        letter-spacing: -0.02em;     /* 자간 압축을 통한 시각적 밸런스 조정 */
-    }
+        /* 📌 모바일 줄바꿈 해제 및 텍스트 폰트 크기 축소 */
+            .notice-page p {
+            white-space: nowrap;         /* 모바일 환경 자동 줄바꿈(Wrap) 절대 차단 */
+            font-size: 13px;             /* 의장님 요청에 따른 글자 크기 축소 지침 반영 */
+            letter-spacing: -0.02em;     /* 자간 압축을 통한 시각적 밸런스 조정 */
+            }
 
-    /* 내부 이미지나 텍스트 소스가 마우스 드래그를 가로채는 현상 방지 */
-    .notice-page * {
-        pointer-events: none;        /* 마우스 이벤트를 부모 컨테이너로 관통 전달 */
-    }
+        /* 내부 이미지나 텍스트 소스가 마우스 드래그를 가로채는 현상 방지 */
+        .notice-page * {
+            pointer-events: none;        /* 마우스 이벤트를 부모 컨테이너로 관통 전달 */
+        }
     </style>
 </head>
 <body>
