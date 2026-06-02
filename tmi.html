@@ -20,7 +20,9 @@
 </head>
 <body class="bg-[#f5f5f7] text-gray-900 font-sans antialiased">
 
-    <header class="parallax-bg h-[60vh] md:h-[80vh] flex items-center justify-center relative" style="background-image: url('image/글라스하우스%20전경.jpg');">
+    <!-- 1. 히어로 섹션 (글라스 하우스 패럴랙스) -->
+    <!-- 이미지 경로의 공백은 %20을 제거하고 표준 따옴표 표기법으로 수정 -->
+    <header class="parallax-bg h-[60vh] md:h-[80vh] flex items-center justify-center relative" style="background-image: url('image/글라스하우스 전경.jpg');">
         <div class="absolute inset-0 bg-black/40"></div>
         <div class="relative z-10 text-center text-white px-4">
             <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4">Bruce Wayne</h1>
@@ -30,29 +32,35 @@
 
     <main class="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24">
 
+        <!-- 2. 타임라인 섹션 (Daily Routine) -->
         <section>
             <h2 class="text-3xl font-bold mb-10 text-center tracking-tight">Daily Routine</h2>
-            <div class="relative border-l border-gray-300 ml-4 md:ml-1/2 md:translate-x-1/2 space-y-8 pb-4">
+            <div class="relative max-w-3xl mx-auto">
+                <!-- 중앙 라인 -->
+                <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-gray-300 transform md:-translate-x-1/2"></div>
                 
-                <div class="relative pl-8 md:pl-0">
-                    <div class="absolute w-4 h-4 bg-gray-900 rounded-full -left-[9px] md:-left-[9px] top-1"></div>
-                    <div class="md:w-1/2 md:pr-12 md:text-right text-left md:absolute md:left-[-50%]">
+                <!-- 타임라인 아이템 1 (좌측 정렬) -->
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-12">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-gray-900 transform -translate-x-[7px] md:-translate-x-1/2 mt-1.5 md:mt-0"></div>
+                    <div class="ml-12 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
                         <h3 class="text-xl font-semibold">06:00 AM</h3>
                         <p class="text-gray-500 mt-2">기상 및 모닝 루틴 시작. 최신 팟캐스트 청취 및 글로벌 경제 동향 파악.</p>
                     </div>
                 </div>
 
-                <div class="relative pl-8 md:pl-0 mt-16 md:mt-24">
-                    <div class="absolute w-4 h-4 bg-gray-900 rounded-full -left-[9px] top-1"></div>
-                    <div class="md:w-1/2 md:pl-12 text-left md:absolute md:left-0">
+                <!-- 타임라인 아이템 2 (우측 정렬) -->
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-12">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-gray-900 transform -translate-x-[7px] md:-translate-x-1/2 mt-1.5 md:mt-0"></div>
+                    <div class="ml-12 md:ml-0 md:w-1/2 md:pl-12 md:ml-auto text-left">
                         <h3 class="text-xl font-semibold">09:00 AM ~ 05:00 PM</h3>
                         <p class="text-gray-500 mt-2">웨인 타워(Wayne Tower) 출근. 이사회 참석, R&D 부서 보고서 검토 및 웨인 홍보재단(Wayne Promote Foundation) 실무 미팅.</p>
                     </div>
                 </div>
 
-                <div class="relative pl-8 md:pl-0 mt-16 md:mt-24">
-                    <div class="absolute w-4 h-4 bg-gray-900 rounded-full -left-[9px] top-1"></div>
-                    <div class="md:w-1/2 md:pr-12 md:text-right text-left md:absolute md:left-[-50%]">
+                <!-- 타임라인 아이템 3 (좌측 정렬) -->
+                <div class="relative flex flex-col md:flex-row items-start md:items-center">
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-gray-900 transform -translate-x-[7px] md:-translate-x-1/2 mt-1.5 md:mt-0"></div>
+                    <div class="ml-12 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
                         <h3 class="text-xl font-semibold">08:00 PM</h3>
                         <p class="text-gray-500 mt-2">자선 행사 및 고담시 주요 인사들과의 이브닝 미팅.</p>
                     </div>
@@ -60,48 +68,53 @@
             </div>
         </section>
 
+        <!-- 3. 아티팩트 카드 그리드 (개인 소장품 & 자켓 호버) -->
         <section>
             <h2 class="text-3xl font-bold mb-10 text-center tracking-tight">Personal Artifacts</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
+                <!-- 카드 1: 바티스타 -->
                 <div class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
-                    <div class="h-64 overflow-hidden">
-                        <img src="image/Battista%20Gotham_1.jpg" alt="Pininfarina Battista" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="h-64 overflow-hidden bg-gray-100">
+                        <img src="image/Battista Gotham_1.jpg" alt="Pininfarina Battista" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
-                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Vehicle</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">차량</p>
                         <h3 class="text-xl font-semibold">Pininfarina Battista</h3>
                     </div>
                 </div>
 
+                <!-- 카드 2: 톰 포드 향수 -->
                 <div class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
-                    <div class="h-64 overflow-hidden">
+                    <div class="h-64 overflow-hidden bg-gray-100">
                         <img src="image/tompordperfume.jpg" alt="Tom Ford Perfume" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
-                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Fragrance</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">향수</p>
                         <h3 class="text-xl font-semibold">Tom Ford</h3>
                     </div>
                 </div>
 
+                <!-- 카드 3: 맞춤 정장 (호버 이펙트 적용) -->
                 <div class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow relative">
-                    <div class="h-64 relative">
+                    <div class="h-64 relative bg-gray-100">
                         <img src="image/자켓좌측.jpeg" alt="Suit Left" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0">
                         <img src="image/자켓우측.jpeg" alt="Suit Right" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100">
                     </div>
                     <div class="p-6">
-                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Tailored Suit</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">정장</p>
                         <h3 class="text-xl font-semibold">Hidden Pockets</h3>
                         <p class="text-sm text-gray-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">소형 EMP 및 보안 장비 수납공간</p>
                     </div>
                 </div>
 
+                <!-- 카드 4: 마스크 오브 조로 -->
                 <div class="bg-white rounded-2xl shadow-sm overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="h-64 overflow-hidden bg-black flex items-center justify-center">
                         <img src="image/maskofzoro.jpg" alt="The Mask of Zorro" class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
-                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Inspiration</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">추억의 영화</p>
                         <h3 class="text-xl font-semibold">The Mask of Zorro</h3>
                     </div>
                 </div>
@@ -109,13 +122,15 @@
             </div>
         </section>
 
+        <!-- 4. 글라스 하우스 갤러리 -->
         <section>
             <h2 class="text-3xl font-bold mb-10 text-center tracking-tight">Ussikita Lake Glass House</h2>
             <div class="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8">
-                <img src="image/글라스하우스%203.jpg" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0">
-                <img src="image/글라스하우스%20겨울.jpg" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0">
-                <img src="image/글라스하우스%205.jpg" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0">
-                <img src="image/글라스하우스%20스카이뷰.jpg" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0">
+                <!-- 이미지 경로 렌더링 오류 방지를 위해 명확한 공백 텍스트 사용 -->
+                <img src="image/글라스하우스 3.jpg" alt="Gallery 1" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스 겨울.jpg" alt="Gallery 2" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스 5.jpg" alt="Gallery 3" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
+                <img src="image/글라스하우스 스카이뷰.jpg" alt="Gallery 4" class="snap-center w-[80vw] md:w-[60vw] h-[40vh] md:h-[60vh] object-cover rounded-2xl shadow-md flex-shrink-0 bg-gray-200">
             </div>
         </section>
 
