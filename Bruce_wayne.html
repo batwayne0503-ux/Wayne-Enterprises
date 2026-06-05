@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruce Wayne | Personal Profile</title>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YOUR_MEASUREMENT_ID');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        details summary { list-style: none; }
+        details summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    
+    <div class="w-full max-w-4xl mx-auto px-6 py-12">
+        <header class="mb-12 border-b border-gray-300 pb-6">
+            <h1 class="text-4xl font-serif text-gray-900">BRUCE WAYNE</h1>
+            <p class="text-sm text-gray-500 mt-2">Personal Profile | Strategic Visionary</p>
+        </header>
+
+        <main class="space-y-8">
+            <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <img src="profilemain.png" alt="Bruce Wayne Profile" class="w-48 h-48 rounded-full mb-6 mx-auto object-cover">
+                <p class="text-center italic text-gray-600">"고담시의 미래는 단순한 자본이 아닌, 확고한 의지와 책임감에서 만들어집니다."</p>
+            </section>
+
+            <details class="group border border-gray-200 rounded-xl p-6 transition-all duration-300 open:bg-white open:border-black">
+                <summary class="flex justify-between items-center font-medium text-lg cursor-pointer select-none">
+                    <span>재단 활동 리포트(Wayne Promote Foundation)</span>
+                    <svg class="w-6 h-6 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </summary>
+                <div class="mt-4 text-gray-600 border-t border-gray-100 pt-4">
+                    <p>재단의 사회적 임팩트 데이터가 이곳에 동적으로 로드됩니다.</p>
+                </div>
+            </details>
+        </main>
+
+        <section class="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
+            <img src="Quote.jpg" alt="Quote" class="rounded-lg shadow hover:opacity-80 transition-opacity">
+            <img src="dodle.JPG" alt="Doodle" class="rounded-lg shadow hover:opacity-80 transition-opacity">
+            <img src="HIStory.JPG" alt="History" class="rounded-lg shadow hover:opacity-80 transition-opacity">
+            <img src="inspired.jpg" alt="Inspired" class="rounded-lg shadow hover:opacity-80 transition-opacity">
+            <img src="ubermensch.png" alt="Ubermensch" class="rounded-lg shadow hover:opacity-80 transition-opacity">
+        </section>
+
+        <footer class="mt-12 text-center text-sm text-gray-400 font-mono">
+            © 2026 Wayne Enterprises. All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>
