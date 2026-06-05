@@ -51,16 +51,28 @@
     </section>
 
     <script>
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const main = document.getElementById('main-content');
-            const overlay = document.getElementById('overlay');
-            const progress = Math.min(scrollY / 600, 1);
-            
-            main.style.opacity = 1 - progress;
-            main.style.transform = `translateY(-${progress * 50}px)`;
-            overlay.style.opacity = progress * 0.8;
-        });
-    </script>
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const main = document.getElementById('main-content');
+        const overlay = document.getElementById('overlay');
+        
+        // 1. 변화 정도 계산 (0~600px)
+        const progress = Math.min(scrollY / 600, 1);
+        
+        // 2. 메인 콘텐츠 시각 효과
+        main.style.opacity = 1 - progress;
+        main.style.transform = `translateY(-${progress * 50}px)`;
+        
+        // 3. 메인 콘텐츠가 완전히 사라지면 display를 none으로 변경
+        if (progress >= 1) {
+            main.style.display = 'none';
+        } else {
+            main.style.display = 'flex'; // 다시 나타날 때 복구
+        }
+        
+        // 4. 오버레이 배경 투명도
+        overlay.style.opacity = progress * 0.8;
+    });
+</script>
 </body>
 </html>
