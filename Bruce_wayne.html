@@ -6,39 +6,63 @@
     <title>Bruce Wayne | Personal Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-    /* 모바일 대응을 위한 미디어 쿼리 */
-    @media (max-width: 768px) {
-        .main-container { flex-direction: column; text-align: center; }
-        .name-title { font-size: 3rem; white-space: normal; }
-        .profile-img { h-[400px]; margin-top: 2rem; opacity: 0.8; }
-    }
-</style>
-
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; text-align: center; }
+            .name-title { font-size: 3rem; white-space: normal; }
+            .profile-img-container { margin-top: 2rem; justify-content: center; }
+        }
+    </style>
+</head>
 <body class="bg-white text-gray-900 font-sans h-screen flex flex-col relative overflow-hidden">
-    <!-- 배경 이미지: ubermensch.png (고정) -->
-    <div class="absolute inset-0 z-0 opacity-10 bg-ubermensch" style="background-image: url('image/ubermensch.png'); background-size: cover;"></div>
-
-    <!-- 네비게이션 -->
+    
+    <!-- 네비게이션: 상단 바 좌우 완전 분리 레이아웃 -->
     <nav class="p-8 flex justify-between items-center uppercase tracking-widest text-xs font-semibold relative z-20">
-        <span>WAYNE ENTERPRISES</span>
-        <div class="space-x-8">
-            <a href="#">HOME</a>
-            <a href="#">MOVIE</a>
-            <a href="#">ABOUT</a>
+        
+        <!-- [좌측 영역]: 카카오 아이콘 + 메인 메뉴 그룹 -->
+        <div class="flex items-center space-x-8">
+            <!-- 카카오스토리 다이렉트 링크 -->
+            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" rel="noopener noreferrer" class="hover:opacity-70 transition-opacity">
+                <img src="image/kakaologo.png" alt="Kakao Story" class="w-4 h-4 object-contain">
+            </a>
+            
+            <!-- 메인 메뉴 -->
+            <a href="#" class="hover:text-gray-500 transition-colors">HOME</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">WHO</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">ABOUT</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">ETC</a>
         </div>
+        
+        <!-- [우측 영역]: Return to Main 독점 배치 -->
+        <div>
+            <a href="/" title="Return to Main" class="hover:text-gray-500 transition-colors flex items-center">
+                RETURN TO MAIN <span class="ml-1 text-lg leading-none">&rarr;</span>
+            </a>
+        </div>
+        
     </nav>
 
-    <!-- 메인 컨텐츠: 반응형 Flexbox 적용 -->
-    <main class="main-container flex-grow flex items-center px-10 relative z-10">
-        <div class="w-full md:w-1/2">
+    <!-- 메인 컨텐츠 -->
+    <main class="main-container flex-grow flex items-center px-10 md:px-20 relative z-10">
+        <!-- 좌측: 텍스트 영역 -->
+        <div class="w-full md:w-1/2 z-20">
             <h1 class="name-title text-8xl font-serif font-bold uppercase whitespace-nowrap">BRUCE WAYNE</h1>
             <p class="mt-8 text-gray-600 max-w-sm leading-relaxed mx-auto md:mx-0">
                 Strategic Visionary. The Guardian of Gotham's Future. Corporate Stability & Social Responsibility.
             </p>
         </div>
-        <div class="profile-img w-full md:w-1/2 flex justify-center md:justify-end">
-            <img src="image/profilemain.png" alt="Bruce Wayne" class="h-[600px] md:h-[800px] w-auto object-cover">
+        
+        <!-- 우측: 로고 및 인물 이미지 영역 -->
+        <div class="profile-img-container w-full md:w-1/2 relative flex justify-end items-end h-full">
+            <!-- ubermensch.png: 가운데 우측 배치 (텍스트와 대칭), 인물 이미지 뒤 -->
+            <img src="image/ubermensch.png" alt="Ubermensch Logo" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%] opacity-10 z-0 object-contain pointer-events-none">
+            
+            <!-- profilemain.png: 전면 배치 -->
+            <img src="image/profilemain.png" alt="Bruce Wayne" class="relative z-10 h-[600px] md:h-[800px] w-auto object-cover object-bottom">
         </div>
     </main>
+
+    <footer class="p-10 flex justify-between items-center text-xs text-gray-400 absolute w-full bottom-0 z-20">
+        <span>SCROLL TO DISCOVER</span>
+    </footer>
 </body>
 </html>
