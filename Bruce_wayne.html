@@ -14,9 +14,7 @@
 </head>
 <body class="bg-white text-gray-900 min-h-[300vh]">
 
-    <!-- 헤더 -->
     <header class="fixed top-0 w-full z-[100] py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
-        <!-- 헤더 내용은 동일 -->
         <div class="flex items-center space-x-6">
             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank"><img src="image/kakaologo.png" class="w-8 h-8 opacity-80"></a>
             <nav class="flex space-x-6 uppercase tracking-widest text-xs font-semibold text-gray-300">
@@ -31,13 +29,12 @@
         </nav>
     </header>
 
-    <!-- 배경 이미지 (z-index 수정으로 복구) -->
+    <!-- 배경 레이어: z-index를 최하위로 유지하여 모든 콘텐츠 뒤에 위치 -->
     <div class="fixed inset-0 flex justify-end items-center z-0 pointer-events-none">
         <img src="image/ubermensch.png" class="h-auto w-[60%] opacity-[0.15] object-contain mr-[-5%]">
     </div>
 
-    <!-- 메인 (배경 흰색 유지) -->
-    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element bg-white">
+    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element bg-transparent">
         <div class="z-20 flex flex-col justify-center">
             <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
             <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">[워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]</h2>
@@ -52,7 +49,6 @@
 
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element pointer-events-none"></div>
 
-    <!-- WHO 섹션 (gray-950 적용) -->
     <section id="who" class="relative z-10 min-h-screen pt-[100vh] px-16 flex flex-col items-center justify-center bg-gray-950 text-white">
         <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
@@ -64,7 +60,6 @@
         </div>
     </section>
 
-    <!-- ABOUT 섹션 (화이트 배경으로 복구) -->
     <section id="about" class="relative z-20 min-h-screen pt-20 px-16 flex flex-col items-center justify-center bg-white text-gray-900">
         <h2 class="text-4xl font-bold mb-12">ABOUT</h2>
         <ul class="space-y-6 text-xl">
@@ -75,21 +70,36 @@
         </ul>
     </section>
 
-    <!-- ETC 섹션 (화이트 배경으로 복구) -->
     <section id="etc" class="relative z-30 min-h-screen pt-20 px-16 flex flex-col items-center justify-center bg-white text-gray-900">
         <h2 class="text-4xl font-bold mb-16 serif-font">ETC</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
-            <!-- (이미지 요소 유지) -->
+            <!-- 1. HIStory -->
             <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('HIStory', '상세 내용입니다.')">
                 <img src="image/HIStory.JPG" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
                 <p class="mt-4 font-semibold text-lg">HIStory</p>
                 <hr class="w-full border-gray-300 mt-2">
             </div>
-            <!-- (중략) 동일 구조 유지 -->
+            <!-- 2. Quote -->
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Quote', '상세 내용입니다.')">
+                <img src="image/Quote.jpg" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">Quote</p>
+                <hr class="w-full border-gray-300 mt-2">
+            </div>
+            <!-- 3. dodle -->
+            <a href="https://story.kakao.com/batwayne0503/kZMRDA3ZZaa" target="_blank" class="flex flex-col items-center group">
+                <img src="image/dodle.JPG" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">dodle</p>
+                <hr class="w-full border-gray-300 mt-2">
+            </a>
+            <!-- 4. Inspired -->
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Inspired', '상세 내용입니다.')">
+                <img src="image/inspired.jpg" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">Inspired</p>
+                <hr class="w-full border-gray-300 mt-2">
+            </div>
         </div>
     </section>
 
-    <!-- 팝업 -->
     <div id="popup" class="fixed inset-0 bg-black bg-opacity-80 hidden z-[200] flex items-center justify-center" onclick="closePopup()">
         <div class="bg-gray-800 p-8 rounded-lg max-w-lg w-full text-white border border-gray-700" onclick="event.stopPropagation()">
             <h3 id="popup-title" class="text-2xl font-bold mb-4 text-yellow-500"></h3>
@@ -128,10 +138,6 @@
         } else {
             document.querySelector('.nav-link[data-target="etc"]').classList.add('nav-active');
         }
-    });
-
-    window.addEventListener('load', () => {
-        document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
     });
 </script>
 </body>
