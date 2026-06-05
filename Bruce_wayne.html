@@ -25,7 +25,7 @@
     </header>
 
     <div class="fixed inset-0 flex justify-end items-center z-0 pointer-events-none">
-        <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-[60%] opacity-20 object-contain mr-[-5%]">
+        <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-[60%] opacity-[0.15] object-contain mr-[-5%]">
     </div>
 
     <main id="main-content" class="fixed w-full h-screen flex items-center justify-between px-16 z-20 fade-element">
@@ -46,9 +46,9 @@
             // 스크롤 양에 따라 투명도 조절 (0~300px 기준)
             const opacity = Math.min(scrollY / 300, 1);
             
-            main.style.opacity = 1 - opacity;
+            main.style.opacity = 1 - progress;
             main.style.transform = `translateY(-${opacity * 50}px)`;
-            overlay.style.opacity = opacity;
+            overlay.style.opacity = progress;
         });
     </script>
 </body>
