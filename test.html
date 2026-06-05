@@ -3,54 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>토글 기능 테스트 페이지 (Toggle Test)</title>
-    
+    <title>Bruce Wayne | Digital Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
-        /* 브라우저 기본 화살표(▶)를 제거하고 커스텀 아이콘을 쓰기 위한 호환성 스타일 */
-        details summary {
-            list-style: none;
-        }
-        details summary::-webkit-details-marker {
-            display: none;
-        }
+        /* Serif 폰트와 Sans-serif 혼합 적용 */
+        .font-serif { font-family: 'Times New Roman', serif; }
+        .font-sans { font-family: sans-serif; }
+        
+        /* 커스텀 토글 마커 제거 */
+        details summary { list-style: none; }
+        details summary::-webkit-details-marker { display: none; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased flex items-center justify-center min-h-screen">
+<body class="bg-white text-gray-900">
 
-    <div class="w-full max-w-xl mx-auto px-6 py-8">
-        
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">토글 기능 테스트</h1>
-            <p class="text-sm text-gray-500 mt-2">사용자 경험(User Experience) 개선을 위한 컴포넌트 동작 확인</p>
+    <main class="min-h-screen flex flex-col p-6 md:p-12">
+        <header class="flex justify-between items-center mb-12">
+            <h1 class="text-4xl font-serif">BRUCE WAYNE</h1>
+            <button class="text-sm border border-black px-4 py-1">Return to Main</button>
         </header>
 
-        <main class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            
-            <details class="group border border-gray-200 rounded-xl p-4 transition-all duration-300 open:bg-gray-50 open:border-emerald-500">
-                
-                <summary class="flex justify-between items-center font-medium text-base md:text-lg text-gray-800 cursor-pointer focus:outline-none select-none">
-                    <span>여기를 클릭하여 상세 내용을 확인하세요</span>
-                    
-                    <svg class="w-5 h-5 text-gray-400 transition-transform duration-300 group-open:rotate-180 group-open:text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </summary>
-                
-                <div class="mt-4 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-100 pt-3">
-                    <p>이곳에 숨겨져 있던 텍스트가 나타납니다. 앞서 안내해 드린 <strong>굵은 글씨</strong> 등 다양한 HTML 태그를 이 내부에 자유롭게 사용할 수 있습니다.</p>
-                </div>
-                
-            </details>
-            
-        </main>
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <img src="profilemain.png" alt="Bruce Wayne" class="w-full grayscale">
+            </div>
+            <div class="space-y-6">
+                <h2 class="text-xl font-bold">Power</h2>
+                <p class="leading-relaxed">부, 자산가, 의지, 책임감. <br> (워커홀릭, 부드러운 카리스마, 아이와 동물에 약함)</p>
+            </div>
+        </section>
+    </main>
 
-        <footer class="mt-8 text-center text-xs text-gray-400 font-mono">
-            © 2026 Wayne Enterprises. All rights reserved.
-        </footer>
-        
+    <section class="bg-gray-900 text-white p-12">
+        <h2 class="text-3xl font-serif mb-8">About</h2>
+        <details class="group border-b border-gray-700 py-4">
+            <summary class="flex justify-between items-center cursor-pointer">
+                <span class="text-lg">역극 안내</span>
+                <span class="group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="mt-4 text-gray-400">
+                <p>여기에 브루스 웨인 의장님의 상세 역극 운영 가이드라인이 들어갑니다.</p>
+            </div>
+        </details>
+    </section>
+
+    <section class="p-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="cursor-pointer" onclick="openPopup('Quote.jpg')">
+            <img src="Quote.jpg" class="w-full">
+            <p class="mt-2 text-xs text-center">HISTORY</p>
+        </div>
+        <div class="cursor-pointer" onclick="openPopup('dodle.JPG')">
+            <img src="dodle.JPG" class="w-full">
+            <p class="mt-2 text-xs text-center">Quote</p>
+        </div>
+        <div class="cursor-pointer" onclick="openPopup('HIStory.JPG')">
+            <img src="HIStory.JPG" class="w-full">
+            <p class="mt-2 text-xs text-center">낙서장</p>
+        </div>
+        <div class="cursor-pointer" onclick="openPopup('inspired.jpg')">
+            <img src="inspired.jpg" class="w-full">
+            <p class="mt-2 text-xs text-center">Inspired</p>
+        </div>
+    </section>
+
+    <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-6" onclick="closePopup()">
+        <div class="bg-white p-6 max-w-lg w-full" onclick="event.stopPropagation()">
+            <img id="popupImg" src="" class="w-full mb-4">
+            <p id="popupText" class="text-sm">이미지 기능 설명이 들어갈 자리입니다.</p>
+        </div>
     </div>
 
+    <script>
+        function openPopup(imgName) {
+            document.getElementById('popupImg').src = imgName;
+            document.getElementById('popup').classList.remove('hidden');
+        }
+        function closePopup() { document.getElementById('popup').classList.add('hidden'); }
+    </script>
 </body>
 </html>
