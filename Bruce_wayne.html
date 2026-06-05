@@ -31,26 +31,29 @@
         </nav>
     </header>
 
-    <!-- 배경 이미지: z-0으로 배치 -->
-    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
-        <!-- 이미지가 브라우저 영역을 벗어나지 않도록 하고, opacity를 명확히 줍니다 -->
-        <img src="image/ubermensch.png" class="absolute right-0 top-0 h-full w-auto opacity-[0.15] object-contain" alt="Background">
-    </div>
-
-    <!-- 메인: 배경 흰색 유지 -->
-    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element bg-white">
+    <!-- [메인 콘텐츠: 통합 배경 이미지 적용] -->
+    <main id="main-content" 
+          class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element"
+          style="background-image: url('image/main-background.jpg'); background-size: cover; background-position: center;">
+    
+        <!-- 텍스트 내용: 배경 위에서 가독성 확보 -->
         <div class="z-20 flex flex-col justify-center">
             <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
-            <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">[워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]</h2>
+            <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">
+                [워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]
+            </h2>
+
             <div class="flex gap-4 mt-3 text-sm text-gray-500 font-sans tracking-wide">
                 <span>[190cm]</span> <span>[93kg]</span> <span>[42세]</span> <span>[HL only]</span>
             </div>
         </div>
+
+        <!-- 인물 이미지 (profilemain.png) 유지 -->
         <div class="absolute bottom-0 right-0 w-1/2 flex justify-end">
             <img src="image/profilemain.png" class="h-[85vh] w-auto object-contain">
         </div>
     </main>
-
+    
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element pointer-events-none"></div>
 
     <!-- WHO 섹션: gray-950 적용 -->
