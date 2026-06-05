@@ -6,55 +6,56 @@
     <title>Bruce Wayne | Personal Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media (max-width: 768px) {
-            .main-container { flex-direction: column; text-align: center; }
-            .name-title { font-size: 3rem; white-space: normal; }
-            .profile-img-container { margin-top: 2rem; justify-content: center; }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+        
+        body { font-family: 'Times New Roman', serif; }
+        .nav-font { font-family: serif; }
+        
+        /* 스크롤 애니메이션을 위한 기본 설정 */
+        .fade-in { opacity: 0; transition: opacity 1s ease-in-out; }
+        .visible { opacity: 1; }
     </style>
 </head>
-<body class="bg-white text-gray-900 font-sans h-screen flex flex-col relative overflow-hidden">
+<body class="bg-white text-gray-900 h-screen flex flex-col overflow-x-hidden">
     
- <!-- 상단 헤더 및 좌측 네비게이션 복구 -->
-<header class="bg-gray-950 w-full z-20 shadow-xl py-6">
-    <nav class="flex justify-between items-center uppercase tracking-widest text-xs font-semibold px-8">
-        <!-- 좌측 이름 텍스트 및 로고 복구 -->
-        <div class="flex items-center space-x-8 text-gray-300">
-            <span class="text-white font-bold tracking-tight text-lg">BRUCE WAYNE</span>
-            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" rel="noopener noreferrer">
-                <img src="image/kakaologo.png" alt="Kakao Story" class="w-6 h-6">
-            </a>
-            <a href="#" class="hover:text-white transition-colors">HOME</a>
-            <a href="#" class="hover:text-white transition-colors">WHO</a>
-            <a href="#" class="hover:text-white transition-colors">ABOUT</a>
-            <a href="#" class="hover:text-white transition-colors">ETC</a>
-        </div>
-        <!-- 우측 네비게이션 -->
-        <div class="text-gray-300">
-            <a href="/" title="Return to Main" class="hover:text-white transition-colors flex items-center tracking-widest">
-                <span class="mr-2 text-base leading-none">&larr;</span> RETURN TO MAIN
-            </a>
-        </div>
-    </nav>
-</header>
+    <header class="bg-gray-950 w-full z-20 shadow-xl py-6 fixed top-0">
+        <nav class="flex justify-between items-center uppercase tracking-widest text-xs font-semibold px-8">
+            <div class="flex items-center space-x-8 text-gray-300 nav-font">
+                <span class="text-white font-bold tracking-tight text-lg" style="font-family: 'Times New Roman', serif;">BRUCE WAYNE</span>
+                <a href="#" class="hover:text-white transition-colors">HOME</a>
+                <a href="#" class="hover:text-white transition-colors">WHO</a>
+                <a href="#" class="hover:text-white transition-colors">ABOUT</a>
+                <a href="#" class="hover:text-white transition-colors">ETC</a>
+            </div>
+            <div class="text-gray-300 nav-font">
+                <a href="/" class="hover:text-white transition-colors flex items-center">
+                    <span class="mr-2">&larr;</span> RETURN TO MAIN
+                </a>
+            </div>
+        </nav>
+    </header>
 
-<!-- 메인 콘텐츠 영역 -->
-<main class="w-full relative z-10 min-h-screen bg-transparent">
-    <div class="w-full flex flex-col items-center justify-center pb-12 relative min-h-[600px]">
+    <main class="w-full flex-grow relative mt-20">
         
-        <!-- ÜBERMENSCH 로고 이미지 -->
-        <div class="absolute inset-0 flex items-center justify-center opacity-35 pointer-events-none select-none">
-            <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-auto object-contain">
+        <div class="absolute inset-0 flex justify-end items-center pointer-events-none z-0">
+            <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-1/2 opacity-30 object-contain mr-10">
         </div>
 
-        <!-- 프로필 이미지 -->
-        <div class="relative z-10 mt-4">
-            <img src="image/profilemain.png" alt="Bruce Wayne Profile" class="max-w-xl h-auto object-contain drop-shadow-2xl">
+        <div class="relative z-10 flex items-center justify-center h-full">
+            <img src="image/profilemain.png" alt="Bruce Wayne Profile" class="max-w-xl h-auto drop-shadow-2xl">
         </div>
-    </div>
-</main>
-    <footer class="p-10 flex justify-between items-center text-xs text-gray-400 absolute w-full bottom-0 z-20">
+    </main>
+
+    <footer class="p-10 flex justify-between items-center text-xs text-gray-400 z-20 nav-font">
         <span>SCROLL TO DISCOVER</span>
     </footer>
+
+    <script>
+        // 간단한 스크롤 감지 예시 (추후 애니메이션 확장에 사용)
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            // 이곳에 스크롤 시 발생할 CSS 애니메이션 로직을 추가할 예정입니다.
+        });
+    </script>
 </body>
 </html>
