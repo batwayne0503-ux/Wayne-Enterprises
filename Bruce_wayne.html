@@ -59,7 +59,7 @@
 
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element"></div>
 
-    <section id="who" class="relative z-30 min-h-screen flex flex-col justify-center items-center py-20 px-16 text-white pt-[100vh]">
+    <section id="who" class="relative z-10 min-h-screen bg-gray-900 text-white py-20 px-16">
         <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
             <div class="w-1/2 pl-16">
@@ -74,7 +74,7 @@
         </div>
     </section>
 
-    <section id="about" class="min-h-screen flex flex-col justify-center items-center py-20 px-16 bg-gray-900 text-white">
+    <section id="about" class="relative z-20 min-h-screen bg-gray-900 text-white py-20 px-16">
         <h2 class="text-4xl font-bold mb-12">ABOUT</h2>
         <ul class="space-y-6 text-xl">
             <li class="cursor-pointer hover:text-yellow-500 transition" onclick="openPopup('항목 1', '상세 내용을 입력하세요.')">• 점 목록 1</li>
@@ -93,7 +93,7 @@
     </div>
 
     <!-- [7. ETC 섹션 수정] -->
-    <section id="etc" class="min-h-screen py-32 px-16 bg-white text-gray-900 flex flex-col items-center">
+    <section id="etc" class="relative z-30 min-h-screen bg-white text-gray-900 py-32 px-16">
         <h2 class="text-4xl font-bold mb-16 serif-font">ETC</h2>
     
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
@@ -145,13 +145,17 @@
         const scrollY = window.scrollY;
         const main = document.getElementById('main-content');
         const overlay = document.getElementById('overlay');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        // 1. 메인 페이드아웃 효과 (기존 로직)
+    
+        // progress 계산
         const progress = Math.min(scrollY / 600, 1);
+    
+        // 메인 콘텐츠 투명도 조절
         main.style.opacity = 1 - progress;
         main.style.transform = `translateY(-${progress * 50}px)`;
-        main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
+    
+        // [수정] 메인이 완전히 사라진 상태일 때만 클릭 불가하게 설정
+        main.style.pointerEvents = scrollY > 300 ? 'none' : 'auto';
+    
         overlay.style.opacity = progress * 0.8;
 
         // 2. 메뉴 점등 로직 (스크롤 위치 기반으로 섹션 확장)
