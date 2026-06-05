@@ -15,36 +15,39 @@
 </head>
 <body class="bg-white text-gray-900 font-sans h-screen flex flex-col relative overflow-hidden">
     
- <!-- 상단 헤더 영역 -->
-<div class="bg-gray-950 w-full relative z-20 shadow-xl">
-    <nav class="p-8 flex justify-between items-center uppercase tracking-widest text-xs font-semibold">
+ <!-- 상단 헤더 및 좌측 네비게이션 복구 -->
+<header class="bg-gray-950 w-full z-20 shadow-xl py-6">
+    <nav class="flex justify-between items-center uppercase tracking-widest text-xs font-semibold px-8">
+        <!-- 좌측 이름 텍스트 및 로고 복구 -->
         <div class="flex items-center space-x-8 text-gray-300">
+            <span class="text-white font-bold tracking-tight text-lg">BRUCE WAYNE</span>
             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" rel="noopener noreferrer">
-                <img src="image/kakaologo.png" alt="Kakao Story" class="w-6 h-6 object-contain">
+                <img src="image/kakaologo.png" alt="Kakao Story" class="w-6 h-6">
             </a>
             <a href="#" class="hover:text-white transition-colors">HOME</a>
             <a href="#" class="hover:text-white transition-colors">WHO</a>
             <a href="#" class="hover:text-white transition-colors">ABOUT</a>
             <a href="#" class="hover:text-white transition-colors">ETC</a>
         </div>
+        <!-- 우측 네비게이션 -->
         <div class="text-gray-300">
             <a href="/" title="Return to Main" class="hover:text-white transition-colors flex items-center tracking-widest">
                 <span class="mr-2 text-base leading-none">&larr;</span> RETURN TO MAIN
             </a>
         </div>
     </nav>
-</div>
+</header>
 
-<!-- 메인 콘텐츠 영역: ubermensch.png 및 profilemain.png 적용 -->
+<!-- 메인 콘텐츠 영역 -->
 <main class="w-full relative z-10 min-h-screen bg-transparent">
     <div class="w-full flex flex-col items-center justify-center pb-12 relative min-h-[600px]">
         
-        <!-- ÜBERMENSCH 로고 이미지 적용 -->
+        <!-- ÜBERMENSCH 로고 이미지 -->
         <div class="absolute inset-0 flex items-center justify-center opacity-35 pointer-events-none select-none">
             <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-auto object-contain">
         </div>
 
-        <!-- 프로필 이미지 적용 -->
+        <!-- 프로필 이미지 -->
         <div class="relative z-10 mt-4">
             <img src="image/profilemain.png" alt="Bruce Wayne Profile" class="max-w-xl h-auto object-contain drop-shadow-2xl">
         </div>
