@@ -8,54 +8,53 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
         
-        body { font-family: 'Times New Roman', serif; }
-        .nav-font { font-family: serif; }
-        
-        /* 스크롤 애니메이션을 위한 기본 설정 */
-        .fade-in { opacity: 0; transition: opacity 1s ease-in-out; }
-        .visible { opacity: 1; }
+        .serif-font { font-family: 'Times New Roman', serif; }
+        body { font-family: serif; }
     </style>
 </head>
-<body class="bg-white text-gray-900 h-screen flex flex-col overflow-x-hidden">
+<body class="bg-white text-gray-900 h-screen flex flex-col overflow-hidden">
     
-    <header class="bg-gray-950 w-full z-20 shadow-xl py-6 fixed top-0">
-        <nav class="flex justify-between items-center uppercase tracking-widest text-xs font-semibold px-8">
-            <div class="flex items-center space-x-8 text-gray-300 nav-font">
-                <span class="text-white font-bold tracking-tight text-lg" style="font-family: 'Times New Roman', serif;">BRUCE WAYNE</span>
-                <a href="#" class="hover:text-white transition-colors">HOME</a>
-                <a href="#" class="hover:text-white transition-colors">WHO</a>
-                <a href="#" class="hover:text-white transition-colors">ABOUT</a>
-                <a href="#" class="hover:text-white transition-colors">ETC</a>
-            </div>
-            <div class="text-gray-300 nav-font">
-                <a href="/" class="hover:text-white transition-colors flex items-center">
-                    <span class="mr-2">&larr;</span> RETURN TO MAIN
-                </a>
-            </div>
+    <!-- 수정된 헤더: 카카오 로고와 메뉴 항목들 -->
+    <header class="fixed top-0 w-full z-30 py-6 px-8 flex justify-between items-center">
+        <div class="flex items-center space-x-6">
+            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" rel="noopener noreferrer">
+                <img src="image/kakaologo.png" alt="Kakao Story" class="w-8 h-8 opacity-80 hover:opacity-100 transition-opacity">
+            </a>
+            <nav class="flex space-x-6 uppercase tracking-widest text-xs font-semibold text-gray-500">
+                <a href="#" class="hover:text-black transition-colors">HOME</a>
+                <a href="#" class="hover:text-black transition-colors">WHO</a>
+                <a href="#" class="hover:text-black transition-colors">ABOUT</a>
+                <a href="#" class="hover:text-black transition-colors">ETC</a>
+            </nav>
+        </div>
+        <nav class="uppercase tracking-widest text-xs font-semibold text-gray-500">
+            <a href="/" class="hover:text-black transition-colors flex items-center">
+                <span class="mr-2">&larr;</span> RETURN TO MAIN
+            </a>
         </nav>
     </header>
 
-    <main class="w-full flex-grow relative mt-20">
+    <!-- 메인 콘텐츠 -->
+    <main class="w-full h-screen relative flex items-center justify-between px-16">
         
-        <div class="absolute inset-0 flex justify-end items-center pointer-events-none z-0">
-            <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-1/2 opacity-30 object-contain mr-10">
+        <!-- 좌측: BRUCE WAYNE 텍스트 -->
+        <div class="z-20">
+            <h1 class="serif-font text-7xl font-bold tracking-tighter">BRUCE<br>WAYNE</h1>
         </div>
 
-        <div class="relative z-10 flex items-center justify-center h-full">
-            <img src="image/profilemain.png" alt="Bruce Wayne Profile" class="max-w-xl h-auto drop-shadow-2xl">
+        <!-- 배경: ÜBERMENSCH 로고 -->
+        <div class="absolute inset-0 flex justify-end items-center z-0 pointer-events-none">
+            <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-[60%] opacity-20 object-contain mr-[-5%]">
+        </div>
+
+        <!-- 우측: 프로필 이미지 -->
+        <div class="absolute bottom-0 right-0 z-10 w-1/2 flex justify-end">
+            <img src="image/profilemain.png" alt="Bruce Wayne Profile" class="h-[85vh] w-auto object-contain drop-shadow-2xl">
         </div>
     </main>
 
-    <footer class="p-10 flex justify-between items-center text-xs text-gray-400 z-20 nav-font">
+    <footer class="fixed bottom-10 left-10 z-30 text-xs text-gray-400">
         <span>SCROLL TO DISCOVER</span>
     </footer>
-
-    <script>
-        // 간단한 스크롤 감지 예시 (추후 애니메이션 확장에 사용)
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            // 이곳에 스크롤 시 발생할 CSS 애니메이션 로직을 추가할 예정입니다.
-        });
-    </script>
 </body>
 </html>
