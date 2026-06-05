@@ -34,7 +34,7 @@
 
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element"></div>
 
-    <section id="who" class="relative z-30 min-h-screen flex flex-col justify-center items-center py-20 px-16 mt-[100vh] text-white">
+    <section id="who" class="relative z-30 min-h-screen flex flex-col justify-center items-center py-20 px-16 mt-[100vh] text-white opacity-0 transition-opacity duration-1000">
         <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
             <div class="w-1/2 pl-16">
@@ -56,19 +56,24 @@
         const scrollY = window.scrollY;
         const main = document.getElementById('main-content');
         const overlay = document.getElementById('overlay');
+        const who = document.getElementById('who'); // WHO 섹션 가져오기
         
-        // 0~600px 구간에서 변화 계산
         const progress = Math.min(scrollY / 600, 1);
         
-        // 메인 콘텐츠 시각 효과
+        // 메인 콘텐츠 제어
         main.style.opacity = 1 - progress;
         main.style.transform = `translateY(-${progress * 50}px)`;
-        
-        // 메인 콘텐츠가 완전히 사라지면 상호작용 차단
         main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
         
-        // 오버레이 배경 투명도 (배경 로고가 은은하게 비치도록 0.8 제한)
+        // 오버레이 제어
         overlay.style.opacity = progress * 0.8;
+
+        // [추가] WHO 섹션 등장 제어: 스크롤이 어느 정도 진행되면 서서히 나타남
+        if (progress > 0.5) {
+            who.style.opacity = (progress - 0.5) * 2; 
+        } else {
+            who.style.opacity = 0;
+        }
     });
 </script>
 </body>
