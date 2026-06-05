@@ -15,24 +15,18 @@
 </head>
 <body class="bg-white text-gray-900 font-sans h-screen flex flex-col relative overflow-hidden">
     
-  <!-- 상단 바 전체를 bg-gray-950 박스로 묶어 영역 구분 -->
+ <!-- 상단 헤더 영역 -->
 <div class="bg-gray-950 w-full relative z-20 shadow-xl">
-    
-    <!-- 네비게이션: RETURN TO MAIN을 우측 끝에 독점 배치 -->
     <nav class="p-8 flex justify-between items-center uppercase tracking-widest text-xs font-semibold">
-        
-        <!-- [좌측 영역]: 카카오 로고(6x6 확대) + 메인 메뉴 그룹 -->
         <div class="flex items-center space-x-8 text-gray-300">
-            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" rel="noopener noreferrer" class="hover:opacity-70 transition-opacity">
+            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank" rel="noopener noreferrer">
                 <img src="image/kakaologo.png" alt="Kakao Story" class="w-6 h-6 object-contain">
             </a>
             <a href="#" class="hover:text-white transition-colors">HOME</a>
             <a href="#" class="hover:text-white transition-colors">WHO</a>
-            <a href="#" class="hover:text-gray-400 transition-colors">ABOUT</a>
-            <a href="#" class="hover:text-gray-400 transition-colors">ETC</a>
+            <a href="#" class="hover:text-white transition-colors">ABOUT</a>
+            <a href="#" class="hover:text-white transition-colors">ETC</a>
         </div>
-        
-        <!-- [우측 영역]: 좌측 화살표 적용 -->
         <div class="text-gray-300">
             <a href="/" title="Return to Main" class="hover:text-white transition-colors flex items-center tracking-widest">
                 <span class="mr-2 text-base leading-none">&larr;</span> RETURN TO MAIN
@@ -41,20 +35,19 @@
     </nav>
 </div>
 
-<!-- [메인 콘텐츠]: 의장님이 추가하신 main 태그 구조 반영 -->
+<!-- 메인 콘텐츠 영역: ubermensch.png 및 profilemain.png 적용 -->
 <main class="w-full relative z-10 min-h-screen bg-transparent">
     <div class="w-full flex flex-col items-center justify-center pb-12 relative min-h-[600px]">
         
-        <!-- 초인 로고: 투명도 35%로 조정 -->
+        <!-- ÜBERMENSCH 로고 이미지 적용 -->
         <div class="absolute inset-0 flex items-center justify-center opacity-35 pointer-events-none select-none">
-            <span class="text-[12rem] font-black tracking-tighter text-gray-800">ÜBERMENSCH</span>
+            <img src="image/ubermensch.png" alt="ÜBERMENSCH Logo" class="h-auto w-auto object-contain">
         </div>
 
-        <!-- Profilemain.png: 사이즈 확대 적용 -->
+        <!-- 프로필 이미지 적용 -->
         <div class="relative z-10 mt-4">
-            <img src="image/Profilemain.png" alt="Bruce Wayne Profile" class="max-w-xl h-auto object-contain drop-shadow-2xl transition-all duration-300">
+            <img src="image/profilemain.png" alt="Bruce Wayne Profile" class="max-w-xl h-auto object-contain drop-shadow-2xl">
         </div>
-        
     </div>
 </main>
     <footer class="p-10 flex justify-between items-center text-xs text-gray-400 absolute w-full bottom-0 z-20">
