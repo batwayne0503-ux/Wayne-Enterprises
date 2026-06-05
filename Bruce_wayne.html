@@ -7,19 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .serif-font { font-family: 'Times New Roman', serif; }
-        body { font-family: serif; }
+        body { font-family: serif; background-color: #030712; color: #ffffff; }
         .fade-element { transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        
-        /* [중요] 여기에 CSS 클래스를 위치시켜야 적용됩니다 */
-        .nav-active { 
-            color: #FACC15 !important; 
-            transition: color 0.3s ease;
-        }
+        .nav-active { color: #FACC15 !important; transition: color 0.3s ease; }
     </style>
 </head>
-<body class="bg-white text-gray-900 min-h-[300vh]">
+<body class="bg-gray-950 text-white min-h-[300vh]">
 
-    <header class="fixed top-0 w-full z-50 py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
+    <!-- [1. 헤더] -->
+    <header class="fixed top-0 w-full z-[100] py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
         <div class="flex items-center space-x-6">
             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank"><img src="image/kakaologo.png" class="w-8 h-8 opacity-80"></a>
             <nav class="flex space-x-6 uppercase tracking-widest text-xs font-semibold text-gray-300">
@@ -34,22 +30,13 @@
         </nav>
     </header>
 
-    <div class="fixed inset-0 flex justify-end items-center z-0 pointer-events-none">
-        <img src="image/ubermensch.png" class="h-auto w-[60%] opacity-[0.15] object-contain mr-[-5%]">
-    </div>
-
-    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element">
+    <!-- [2. 메인] -->
+    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-50 bg-gray-950 fade-element">
         <div class="z-20 flex flex-col justify-center">
             <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
-            <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">
-                [워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]
-            </h2>
-
+            <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">[워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]</h2>
             <div class="flex gap-4 mt-3 text-sm text-gray-500 font-sans tracking-wide">
-                <span>[190cm]</span>
-                <span>[93kg]</span>
-                <span>[42세]</span>
-                <span>[HL only]</span>
+                <span>[190cm]</span> <span>[93kg]</span> <span>[42세]</span> <span>[HL only]</span>
             </div>
         </div>
         <div class="absolute bottom-0 right-0 w-1/2 flex justify-end">
@@ -57,24 +44,22 @@
         </div>
     </main>
 
-    <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element"></div>
+    <div id="overlay" class="fixed inset-0 bg-gray-950 z-40 opacity-0 fade-element pointer-events-none"></div>
 
-    <section id="who" class="relative z-10 min-h-screen bg-gray-900 text-white py-20 px-16">
+    <!-- [3. WHO 섹션] -->
+    <section id="who" class="relative z-10 min-h-screen pt-[100vh] px-16 flex flex-col items-center justify-center bg-gray-950 text-white">
         <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
-            <div class="w-1/2 pl-16">
-                <p class="text-lg leading-relaxed text-gray-300">이곳에 1사분면 내용을 작성하세요.</p>
-            </div>
+            <div class="w-1/2 pl-16"><p class="text-lg leading-relaxed text-gray-300">이곳에 1사분면 내용을 작성하세요.</p></div>
         </div>
         <div class="flex flex-row-reverse items-center justify-between w-full max-w-6xl">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
-            <div class="w-1/2 pr-16">
-                <p class="text-lg leading-relaxed text-gray-300">이곳에 3사분면 내용을 작성하세요.</p>
-            </div>
+            <div class="w-1/2 pr-16"><p class="text-lg leading-relaxed text-gray-300">이곳에 3사분면 내용을 작성하세요.</p></div>
         </div>
     </section>
 
-    <section id="about" class="relative z-20 min-h-screen bg-gray-900 text-white py-20 px-16">
+    <!-- [4. ABOUT 섹션] -->
+    <section id="about" class="relative z-20 min-h-screen pt-20 px-16 flex flex-col items-center justify-center bg-gray-950 text-white">
         <h2 class="text-4xl font-bold mb-12">ABOUT</h2>
         <ul class="space-y-6 text-xl">
             <li class="cursor-pointer hover:text-yellow-500 transition" onclick="openPopup('항목 1', '상세 내용을 입력하세요.')">• 점 목록 1</li>
@@ -84,7 +69,35 @@
         </ul>
     </section>
 
-    <div id="popup" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center" onclick="closePopup()">
+    <!-- [5. ETC 섹션] -->
+    <section id="etc" class="relative z-30 min-h-screen pt-20 px-16 flex flex-col items-center justify-center bg-gray-950 text-white">
+        <h2 class="text-4xl font-bold mb-16 serif-font">ETC</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('HIStory', '상세 내용입니다.')">
+                <img src="image/HIStory.JPG" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">HIStory</p>
+                <hr class="w-full border-gray-600 mt-2">
+            </div>
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Quote', '상세 내용입니다.')">
+                <img src="image/Quote.jpg" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">Quote</p>
+                <hr class="w-full border-gray-600 mt-2">
+            </div>
+            <a href="https://story.kakao.com/batwayne0503/kZMRDA3ZZaa" target="_blank" class="flex flex-col items-center group">
+                <img src="image/dodle.JPG" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">dodle</p>
+                <hr class="w-full border-gray-600 mt-2">
+            </a>
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Inspired', '상세 내용입니다.')">
+                <img src="image/inspired.jpg" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
+                <p class="mt-4 font-semibold text-lg">Inspired</p>
+                <hr class="w-full border-gray-600 mt-2">
+            </div>
+        </div>
+    </section>
+
+    <!-- 팝업 -->
+    <div id="popup" class="fixed inset-0 bg-black bg-opacity-80 hidden z-[200] flex items-center justify-center" onclick="closePopup()">
         <div class="bg-gray-800 p-8 rounded-lg max-w-lg w-full text-white border border-gray-700" onclick="event.stopPropagation()">
             <h3 id="popup-title" class="text-2xl font-bold mb-4 text-yellow-500"></h3>
             <p id="popup-desc" class="text-gray-200"></p>
@@ -92,88 +105,38 @@
         </div>
     </div>
 
-    <!-- [7. ETC 섹션 수정] -->
-    <section id="etc" class="relative z-30 min-h-screen bg-white text-gray-900 py-32 px-16">
-        <h2 class="text-4xl font-bold mb-16 serif-font">ETC</h2>
-    
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
-        
-            <!-- 1. HIStory -->
-            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('HIStory', '상세 내용입니다.')">
-                <img src="image/HIStory.JPG" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
-                <p class="mt-4 font-semibold text-lg">HIStory</p>
-                <hr class="w-full border-gray-300 mt-2">
-            </div>
-
-            <!-- 2. Quote -->
-            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Quote', '상세 내용입니다.')">
-                <img src="image/Quote.jpg" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
-                <p class="mt-4 font-semibold text-lg">Quote</p>
-                <hr class="w-full border-gray-300 mt-2">
-            </div>
-
-            <!-- 3. dodle (카카오스토리 링크) -->
-            <a href="https://story.kakao.com/batwayne0503/kZMRDA3ZZaa" target="_blank" class="flex flex-col items-center group">
-                <img src="image/dodle.JPG" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
-                <p class="mt-4 font-semibold text-lg">dodle</p>
-                <hr class="w-full border-gray-300 mt-2">
-            </a>
-
-            <!-- 4. inspired -->
-            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Inspired', '상세 내용입니다.')">
-                <img src="image/inspired.jpg" class="w-full aspect-square object-cover shadow-lg hover:opacity-80 transition">
-                <p class="mt-4 font-semibold text-lg">Inspired</p>
-                <hr class="w-full border-gray-300 mt-2">
-            </div>
-        
-        </div>
-    </section>
-
 <script>
-    // 팝업 열기/닫기 함수
+    const navLinks = document.querySelectorAll('.nav-link');
     function openPopup(title, desc) {
         document.getElementById('popup-title').innerText = title;
         document.getElementById('popup-desc').innerText = desc;
         document.getElementById('popup').classList.remove('hidden');
     }
-    function closePopup() {
-        document.getElementById('popup').classList.add('hidden');
-    }
+    function closePopup() { document.getElementById('popup').classList.add('hidden'); }
 
-    // 스크롤 및 메뉴 제어
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         const main = document.getElementById('main-content');
         const overlay = document.getElementById('overlay');
-    
-        // progress 계산
         const progress = Math.min(scrollY / 600, 1);
-    
-        // 메인 콘텐츠 투명도 조절
+        
         main.style.opacity = 1 - progress;
         main.style.transform = `translateY(-${progress * 50}px)`;
-    
-        // [수정] 메인이 완전히 사라진 상태일 때만 클릭 불가하게 설정
         main.style.pointerEvents = scrollY > 300 ? 'none' : 'auto';
-    
         overlay.style.opacity = progress * 0.8;
 
-        // 2. 메뉴 점등 로직 (스크롤 위치 기반으로 섹션 확장)
         navLinks.forEach(link => link.classList.remove('nav-active'));
-        
-        // [스크립트의 메뉴 점등 로직 수정]
         if (scrollY < 500) {
             document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
         } else if (scrollY >= 500 && scrollY < 1300) {
             document.querySelector('.nav-link[data-target="who"]').classList.add('nav-active');
         } else if (scrollY >= 1300 && scrollY < 2100) {
             document.querySelector('.nav-link[data-target="about"]').classList.add('nav-active');
-        } else { // 2100 이상이면 ETC 구간
+        } else {
             document.querySelector('.nav-link[data-target="etc"]').classList.add('nav-active');
         }
     });
 
-    // 초기 로드 시 HOME 메뉴 활성화
     window.addEventListener('load', () => {
         document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
     });
