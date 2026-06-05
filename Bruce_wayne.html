@@ -8,11 +8,12 @@
     <style>
         .serif-font { font-family: 'Times New Roman', serif; }
         body { font-family: serif; }
-        /* 스크롤 시 부드러운 전환을 위한 클래스 */
         .fade-element { transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
     </style>
 </head>
-<body class="bg-white text-gray-900 min-h-[200vh]"> <header class="fixed top-0 w-full z-50 py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
+<body class="bg-white text-gray-900 min-h-[200vh]"> 
+    
+    <header class="fixed top-0 w-full z-50 py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
         <div class="flex items-center space-x-6">
             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank"><img src="image/kakaologo.png" class="w-8 h-8 opacity-80"></a>
             <nav class="flex space-x-6 uppercase tracking-widest text-xs font-semibold text-gray-300">
@@ -43,11 +44,11 @@
             const main = document.getElementById('main-content');
             const overlay = document.getElementById('overlay');
             
-            // 스크롤 양에 따라 투명도 조절 (0~300px 기준)
-            const opacity = Math.min(scrollY / 300, 1);
+            // 0~300px 스크롤 범위 내에서 투명도와 위치 변화
+            const progress = Math.min(scrollY / 300, 1);
             
             main.style.opacity = 1 - progress;
-            main.style.transform = `translateY(-${opacity * 50}px)`;
+            main.style.transform = `translateY(-${progress * 50}px)`;
             overlay.style.opacity = progress;
         });
     </script>
