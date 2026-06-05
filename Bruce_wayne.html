@@ -4,49 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bruce Wayne | Personal Profile</title>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-YOUR_MEASUREMENT_ID');
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        details summary { list-style: none; }
-        details summary::-webkit-details-marker { display: none; }
-    </style>
-</head>
-<body class="bg-gray-950 text-white font-sans h-screen flex flex-col">
-    
-    <nav class="p-8 flex justify-between uppercase tracking-widest text-xs">
-        <span>Wayne Enterprises</span>
+    /* 모바일 대응을 위한 미디어 쿼리 */
+    @media (max-width: 768px) {
+        .main-container { flex-direction: column; text-align: center; }
+        .name-title { font-size: 3rem; white-space: normal; }
+        .profile-img { h-[400px]; margin-top: 2rem; opacity: 0.8; }
+    }
+</style>
+
+<body class="bg-white text-gray-900 font-sans h-screen flex flex-col relative overflow-hidden">
+    <!-- 배경 이미지: ubermensch.png (고정) -->
+    <div class="absolute inset-0 z-0 opacity-10 bg-ubermensch" style="background-image: url('image/ubermensch.png'); background-size: cover;"></div>
+
+    <!-- 네비게이션 -->
+    <nav class="p-8 flex justify-between items-center uppercase tracking-widest text-xs font-semibold relative z-20">
+        <span>WAYNE ENTERPRISES</span>
         <div class="space-x-8">
-            <a href="#">Home</a>
-            <a href="#">Movie</a> <a href="#">About</a>
+            <a href="#">HOME</a>
+            <a href="#">MOVIE</a>
+            <a href="#">ABOUT</a>
         </div>
     </nav>
 
-    <main class="flex-grow flex items-center px-20">
-        <div class="w-1/2">
-            <h1 class="text-8xl font-serif font-bold uppercase">Bruce<br>Wayne</h1>
-            <p class="mt-8 text-gray-400 max-w-sm">Strategic Visionary. The Guardian of Gotham's Future. Corporate Stability & Social Responsibility.</p>
+    <!-- 메인 컨텐츠: 반응형 Flexbox 적용 -->
+    <main class="main-container flex-grow flex items-center px-10 relative z-10">
+        <div class="w-full md:w-1/2">
+            <h1 class="name-title text-8xl font-serif font-bold uppercase whitespace-nowrap">BRUCE WAYNE</h1>
+            <p class="mt-8 text-gray-600 max-w-sm leading-relaxed mx-auto md:mx-0">
+                Strategic Visionary. The Guardian of Gotham's Future. Corporate Stability & Social Responsibility.
+            </p>
         </div>
-        <div class="w-1/2 flex justify-end">
-            <img src="image/profilemain.png" class="h-[600px] object-cover grayscale contrast-125">
+        <div class="profile-img w-full md:w-1/2 flex justify-center md:justify-end">
+            <img src="image/profilemain.png" alt="Bruce Wayne" class="h-[600px] md:h-[800px] w-auto object-cover">
         </div>
     </main>
-
-    <footer class="p-10 flex justify-between items-center text-xs text-gray-500">
-        <span>SCROLL TO DISCOVER</span>
-        <div class="flex space-x-2">
-            <span class="w-2 h-2 rounded-full bg-white"></span>
-            <span class="w-2 h-2 rounded-full bg-gray-700"></span>
-            <span class="w-2 h-2 rounded-full bg-gray-700"></span>
-        </div>
-    </footer>
-
 </body>
 </html>
