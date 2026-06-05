@@ -94,9 +94,16 @@
                     if (activeLink) activeLink.classList.add('nav-active');
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.8 }); // 0.8로 상향 조정
 
+        // 관찰 시작
         sections.forEach(section => observer.observe(section));
+
+        // [여기에 추가] 첫 로딩 시 강제 세팅
+        window.addEventListener('load', () => {
+            navLinks.forEach(link => link.classList.remove('nav-active'));
+            document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
+        });
     </script>
 </body>
 </html>
