@@ -44,12 +44,16 @@
             const main = document.getElementById('main-content');
             const overlay = document.getElementById('overlay');
             
-            // 0~300px 스크롤 범위 내에서 투명도와 위치 변화
-            const progress = Math.min(scrollY / 300, 1);
+            // 1. 변화 범위를 600px로 늘려서 반응 속도를 늦춤 (6번 스크롤 대응)
+            const progress = Math.min(scrollY / 600, 1);
             
+            // 2. 전경(이름/사진)은 100% 사라짐
             main.style.opacity = 1 - progress;
             main.style.transform = `translateY(-${progress * 50}px)`;
-            overlay.style.opacity = progress;
+            
+            // 3. 오버레이 배경 투명도 제한: 1(완전 검정)이 아닌 0.8 정도로 설정
+            // 이렇게 하면 뒤의 로고가 0.15 * 0.2 = 0.03 정도로 은은하게 계속 비침
+            overlay.style.opacity = progress * 0.8;
         });
     </script>
 </body>
