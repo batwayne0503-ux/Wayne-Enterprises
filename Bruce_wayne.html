@@ -7,12 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .serif-font { font-family: 'Times New Roman', serif; }
+        /* body 배경을 흰색으로 고정하여 메인 페이지와 통일 */
         body { font-family: serif; background-color: #ffffff; color: #111827; }
         .fade-element { transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .nav-active { color: #FACC15 !important; transition: color 0.3s ease; }
     </style>
 </head>
-<body class="bg-white text-gray-900 min-h-[300vh]">
+<body class="min-h-[300vh]">
 
     <header class="fixed top-0 w-full z-[100] py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
         <div class="flex items-center space-x-6">
@@ -29,7 +30,7 @@
         </nav>
     </header>
 
-    <!-- 배경 레이어: z-index를 최하위로 유지하여 모든 콘텐츠 뒤에 위치 -->
+   <!-- [2. 배경 이미지] -->
     <div class="fixed inset-0 flex justify-end items-center z-0 pointer-events-none">
         <img src="image/ubermensch.png" class="h-auto w-[60%] opacity-[0.15] object-contain mr-[-5%]">
     </div>
