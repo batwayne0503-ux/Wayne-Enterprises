@@ -13,7 +13,7 @@
 </head>
 <body class="bg-white text-gray-900 min-h-[300vh]">
 
-    <!-- [1. 절대 고정 헤더: 스크립트가 절대 건드리지 않음] -->
+    <!-- [1. 고정 헤더] -->
     <header class="fixed top-0 w-full z-50 py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
         <div class="flex items-center space-x-6">
             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank"><img src="image/kakaologo.png" class="w-8 h-8 opacity-80"></a>
@@ -26,12 +26,13 @@
         </nav>
     </header>
 
-    <!-- [2. 배경 및 콘텐츠] -->
+    <!-- [2. 고정 배경 로고] -->
     <div class="fixed inset-0 flex justify-end items-center z-0 pointer-events-none">
         <img src="image/ubermensch.png" class="h-auto w-[60%] opacity-[0.15] object-contain mr-[-5%]">
     </div>
 
-    <main id="main-content" class="fixed w-full h-screen flex items-center justify-between px-16 z-20 fade-element">
+    <!-- [3. 메인 콘텐츠] -->
+    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element">
         <div class="z-20 flex flex-col justify-center">
             <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
             <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">
@@ -43,10 +44,11 @@
         </div>
     </main>
 
+    <!-- [4. 오버레이] -->
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element"></div>
 
-    <!-- [3. WHO 섹션] -->
-    <section id="who" class="relative z-30 min-h-screen flex flex-col justify-center items-center py-20 px-16 mt-[100vh] text-white">
+    <!-- [5. WHO 섹션] -->
+    <section id="who" class="relative z-30 min-h-screen flex flex-col justify-center items-center py-20 px-16 text-white pt-[100vh]">
         <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
             <div class="w-1/2 pl-16">
@@ -61,7 +63,7 @@
         </div>
     </section>
 
-    <!-- [4. 스크립트: 메인만 제어] -->
+    <!-- [6. 스크립트] -->
     <script>
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
@@ -70,7 +72,6 @@
         
         const progress = Math.min(scrollY / 600, 1);
         
-        // 메인 콘텐츠 제어 (헤더는 전혀 건드리지 않음)
         main.style.opacity = 1 - progress;
         main.style.transform = `translateY(-${progress * 50}px)`;
         main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
