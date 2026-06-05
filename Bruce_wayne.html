@@ -67,29 +67,57 @@
         </div>
     </section>
 
-    <script>
+    <section id="about" class="min-h-screen flex flex-col justify-center items-center py-20 px-16 bg-white text-gray-900">
+        <h2 class="text-4xl font-bold mb-12">ABOUT</h2>
+        <ul class="space-y-6 text-xl">
+            <li class="cursor-pointer hover:text-yellow-600 transition" onclick="openPopup('설명 1', '여기에 첫 번째 상세 내용을 작성하세요.')">• 점 목록 1</li>
+            <li class="cursor-pointer hover:text-yellow-600 transition" onclick="openPopup('설명 2', '여기에 두 번째 상세 내용을 작성하세요.')">• 점 목록 2</li>
+            <li class="cursor-pointer hover:text-yellow-600 transition" onclick="openPopup('설명 3', '여기에 세 번째 상세 내용을 작성하세요.')">• 점 목록 3</li>
+        </ul>
+    </section>
+
+    <div id="popup" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center" onclick="closePopup()">
+        <div class="bg-white p-8 rounded-lg max-w-lg w-full" onclick="event.stopPropagation()">
+            <h3 id="popup-title" class="text-2xl font-bold mb-4"></h3>
+            <p id="popup-desc"></p>
+            <button class="mt-6 text-sm underline" onclick="closePopup()">닫기</button>
+    </div>
+</div>
+
+<script>
+    // 팝업 열기/닫기 함수
+    function openPopup(title, desc) {
+        document.getElementById('popup-title').innerText = title;
+        document.getElementById('popup-desc').innerText = desc;
+        document.getElementById('popup').classList.remove('hidden');
+    }
+    function closePopup() {
+        document.getElementById('popup').classList.add('hidden');
+    }
+
+    // 스크롤 및 메뉴 제어
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         const main = document.getElementById('main-content');
         const overlay = document.getElementById('overlay');
         const navLinks = document.querySelectorAll('.nav-link');
         
-        // 1. 메인 페이드아웃 효과
+        // 1. 메인 페이드아웃 효과 (기존 로직)
         const progress = Math.min(scrollY / 600, 1);
         main.style.opacity = 1 - progress;
         main.style.transform = `translateY(-${progress * 50}px)`;
         main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
         overlay.style.opacity = progress * 0.8;
 
-        // 2. 메뉴 점등 로직 (스크롤 위치 기반)
-        // 기존 active 클래스 제거
+        // 2. 메뉴 점등 로직 (스크롤 위치 기반으로 섹션 확장)
         navLinks.forEach(link => link.classList.remove('nav-active'));
         
-        // 스크롤 위치에 따른 메뉴 활성화
         if (scrollY < 500) {
             document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
-        } else if (scrollY >= 500) {
+        } else if (scrollY >= 500 && scrollY < 1500) { // WHO 섹션 구간
             document.querySelector('.nav-link[data-target="who"]').classList.add('nav-active');
+        } else { // 1500 이상이면 ABOUT 섹션 구간
+            document.querySelector('.nav-link[data-target="about"]').classList.add('nav-active');
         }
     });
 
