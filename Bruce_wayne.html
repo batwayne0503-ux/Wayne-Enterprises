@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +9,21 @@
         .serif-font { font-family: 'Times New Roman', serif; }
         body { font-family: serif; }
         .fade-element { transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        
+        /* [중요] 여기에 CSS 클래스를 위치시켜야 적용됩니다 */
+        .nav-active { 
+            color: #FACC15 !important; 
+            transition: color 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-900 min-h-[300vh]">
 
-    <!-- [1. 고정 헤더] -->
     <header class="fixed top-0 w-full z-50 py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
         <div class="flex items-center space-x-6">
             <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank"><img src="image/kakaologo.png" class="w-8 h-8 opacity-80"></a>
             <nav class="flex space-x-6 uppercase tracking-widest text-xs font-semibold text-gray-300">
-                <a href="#home" class="nav-link" data-target="home">HOME</a>
+                <a href="#main-content" class="nav-link" data-target="main-content">HOME</a>
                 <a href="#who" class="nav-link" data-target="who">WHO</a>
                 <a href="#about" class="nav-link" data-target="about">ABOUT</a>
                 <a href="#etc" class="nav-link" data-target="etc">ETC</a>
@@ -29,12 +34,10 @@
         </nav>
     </header>
 
-    <!-- [2. 고정 배경 로고] -->
     <div class="fixed inset-0 flex justify-end items-center z-0 pointer-events-none">
         <img src="image/ubermensch.png" class="h-auto w-[60%] opacity-[0.15] object-contain mr-[-5%]">
     </div>
 
-    <!-- [3. 메인 콘텐츠] -->
     <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element">
         <div class="z-20 flex flex-col justify-center">
             <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
@@ -47,10 +50,8 @@
         </div>
     </main>
 
-    <!-- [4. 오버레이] -->
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element"></div>
 
-    <!-- [5. WHO 섹션] -->
     <section id="who" class="relative z-30 min-h-screen flex flex-col justify-center items-center py-20 px-16 text-white pt-[100vh]">
         <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
@@ -66,49 +67,36 @@
         </div>
     </section>
 
-    <!-- [6. 스크립트] -->
     <script>
-        /* 메뉴 활성화 스타일 */
-        .nav-active { 
-            color: #FACC15 !important; 
-            transition: color 0.3s ease;
-        }
+        // 스크롤 시 메인 페이드아웃 효과
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const main = document.getElementById('main-content');
             const overlay = document.getElementById('overlay');
-        
             const progress = Math.min(scrollY / 600, 1);
-        
+            
             main.style.opacity = 1 - progress;
             main.style.transform = `translateY(-${progress * 50}px)`;
             main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
             overlay.style.opacity = progress * 0.8;
         });
-        // 기존 스크롤 이벤트 아래에 추가
-        const sections = document.querySelectorAll('section, main');
+
+        // 메뉴 점등 로직
+        const sections = document.querySelectorAll('main, section');
         const navLinks = document.querySelectorAll('.nav-link');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // 1. 모든 메뉴에서 active 클래스 제거
                     navLinks.forEach(link => link.classList.remove('nav-active'));
-                
-                    // 2. 현재 화면에 보이는 섹션 ID 가져오기
                     const id = entry.target.getAttribute('id');
-                
-                    // 3. 해당 ID와 일치하는 메뉴에만 active 클래스 추가
                     const activeLink = document.querySelector(`.nav-link[data-target="${id}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('nav-active');
-                    }
+                    if (activeLink) activeLink.classList.add('nav-active');
                 }
             });
-    }, { threshold: 0.6 }); // 섹션이 60% 정도 보일 때 점등
+        }, { threshold: 0.6 });
 
-    // 관찰 시작
-    sections.forEach(section => observer.observe(section));
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
