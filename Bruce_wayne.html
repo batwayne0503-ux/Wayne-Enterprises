@@ -68,42 +68,35 @@
     </section>
 
     <script>
-        // 스크롤 시 메인 페이드아웃 효과
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const main = document.getElementById('main-content');
-            const overlay = document.getElementById('overlay');
-            const progress = Math.min(scrollY / 600, 1);
-            
-            main.style.opacity = 1 - progress;
-            main.style.transform = `translateY(-${progress * 50}px)`;
-            main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
-            overlay.style.opacity = progress * 0.8;
-        });
-
-        // 메뉴 점등 로직
-        const sections = document.querySelectorAll('main, section');
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const main = document.getElementById('main-content');
+        const overlay = document.getElementById('overlay');
         const navLinks = document.querySelectorAll('.nav-link');
+        
+        // 1. 메인 페이드아웃 효과
+        const progress = Math.min(scrollY / 600, 1);
+        main.style.opacity = 1 - progress;
+        main.style.transform = `translateY(-${progress * 50}px)`;
+        main.style.pointerEvents = progress >= 1 ? 'none' : 'auto';
+        overlay.style.opacity = progress * 0.8;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => link.classList.remove('nav-active'));
-                    const id = entry.target.getAttribute('id');
-                    const activeLink = document.querySelector(`.nav-link[data-target="${id}"]`);
-                    if (activeLink) activeLink.classList.add('nav-active');
-                }
-            });
-        }, { threshold: 0.8 }); // 0.8로 상향 조정
-
-        // 관찰 시작
-        sections.forEach(section => observer.observe(section));
-
-        // [여기에 추가] 첫 로딩 시 강제 세팅
-        window.addEventListener('load', () => {
-            navLinks.forEach(link => link.classList.remove('nav-active'));
+        // 2. 메뉴 점등 로직 (스크롤 위치 기반)
+        // 기존 active 클래스 제거
+        navLinks.forEach(link => link.classList.remove('nav-active'));
+        
+        // 스크롤 위치에 따른 메뉴 활성화
+        if (scrollY < 500) {
             document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
-        });
-    </script>
+        } else if (scrollY >= 500) {
+            document.querySelector('.nav-link[data-target="who"]').classList.add('nav-active');
+        }
+    });
+
+    // 초기 로드 시 HOME 메뉴 활성화
+    window.addEventListener('load', () => {
+        document.querySelector('.nav-link[data-target="main-content"]').classList.add('nav-active');
+    });
+</script>
 </body>
 </html>
