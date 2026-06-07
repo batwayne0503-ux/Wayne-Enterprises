@@ -78,34 +78,41 @@
         </div>
     </section>
 
-    <script>
-        const navLinks = document.querySelectorAll('.nav-link');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const main = document.getElementById('main-content');
-            const overlay = document.getElementById('overlay');
-            const progress = Math.min(scrollY / 600, 1);
+<script>
+    const navLinks = document.querySelectorAll('.nav-link');
 
-            // [핵심] 점등 타이밍 구간 확대
-            navLinks.forEach(link => link.classList.remove('nav-active'));
-            if (scrollY < 400) document.querySelector('[data-target="main-content"]').classList.add('nav-active');
-            // WHO 구간을 400 ~ 2000으로 대폭 확대하여 점등이 유지되게 함
-            else if (scrollY < 2000) document.querySelector('[data-target="who"]').classList.add('nav-active');
-            else if (scrollY < 2800) document.querySelector('[data-target="about"]').classList.add('nav-active');
-            else document.querySelector('[data-target="etc"]').classList.add('nav-active');
-            });
-            
-            // 애니메이션 적용
-            main.style.opacity = 1 - progress;
-            main.style.transform = `translateY(-${progress * 50}px)`;
-            overlay.style.opacity = progress * 0.8;
-            
-            navLinks.forEach(link => link.classList.remove('nav-active'));
-            if (scrollY < 500) document.querySelector('[data-target="main-content"]').classList.add('nav-active');
-            else if (scrollY < 1300) document.querySelector('[data-target="who"]').classList.add('nav-active');
-            else if (scrollY < 2100) document.querySelector('[data-target="about"]').classList.add('nav-active');
-            else document.querySelector('[data-target="etc"]').classList.add('nav-active');
-        });
-    </script>
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const main = document.getElementById('main-content');
+        const overlay = document.getElementById('overlay');
+        
+        // 1. 애니메이션 로직
+        const progress = Math.min(scrollY / 600, 1);
+        main.style.opacity = 1 - progress;
+        main.style.transform = `translateY(-${progress * 50}px)`;
+        main.style.pointerEvents = scrollY > 400 ? 'none' : 'auto';
+        overlay.style.opacity = progress * 0.8;
+
+        // 2. 메뉴 점등 로직 (중복 제거 후 하나로 통합)
+        navLinks.forEach(link => link.classList.remove('nav-active'));
+        
+        if (scrollY < 600) {
+            document.querySelector('[data-target="main-content"]').classList.add('nav-active');
+        } else if (scrollY < 1800) { // WHO 구간 (충분히 넓게 확보)
+            document.querySelector('[data-target="who"]').classList.add('nav-active');
+        } else if (scrollY < 2600) { // ABOUT 구간
+            document.querySelector('[data-target="about"]').classList.add('nav-active');
+        } else { // ETC 구간
+            document.querySelector('[data-target="etc"]').classList.add('nav-active');
+        }
+    });
+
+    function openPopup(title, desc) {
+        document.getElementById('popup-title').innerText = title;
+        document.getElementById('popup-desc').innerText = desc;
+        document.getElementById('popup').classList.remove('hidden');
+    }
+    function closePopup() { document.getElementById('popup').classList.add('hidden'); }
+</script>
 </body>
 </html>
