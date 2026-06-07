@@ -29,19 +29,25 @@
         </nav>
     </header>
 
-    <main id="main-content" class="fixed top-0 left-0 w-full h-screen z-20 fade-element" 
-          style="background-image: url('image/main-background.jpg'); background-size: cover; background-position: center;">
+    <main id="main-content" 
+          class="fixed top-0 left-0 w-full h-screen z-20 opacity-100 fade-element"
+          style="background: url('image/main-background.jpg') no-repeat center center/cover;">
+    
         <div class="absolute inset-0 px-16 flex items-center justify-between">
             <div class="z-20 flex flex-col justify-center">
-                <h1 class="serif-font text-7xl font-bold tracking-tighter">BRUCE WAYNE</h1>
-                <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">[워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]</h2>
+                <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
+                <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">
+                    [워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]
+                </h2>
+            
+                <div class="flex gap-4 mt-3 text-sm text-gray-500 font-sans tracking-wide">
+                    <span>[190cm]</span> <span>[93kg]</span> <span>[42세]</span> <span>[HL only]</span>
+                </div>
             </div>
-            <div class="flex gap-4 mt-3 text-sm text-gray-500 font-sans tracking-wide">
-                <span>[190cm]</span> <span>[93kg]</span> <span>[42세]</span> <span>[HL only]</span>
+        
+            <div class="absolute bottom-0 right-0 w-1/2 flex justify-end">
+                <img src="image/profilemain.png" class="h-[85vh] w-auto object-contain">
             </div>
-        </div>
-        <div class="absolute bottom-0 right-0 w-1/2 flex justify-end">
-            <img src="image/profilemain.png" class="h-[85vh] w-auto object-contain">
         </div>
     </main>
 
