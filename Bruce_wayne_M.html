@@ -258,6 +258,38 @@
                     link.classList.add('text-[#FACC15]', 'transition-colors', 'duration-300');
                 }
             });
+            // 텍스트 모달 팝업 열기 함수
+            window.openTextModal = function(title, content) {
+                const viewer = document.getElementById('text-viewer');
+                const titleTarget = document.getElementById('text-viewer-title');
+                const contentTarget = document.getElementById('text-viewer-content');
+    
+                if(viewer && titleTarget && contentTarget) {
+                    titleTarget.innerHTML = title;
+                    contentTarget.innerHTML = content;
+                    viewer.classList.remove('hidden');
+                    setTimeout(() => { 
+                        viewer.classList.remove('opacity-0'); 
+                        viewer.querySelector('.bg-white').classList.remove('scale-95');
+                        viewer.querySelector('.bg-white').classList.add('scale-100');
+                    }, 10);
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            // 텍스트 모달 팝업 닫기 함수
+            window.closeTextModal = function() {
+                const viewer = document.getElementById('text-viewer');
+                if(viewer) {
+                    viewer.classList.add('opacity-0');
+                    setTimeout(() => { 
+                        viewer.classList.add('hidden'); 
+                        if(!document.body.classList.contains('scroll-locked')) {
+                            document.body.style.overflow = 'auto'; 
+                        }
+                    }, 300);
+                }
+            };
         });
     </script>
 </body>
