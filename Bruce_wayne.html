@@ -46,8 +46,9 @@
 
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element pointer-events-none"></div>
 
-    <section id="who" class="relative z-10 min-h-screen pt-48 pb-32 px-16 flex flex-col items-center justify-center bg-gray-950 text-white">
-        <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-24">
+    <section id="who" class="relative z-10 h-[200vh] pt-48 pb-32 px-16 flex flex-col items-center justify-start bg-gray-950 text-white">
+        <!-- 콘텐츠를 상단에 배치하여 2배 높이 내에서 여유 있게 확인 가능 -->
+        <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
             <div class="w-1/2 pl-16"><p class="text-lg leading-relaxed text-gray-300">1사분면 내용</p></div>
         </div>
@@ -84,6 +85,15 @@
             const main = document.getElementById('main-content');
             const overlay = document.getElementById('overlay');
             const progress = Math.min(scrollY / 600, 1);
+
+            // [핵심] 점등 타이밍 구간 확대
+            navLinks.forEach(link => link.classList.remove('nav-active'));
+            if (scrollY < 400) document.querySelector('[data-target="main-content"]').classList.add('nav-active');
+            // WHO 구간을 400 ~ 2000으로 대폭 확대하여 점등이 유지되게 함
+            else if (scrollY < 2000) document.querySelector('[data-target="who"]').classList.add('nav-active');
+            else if (scrollY < 2800) document.querySelector('[data-target="about"]').classList.add('nav-active');
+            else document.querySelector('[data-target="etc"]').classList.add('nav-active');
+            });
             
             // 애니메이션 적용
             main.style.opacity = 1 - progress;
