@@ -6,12 +6,16 @@
     <title>TMI of Bruce Wayne</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 패럴랙스 스크롤 효과를 위한 커스텀 CSS */
+        /* ⭕ 아이폰 깨짐 버그를 완벽하게 방어하는 패럴랙스 CSS */
         .parallax-bg {
-            background-attachment: scroll;
-            background-position: center;
+            background-attachment: scroll !important; /* 아이폰을 위해 스크롤로 절대 고정 */
+            background-position: center center;       /* 가로 세로 정확히 정중앙 */
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: cover;                   /* 박스에 꽉 차게 이미지 맞춤 */
+    
+            /* ⚠️ 아이폰(iOS) 스케일 찢어짐 방지 마법의 2줄 */
+            -webkit-background-size: cover;           /* 사파리 전용 크기 최적화 */
+            transform: translateZ(0);                 /* 아이폰 그래픽 카드로 강제 하드웨어 가속 */
         }
         /* 스크롤바 숨기기 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
