@@ -44,35 +44,26 @@
         <a href="/" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
     </header>
 
-    <section id="home" class="h-screen relative flex flex-col overflow-hidden bg-white">
+    <section id="home" class="h-screen relative overflow-hidden bg-white">
 
-        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
             <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
         </div>
 
-        <div class="relative z-10 w-full flex flex-col pt-20 flex-grow">
-        
-            <div class="w-full pl-6 mb-4">
-                <h1 class="text-[40px] md:text-[50px] font-bold tracking-tighter leading-none text-black" style="font-family: 'Times New Roman', Times, serif;">
-                    BRUCE WAYNE
-                </h1>
-            </div>
-
-            <div id="main-image-container" class="w-full flex-grow flex justify-end items-end h-[60vh] relative overflow-hidden">
-            
-                <div class="absolute bottom-0 w-full h-48 bg-gradient-to-t from-white via-white/80 via-white/60 to-transparent z-20 pointer-events-none"></div>
-            
-                <img src="image/profilemain.png" 
-                     onclick="showCharacter()" 
-                     class="h-full w-auto object-contain cursor-pointer active:scale-95 transition-transform z-10 translate-x-[12%] bezel-snap-right" alt="Bruce Wayne Profile">
-            </div>
-        
+        <div style="position: absolute; top: 150px; left: 30px; z-index: 20; font-family: 'Times New Roman', Times, serif;">
+            <h1 class="text-[50px] font-bold tracking-tighter leading-none text-black">BRUCE WAYNE</h1>
         </div>
 
-        <div class="absolute bottom-8 w-full text-center z-30">
-            <p class="text-[10px] text-black uppercase tracking-[0.3em] font-bold animate-pulse">
-                TOUCH TO PROFILE
-            </p>
+        <div style="position: absolute; bottom: 0; right: -5%; z-index: 10; height: 65vh;">
+            <img src="image/profilemain.png" 
+                 onclick="showCharacter()" 
+                 class="h-full w-auto object-contain cursor-pointer active:scale-95 transition-transform">
+        
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(to top, white 20%, transparent 100%); z-index: 15;"></div>
+        </div>
+    
+        <div style="position: absolute; bottom: 40px; left: 30px; z-index: 30;">
+            <p style="font-size: 10px; color: black; letter-spacing: 0.3em; font-weight: bold; text-transform: uppercase;">TOUCH TO PROFILE</p>
         </div>
     </section>
     
