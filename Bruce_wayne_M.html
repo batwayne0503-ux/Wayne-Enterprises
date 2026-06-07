@@ -44,13 +44,13 @@
         <a href="/" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
     </header>
 
-    <section id="home" class="h-screen flex flex-col justify-center items-center relative overflow-hidden bg-white">
+    <section id="home" class="h-screen relative flex flex-col overflow-hidden bg-white">
 
         <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
             <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
         </div>
 
-        <div class="relative z-10 w-full flex flex-col items-center justify-center pt-20">
+        <div class="relative z-10 w-full flex flex-col pt-20 flex-grow">
         
             <div class="w-full pl-6 mb-4">
                 <h1 class="text-[40px] md:text-[50px] font-bold tracking-tighter leading-none text-black" style="font-family: 'Times New Roman', Times, serif;">
@@ -58,11 +58,13 @@
                 </h1>
             </div>
 
-            <div class="w-full flex justify-end items-end h-[50vh] relative">
-                <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-white to-transparent z-20"></div>
+            <div id="main-image-container" class="w-full flex-grow flex justify-end items-end h-[60vh] relative overflow-hidden">
+            
+                <div class="absolute bottom-0 w-full h-48 bg-gradient-to-t from-white via-white/80 via-white/60 to-transparent z-20 pointer-events-none"></div>
+            
                 <img src="image/profilemain.png" 
                      onclick="showCharacter()" 
-                     class="h-full w-auto object-contain cursor-pointer active:scale-95 transition-transform z-10">
+                     class="h-full w-auto object-contain cursor-pointer active:scale-95 transition-transform z-10 translate-x-[12%] bezel-snap-right" alt="Bruce Wayne Profile">
             </div>
         
         </div>
