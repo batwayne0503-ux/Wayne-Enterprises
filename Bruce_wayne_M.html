@@ -46,13 +46,14 @@
 
     <section id="home" class="h-screen relative z-10 flex flex-col justify-between overflow-hidden">
     
-        <div class="ml-10 mt-32 text-left" style="font-family: 'Times New Roman', Times, serif;">
+        <div class="ml-10 mt-64 text-left" style="font-family: 'Times New Roman', Times, serif;">
             <h1 class="text-[50px] font-bold tracking-tighter leading-none">
                 BRUCE WAYNE
             </h1>
         </div>
     
-        <div id="main-image-container" class="w-full flex justify-end items-end h-[70vh]">
+        <div id="main-image-container" class="w-full flex justify-end items-end h-[70vh] relative">
+            <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-white to-transparent z-10"></div>
             <img src="image/profilemain.png" 
                  onclick="showCharacter()" 
                  class="h-full w-auto object-contain cursor-pointer active:scale-95 transition-transform translate-x-[15%]">
