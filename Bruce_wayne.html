@@ -103,10 +103,13 @@
         const scrollY = window.scrollY;
         const main = document.getElementById('main-content');
         
-        // 애니메이션: 600px 스크롤 시 메인 사라짐
-        const progress = Math.min(scrollY / 600, 1);
+        // 수정된 애니메이션 로직
+        const progress = Math.min(scrollY / 600, 1); // 600px 스크롤 동안 진행
+
         main.style.opacity = 1 - progress;
-        main.style.transform = `translateY(-${progress * 50}px)`;
+        // 50px이 아닌 화면 높이(window.innerHeight)만큼 이동하도록 변경
+        main.style.transform = `translateY(-${progress * window.innerHeight}px)`; 
+        main.style.pointerEvents = scrollY > 400 ? 'none' : 'auto'; // 메인 사라지면 클릭 방지
         
         // 메뉴 점등
         navLinks.forEach(link => link.classList.remove('nav-active'));
