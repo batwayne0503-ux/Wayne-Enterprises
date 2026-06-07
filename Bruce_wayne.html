@@ -46,13 +46,13 @@
 
     <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element pointer-events-none"></div>
 
-    <section id="who" class="relative z-10 h-[200vh] pt-48 pb-32 px-16 flex flex-col items-center justify-start bg-gray-950 text-white">
+    <section id="who" class="relative z-10 min-h-[150vh] pt-32 pb-32 px-16 flex flex-col items-center justify-start bg-gray-950 text-white">
         <!-- 콘텐츠를 상단에 배치하여 2배 높이 내에서 여유 있게 확인 가능 -->
-        <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
+        <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-24">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
             <div class="w-1/2 pl-16"><p class="text-lg leading-relaxed text-gray-300">1사분면 내용</p></div>
         </div>
-        <div class="flex flex-row-reverse items-center justify-between w-full max-w-6xl">
+        <div class="flex flex-row-reverse items-center justify-between w-full max-w-6xl mb-24">
             <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
             <div class="w-1/2 pr-16"><p class="text-lg leading-relaxed text-gray-300">3사분면 내용</p></div>
         </div>
@@ -68,13 +68,25 @@
         </ul>
     </section>
 
-    <section id="etc" class="relative z-30 min-h-screen pt-48 pb-32 px-16 flex flex-col items-center justify-center bg-white text-gray-900">
+    <section id="etc" class="relative z-30 min-h-screen pt-48 pb-32 px-16 flex flex-col items-center justify-start bg-white text-gray-900">
         <h2 class="text-4xl font-bold mb-16 serif-font">ETC</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
-            <div class="cursor-pointer" onclick="openPopup('HIStory', '내용')"><img src="image/HIStory.JPG" class="w-full aspect-square object-cover shadow-lg"><p class="mt-4 font-semibold text-lg">HIStory</p></div>
-            <div class="cursor-pointer" onclick="openPopup('Quote', '내용')"><img src="image/Quote.jpg" class="w-full aspect-square object-cover shadow-lg"><p class="mt-4 font-semibold text-lg">Quote</p></div>
-            <a href="https://story.kakao.com/batwayne0503/kZMRDA3ZZaa" target="_blank"><img src="image/dodle.JPG" class="w-full aspect-square object-cover shadow-lg"><p class="mt-4 font-semibold text-lg">dodle</p></a>
-            <div class="cursor-pointer" onclick="openPopup('Inspired', '내용')"><img src="image/inspired.jpg" class="w-full aspect-square object-cover shadow-lg"><p class="mt-4 font-semibold text-lg">Inspired</p></div>
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('HIStory', '내용')">
+                <img src="image/HIStory.JPG" class="w-full aspect-square object-cover shadow-lg">
+                <p class="mt-4 font-semibold text-lg text-center">HIStory</p> <hr class="w-16 border-gray-300 mt-2">
+            </div>
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Quote', '내용')">
+                <img src="image/Quote.jpg" class="w-full aspect-square object-cover shadow-lg">
+                <p class="mt-4 font-semibold text-lg text-center">Quote</p> <hr class="w-16 border-gray-300 mt-2">
+            </div>
+            <a href="https://story.kakao.com/batwayne0503/kZMRDA3ZZaa" target="_blank" class="flex flex-col items-center group">
+                <img src="image/dodle.JPG" class="w-full aspect-square object-cover shadow-lg">
+                <p class="mt-4 font-semibold text-lg text-center">dodle</p> <hr class="w-16 border-gray-300 mt-2">
+            </a>
+            <div class="flex flex-col items-center cursor-pointer group" onclick="openPopup('Inspired', '내용')">
+                <img src="image/inspired.jpg" class="w-full aspect-square object-cover shadow-lg">
+                <p class="mt-4 font-semibold text-lg text-center">Inspired</p> <hr class="w-16 border-gray-300 mt-2">
+            </div>
         </div>
     </section>
 
@@ -96,11 +108,11 @@
         // 2. 메뉴 점등 로직 (중복 제거 후 하나로 통합)
         navLinks.forEach(link => link.classList.remove('nav-active'));
         
-        if (scrollY < 600) {
+        if (scrollY < 500) {
             document.querySelector('[data-target="main-content"]').classList.add('nav-active');
         } else if (scrollY < 1800) { // WHO 구간 (충분히 넓게 확보)
             document.querySelector('[data-target="who"]').classList.add('nav-active');
-        } else if (scrollY < 2600) { // ABOUT 구간
+        } else if (scrollY < 2500) { // ABOUT 구간
             document.querySelector('[data-target="about"]').classList.add('nav-active');
         } else { // ETC 구간
             document.querySelector('[data-target="etc"]').classList.add('nav-active');
