@@ -244,16 +244,13 @@
     </div>
 
     <div id="text-viewer" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-sm flex justify-center items-center opacity-0 transition-opacity duration-300" onclick="closeTextModal()">
-            <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-[85vw] w-full max-h-[70vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" onclick="event.stopPropagation()">
-            
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-black" onclick="closeTextModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-            
-                <h3 id="text-viewer-title" class="text-xl font-bold mb-4 serif-font border-b border-gray-200 pb-2"></h3>
-                <iframe id="modal-iframe" src="" class="w-full flex-grow border-0 rounded-b-lg overflow-y-auto"></iframe>
-            
-            </div>
+        <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-[85vw] w-full max-h-[70vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-black" onclick="closeTextModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h3 id="text-viewer-title" class="text-xl font-bold mb-4 serif-font border-b border-gray-200 pb-2"></h3>
+            <div id="text-viewer-content" class="text-sm leading-relaxed text-gray-600"></div>
+        </div>
     </div>
     
     <script>
@@ -308,17 +305,16 @@
                 }
             });
         });
-            // 기존의 window.openTextModal 부분을 찾아서 아래 코드로 교체
+            // 기존 스크립트 내부의 openTextModal, closeTextModal을 이 코드로 교체
 
-            window.openTextModal = function(title, htmlUrl) {
+            window.openTextModal = function(title, content) {
                 const viewer = document.getElementById('text-viewer');
                 const titleTarget = document.getElementById('text-viewer-title');
-                const iframeTarget = document.getElementById('modal-iframe');
-    
-                if(viewer && titleTarget && iframeTarget) {
+                const contentTarget = document.getElementById('text-viewer-content');
+
+                if(viewer && titleTarget && contentTarget) {
                     titleTarget.innerHTML = title;
-                    iframeTarget.src = htmlUrl; // ⭕ 전달받은 html 파일 주소를 미니 브라우저에 주입!
-        
+                    contentTarget.innerHTML = content; // ⭕ 목록 HTML 텍스트를 그대로 박스 안에 주입
                     viewer.classList.remove('hidden');
                     setTimeout(() => { 
                         viewer.classList.remove('opacity-0'); 
@@ -329,15 +325,12 @@
                 }
             };
 
-            // 모달을 닫을 때는 내부 미니 브라우저를 깔끔하게 비워주도록 리셋 코드 추가
             window.closeTextModal = function() {
                 const viewer = document.getElementById('text-viewer');
-                const iframeTarget = document.getElementById('modal-iframe');
                 if(viewer) {
                     viewer.classList.add('opacity-0');
                     setTimeout(() => { 
                         viewer.classList.add('hidden'); 
-                        if(iframeTarget) iframeTarget.src = ''; // ⭕ 닫을 때 주소를 초기화해서 리소스를 아낌
                         if(!document.body.classList.contains('scroll-locked')) {
                             document.body.style.overflow = 'auto'; 
                         }
