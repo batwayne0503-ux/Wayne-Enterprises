@@ -18,6 +18,19 @@
             transform: translateY(100%);
         }
         #character-panel.active { transform: translateY(0); }
+
+        /* 메인 화면을 제외한 나머지 섹션들은 기본적으로 숨김 */
+        .hidden-until-active { display: none; }
+    
+        /* profilemain 이미지 하단 고정 */
+        #main-image-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
     </style>
 </head>
 <body class="bg-white">
@@ -73,16 +86,33 @@
         </div>
     </section>
 
-    <section id="about" class="min-h-screen bg-gray-950 text-white px-8 pt-24 pb-12">
-        <h2 class="text-3xl font-bold mb-12">ABOUT</h2>
-        <div class="space-y-4">
+    <section id="about" class="hidden-until-active min-h-screen bg-gray-950 text-white px-8 pt-24 pb-12 flex flex-col items-center">
+        <h2 class="text-3xl font-bold mb-12 text-center">ABOUT</h2>
+    
+        <div class="w-full max-w-sm space-y-4">
             <div class="border-b border-gray-700 py-4">
-                <button onclick="toggleDetail('detail1')" class="w-full text-left font-semibold">항목 1 상세 보기</button>
-                <div id="detail1" class="hidden mt-2 text-gray-400 text-sm p-4 bg-gray-900">상세 설명 내용이 여기에 들어갑니다.</div>
+                <button onclick="toggleDetail('detail1')" class="w-full text-center font-semibold">항목 1 제목</button>
+                <div id="detail1" class="hidden mt-4 text-gray-400 text-sm p-4 bg-gray-900 rounded-lg text-center">
+                    상세 설명 1 내용입니다.
+                </div>
             </div>
             <div class="border-b border-gray-700 py-4">
-                <button onclick="toggleDetail('detail2')" class="w-full text-left font-semibold">항목 2 상세 보기</button>
-                <div id="detail2" class="hidden mt-2 text-gray-400 text-sm p-4 bg-gray-900">상세 설명 내용이 여기에 들어갑니다.</div>
+                <button onclick="toggleDetail('detail2')" class="w-full text-center font-semibold">항목 2 제목</button>
+                <div id="detail2" class="hidden mt-4 text-gray-400 text-sm p-4 bg-gray-900 rounded-lg text-center">
+                    상세 설명 2 내용입니다.
+                </div>
+            </div>
+            <div class="border-b border-gray-700 py-4">
+                <button onclick="toggleDetail('detail3')" class="w-full text-center font-semibold">항목 3 제목</button>
+                <div id="detail3" class="hidden mt-4 text-gray-400 text-sm p-4 bg-gray-900 rounded-lg text-center">
+                    상세 설명 3 내용입니다.
+                </div>
+            </div>
+            <div class="border-b border-gray-700 py-4">
+                <button onclick="toggleDetail('detail4')" class="w-full text-center font-semibold">항목 4 제목</button>
+                <div id="detail4" class="hidden mt-4 text-gray-400 text-sm p-4 bg-gray-900 rounded-lg text-center">
+                    상세 설명 4 내용입니다.
+                </div>
             </div>
         </div>
     </section>
@@ -124,9 +154,15 @@
         }
 
         function unlockScroll() {
+            // 1. 숨겨져 있던 나머지 섹션들을 표시
+            document.querySelectorAll('.hidden-until-active').forEach(el => {
+                el.style.display = 'block';
+            });
+            // 2. 메인 프로필 패널 닫기
             document.getElementById('character-panel').classList.remove('active');
-            document.body.classList.remove('locked'); // 여기서 스크롤 잠금 해제
-            // '입장하기' 누르면 첫 번째 섹션으로 스크롤 이동
+            // 3. 스크롤 잠금 해제
+            document.body.classList.remove('locked');
+            // 4. 스크롤 위치 이동
             document.getElementById('who').scrollIntoView({ behavior: 'smooth' });
         }
 
