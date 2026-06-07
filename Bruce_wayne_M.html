@@ -282,7 +282,7 @@
                     currentSectionId = section.getAttribute('id');
                 }
             });
-    
+
             // 모든 네비게이션 링크의 색상을 회색으로 초기화
             navLinks.forEach(link => {
                 link.classList.remove('text-[#FACC15]'); // 노란색 제거
@@ -327,6 +327,24 @@
                     }, 300);
                 }
             };
+            // ⭕ 스크립트 내부에 추가할 '주소창 해시(#) 감지 센서'
+            window.addEventListener('DOMContentLoaded', () => {
+                if (window.location.hash) {
+                    const hash = window.location.hash; // 예: "#etc"
+                    const wrapper = document.getElementById('main-content-wrapper');
+                    if (wrapper) {
+                        wrapper.classList.remove('opacity-0', 'pointer-events-none');
+                    }
+                    document.body.classList.remove('scroll-locked');
+        
+                    const targetSection = document.querySelector(hash);
+                    if (targetSection) {
+                        setTimeout(() => {
+                            targetSection.scrollIntoView({ behavior: 'auto' });
+                        }, 50);
+                    }
+                }
+            });
     </script>
 </body>
 </html>
