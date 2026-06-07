@@ -44,27 +44,33 @@
         <a href="/" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
     </header>
 
-    <section id="home" class="h-screen relative overflow-hidden bg-white">
+    <section id="home" class="h-[100dvh] relative overflow-hidden bg-white flex flex-col justify-between">
 
         <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
             <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
         </div>
 
-        <div style="position: absolute; top: 150px; left: 30px; z-index: 20; font-family: 'Times New Roman', Times, serif;">
-            <h1 class="text-[50px] font-bold tracking-tighter leading-none text-black">BRUCE WAYNE</h1>
+        <div class="relative z-20 w-full pl-8 pt-[15vh]">
+            <h1 class="text-[45px] md:text-[55px] font-bold tracking-tighter leading-none text-black !important" style="font-family: 'Times New Roman', Times, serif !important;">
+                BRUCE WAYNE
+            </h1>
         </div>
 
-        <div style="position: absolute; bottom: 0; right: -5%; z-index: 10; height: 65vh;">
+        <div class="relative z-10 w-full flex-grow flex justify-end items-end overflow-hidden">
+        
             <img src="image/profilemain.png" 
                  onclick="showCharacter()" 
-                 class="h-full w-auto object-contain cursor-pointer active:scale-95 transition-transform">
-        
-            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(to top, white 20%, transparent 100%); z-index: 15;"></div>
+                 class="w-auto h-[60dvh] md:h-[70dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%]">
+            
+            <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
         </div>
     
-        <div style="position: absolute; bottom: 40px; left: 30px; z-index: 30;">
-            <p style="font-size: 10px; color: black; letter-spacing: 0.3em; font-weight: bold; text-transform: uppercase;">TOUCH TO PROFILE</p>
+        <div class="relative z-30 w-full text-center pb-[8dvh]">
+            <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans">
+                TOUCH TO PROFILE
+            </p>
         </div>
+
     </section>
     
     <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700">
