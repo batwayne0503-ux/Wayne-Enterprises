@@ -27,18 +27,6 @@
         .dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .dropdown-content.show { max-height: 1000px; }
 
-        <div id="text-viewer" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-sm flex justify-center items-center opacity-0 transition-opacity duration-300" onclick="closeTextModal()">
-            <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-[85vw] w-full max-h-[70vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" onclick="event.stopPropagation()">
-            
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-black" onclick="closeTextModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-            
-                <h3 id="text-viewer-title" class="text-xl font-bold mb-4 serif-font border-b border-gray-200 pb-2"></h3>
-                <p id="text-viewer-content" class="text-sm leading-relaxed text-gray-600 whitespace-pre-line"></p>
-            
-            </div>
-        </div>
     </style>
 </head>
 <body class="bg-white scroll-locked">
@@ -207,6 +195,19 @@
         </button>
     </div>
 
+    <div id="text-viewer" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-sm flex justify-center items-center opacity-0 transition-opacity duration-300" onclick="closeTextModal()">
+            <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-[85vw] w-full max-h-[70vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" onclick="event.stopPropagation()">
+            
+                <button class="absolute top-4 right-4 text-gray-400 hover:text-black" onclick="closeTextModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            
+                <h3 id="text-viewer-title" class="text-xl font-bold mb-4 serif-font border-b border-gray-200 pb-2"></h3>
+                <p id="text-viewer-content" class="text-sm leading-relaxed text-gray-600 whitespace-pre-line"></p>
+            
+            </div>
+    </div>
+    
     <script>
         function showCharacter() {
             document.getElementById('character-panel').classList.add('active');
@@ -258,6 +259,7 @@
                     link.classList.add('text-[#FACC15]', 'transition-colors', 'duration-300');
                 }
             });
+        });
             // 텍스트 모달 팝업 열기 함수
             window.openTextModal = function(title, content) {
                 const viewer = document.getElementById('text-viewer');
@@ -290,7 +292,6 @@
                     }, 300);
                 }
             };
-        });
     </script>
 </body>
 </html>
