@@ -8,12 +8,11 @@
     <style>
         .serif-font { font-family: 'Times New Roman', serif; }
         body { font-family: serif; background-color: #ffffff; color: #111827; }
-        /* 애니메이션 효과 */
         .fade-element { transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
         .nav-active { color: #FACC15 !important; transition: color 0.3s ease; }
     </style>
 </head>
-<body class="min-h-[300vh]">
+<body class="bg-white">
 
     <header class="fixed top-0 w-full z-[100] py-6 px-8 flex justify-between items-center bg-gray-950 shadow-xl">
         <div class="flex items-center space-x-6">
@@ -30,11 +29,13 @@
         </nav>
     </header>
 
-    <main id="main-content" class="fixed top-0 left-0 w-full h-screen flex items-center justify-between px-16 z-20 fade-element" 
+    <main id="main-content" class="fixed top-0 left-0 w-full h-screen z-20 fade-element" 
           style="background-image: url('image/main-background.jpg'); background-size: cover; background-position: center;">
-        <div class="z-20 flex flex-col justify-center">
-            <h1 class="serif-font text-7xl font-bold tracking-tighter whitespace-nowrap">BRUCE WAYNE</h1>
-            <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">[워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]</h2>
+        <div class="absolute inset-0 px-16 flex items-center justify-between">
+            <div class="z-20 flex flex-col justify-center">
+                <h1 class="serif-font text-7xl font-bold tracking-tighter">BRUCE WAYNE</h1>
+                <h2 class="serif-font text-xl text-gray-600 mt-4 tracking-widest uppercase">[워커홀릭] · [부드러운 카리스마] · [아이와 동물에 약함]</h2>
+            </div>
             <div class="flex gap-4 mt-3 text-sm text-gray-500 font-sans tracking-wide">
                 <span>[190cm]</span> <span>[93kg]</span> <span>[42세]</span> <span>[HL only]</span>
             </div>
@@ -44,17 +45,16 @@
         </div>
     </main>
 
-    <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 fade-element pointer-events-none"></div>
+    <div id="overlay" class="fixed inset-0 bg-gray-900 z-10 opacity-0 pointer-events-none"></div>
 
-    <section id="who" class="relative z-10 min-h-[150vh] pt-32 pb-32 px-16 flex flex-col items-center justify-start bg-gray-950 text-white">
-        <!-- 콘텐츠를 상단에 배치하여 2배 높이 내에서 여유 있게 확인 가능 -->
-        <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-24">
-            <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
-            <div class="w-1/2 pl-16"><p class="text-lg leading-relaxed text-gray-300">1사분면 내용</p></div>
+    <section id="who" class="relative z-30 pt-[100vh] min-h-[150vh] bg-gray-950 text-white px-16 flex flex-col items-center">
+        <div class="flex flex-row items-center justify-between w-full max-w-6xl mb-32">
+            <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center">IMAGE 1</div>
+            <div class="w-1/2 pl-16"><p>1사분면 내용</p></div>
         </div>
-        <div class="flex flex-row-reverse items-center justify-between w-full max-w-6xl mb-24">
-            <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center text-gray-500">IMAGE PLACEHOLDER</div>
-            <div class="w-1/2 pr-16"><p class="text-lg leading-relaxed text-gray-300">3사분면 내용</p></div>
+        <div class="flex flex-row-reverse items-center justify-between w-full max-w-6xl">
+            <div class="w-1/2 bg-gray-800 h-64 flex items-center justify-center">IMAGE 2</div>
+            <div class="w-1/2 pr-16"><p>3사분면 내용</p></div>
         </div>
     </section>
 
@@ -96,27 +96,18 @@
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         const main = document.getElementById('main-content');
-        const overlay = document.getElementById('overlay');
         
-        // 1. 애니메이션 로직
+        // 애니메이션: 600px 스크롤 시 메인 사라짐
         const progress = Math.min(scrollY / 600, 1);
         main.style.opacity = 1 - progress;
         main.style.transform = `translateY(-${progress * 50}px)`;
-        main.style.pointerEvents = scrollY > 400 ? 'none' : 'auto';
-        overlay.style.opacity = progress * 0.8;
-
-        // 2. 메뉴 점등 로직 (중복 제거 후 하나로 통합)
-        navLinks.forEach(link => link.classList.remove('nav-active'));
         
-        if (scrollY < 500) {
-            document.querySelector('[data-target="main-content"]').classList.add('nav-active');
-        } else if (scrollY < 1800) { // WHO 구간 (충분히 넓게 확보)
-            document.querySelector('[data-target="who"]').classList.add('nav-active');
-        } else if (scrollY < 2500) { // ABOUT 구간
-            document.querySelector('[data-target="about"]').classList.add('nav-active');
-        } else { // ETC 구간
-            document.querySelector('[data-target="etc"]').classList.add('nav-active');
-        }
+        // 메뉴 점등
+        navLinks.forEach(link => link.classList.remove('nav-active'));
+        if (scrollY < 500) document.querySelector('[data-target="main-content"]').classList.add('nav-active');
+        else if (scrollY < 1800) document.querySelector('[data-target="who"]').classList.add('nav-active');
+        else if (scrollY < 2600) document.querySelector('[data-target="about"]').classList.add('nav-active');
+        else document.querySelector('[data-target="etc"]').classList.add('nav-active');
     });
 
     function openPopup(title, desc) {
