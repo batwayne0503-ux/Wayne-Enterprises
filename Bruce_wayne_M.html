@@ -175,6 +175,34 @@
             const content = document.getElementById(id);
             content.classList.toggle('show');
         }
+
+        // 스크롤 시 현재 보고 있는 섹션의 상단 메뉴를 노란색으로 활성화 (ScrollSpy)
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('header nav a');
+    
+            let currentSectionId = '';
+    
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                // 화면의 1/3 지점을 기준으로 현재 섹션을 판별
+                if (window.scrollY >= sectionTop - (window.innerHeight / 3)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+    
+            // 모든 네비게이션 링크의 색상을 회색으로 초기화
+            navLinks.forEach(link => {
+                link.classList.remove('text-[#FACC15]'); // 노란색 제거
+                link.classList.add('text-gray-400');
+        
+                // 현재 섹션과 일치하는 메뉴만 노란색으로 점멸(활성화)
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.remove('text-gray-400');
+                    link.classList.add('text-[#FACC15]', 'transition-colors', 'duration-300');
+                }
+            });
+        });
     </script>
 </body>
 </html>
