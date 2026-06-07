@@ -26,6 +26,19 @@
         /* 드롭다운 애니메이션 */
         .dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .dropdown-content.show { max-height: 1000px; }
+
+        <div id="text-viewer" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-sm flex justify-center items-center opacity-0 transition-opacity duration-300" onclick="closeTextModal()">
+            <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-[85vw] w-full max-h-[70vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" onclick="event.stopPropagation()">
+            
+                <button class="absolute top-4 right-4 text-gray-400 hover:text-black" onclick="closeTextModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            
+                <h3 id="text-viewer-title" class="text-xl font-bold mb-4 serif-font border-b border-gray-200 pb-2"></h3>
+                <p id="text-viewer-content" class="text-sm leading-relaxed text-gray-600 whitespace-pre-line"></p>
+            
+            </div>
+        </div>
     </style>
 </head>
 <body class="bg-white scroll-locked">
@@ -93,14 +106,14 @@
             <div class="w-full max-w-sm space-y-6">
                 <div class="border-b border-gray-800 pb-6 text-center">
                     <button onclick="toggleAbout('d1')" class="w-full text-center font-medium tracking-wide">역극 안내</button>
-                    <div id="d1" class="dropdown-content text-sm text-gray-400 pt-4 px-4">길고 짧은 글들을 자주 올리고 있고<br>
-                        가급적 다수가 부담없이 이야기 하기에 무난한 글을 많이 쓰고 있습니다.<br>
-                        지나가다 대화할만한 주제라면 편히 와서 이야기 해주시는 식으로 서사를 이어가주시면 좋겠습니다.<br>
-                        때때로 공역을 진행하기도 하며, 사진이 첨부된 글을 쓰거나 SNS캐입도 있습니다. 기호로는 S. 혹은 휴대폰 이모지를 이용합니다.<br>
-                        흔적을 남기지 않더라도 탐라를 자주 읽고 있습니다.<br>
-                        지난 역극에 대한 뒷북 OK, 친분이 생기고 난 후엔 언제라도 마음껏 부르셔도 좋습니다.<br>
-                        서사 없는 수위는 하지 않습니다. 수위는 남들 가리는 거 가리고, 적당히 포함된 편이나<br>
-                        먼저 수위성이 짙은 이야기(섹드립)는 잘 하지 않습니다.<del>어쩌다 한 번 재밌자고 합니다.</del>
+                    <div id="d1" class="dropdown-content text-sm text-gray-400 pt-4 px-4">
+                        <li>글을 쓰는 비중과 찾아가는 비중이 비슷합니다. 선친 여부와 상관없이 선교류를 지향하고 있습니다.</li>
+                        <li>흥미가 당기시는 주제라면 편히 와서 서사를 이어주시면 좋겠습니다.<br>
+                        공역을 진행하기도 하며, 사진이 첨부된 글을 쓰거나 SNS캐입도 있습니다. 기호로는 S. 혹은 휴대폰 이모지를 이용합니다.</li>
+                        <li>흔적을 남기지 않더라도 탐라를 자주 읽고 있습니다.</li>
+                        <li>지난 역극에 대한 뒷북 OK, 친분이 생기고 난 후엔 언제든지 마음껏 부르셔도 좋습니다.</li>
+                        <li>서사 없는 수위는 하지 않습니다. 수위는 남들 가리는 거 가리고, 적당히 포함된 편이나<br>
+                        먼저 수위성이 짙은 이야기(섹드립)는 잘 하지 않습니다.<del>어쩌다 한 번 재밌자고 합니다.</del></li>
                     </div>
                 </div>
                 <div class="border-b border-gray-800 pb-6 text-center">
@@ -108,7 +121,7 @@
                     <div id="d2" class="dropdown-content text-sm text-gray-400 pt-4 px-4">1. 웨인 재단과 친구가 되어 있으신 경우, 여러분 캐릭터의 신상에 대해 제가 서류로 이미 알고 있다는 설정이 존재합니다.<br>
                         2. 위의 사항에 해당되지 않는 분들을 보통 초면으로 인지합니다.<br>
                         3. 히어로 설정인 분들에겐 ‘이미 은퇴했으나 그 영향력이 아직도 후대에 미쳐서 여전히 귀감이 되는 사람’<br>
-                        혹은 히어로 협회의 최대 후원자 정도로 생각해 주시면 됩니다.(원작의 배트맨 주식회사 설정)<br>
+                        혹은 히어로 협회의 최대 후원자 정도로 생각해 주시면 됩니다. (원작의 배트맨 주식회사 설정)<br>
                         은퇴하더니 물러졌다고 생각하셔도 좋고, 존중의 대상으로 생각하셔도 좋습니다.<br>
                         4. 빌런 설정인 분들은 여러분 재량껏 인지해 주시면 됩니다.<br>
                         5. 옆집 거주 설정인 분들의 경우 그의 펜트하우스가 있는 건물 내에서 마주쳤다는 설정입니다.<br>
@@ -117,11 +130,30 @@
                 </div>
                 <div class="border-b border-gray-800 pb-6 text-center">
                     <button onclick="toggleAbout('d3')" class="w-full text-center font-medium tracking-wide">당부의 말씀</button>
-                    <div id="d3" class="dropdown-content text-sm text-gray-400 pt-4 px-4">상세 설명 3 내용입니다. 가운데 정렬로 표시됩니다.</div>
+                    <div id="d3" class="dropdown-content text-sm text-gray-400 pt-4 px-4">
+                        <li>특정 영화나 코믹스 설정만을 가지고 굴러가는 봇이 아닌, 배트맨의 여러 미디어 믹스 스토리와 설정을 혼합한 독자적 세계관을 가지고 있습니다.<br>
+                            개인해석을 상당 부분 포함하고 있으며 따라서, 여러분이 생각하시는 혹은 알고 있는 배트맨/브루스 웨인과 괴리감이나 차이점이 존재 할 수 있습니다. </li>
+                        <li>향후에 개봉하는 배트맨과 연관된 극장영화에 대해서는 영화가 다루는 시점에 따라 이를 본 브루스 웨인의 과거사 중 하나로 편입할 수도 있습니다.<br>
+                            예를 들어 2022년에 개봉했던 더 배트맨은 배트맨의 활동 초기를 다루고 있으므로 과거사로 이용하고 있습니다.<br>
+                            반면, 2024년에 개봉했던 조커: 폴리 아 되는 고담의 영화인들이 조커라는 빌런에 대해 창작을 가미해 만든 허구의 영화로 취급합니다.</li>
+                        <li>오너 성향상 오너글을 쓰지 않습니다. 다른 분의 오너글엔 아주 가끔씩 등장합니다. 하실 말씀이 있거나 저와 설정 조율이 필요하다면 쪽지나 언급을 부탁드립니다.</li>
+                        <li><strong>저는 늘 여러분의 설정을 정독한 후, 친신을 겁니다.</strong></li>
+                    </div>
                 </div>
                 <div class="border-b border-gray-800 pb-6 text-center">
-                    <button onclick="toggleAbout('d4')" class="w-full text-center font-medium tracking-wide">항목 4 상세 보기</button>
-                    <div id="d4" class="dropdown-content text-sm text-gray-400 pt-4 px-4">상세 설명 4 내용입니다. 가운데 정렬로 표시됩니다.</div>
+                    <button onclick="toggleAbout('d4')" class="w-full text-center font-medium tracking-wide">구동 역사</button>
+                    <div id="d4" class="dropdown-content text-sm text-gray-400 pt-4 px-4">
+                        - St, 04.01.2022.~<br>
+                        - 1주년. 04.01.2023.<br>
+                        - 정체 공개. 04.23.2023.<br>
+                        - 옾스 Up 100. 12.29.2023.<br>
+                        - 2주년. 04.01.2024.<br>
+                        - 할리우드 명예의 거리 등재: 09.26.2024.<br>
+                        - 옾스 Up 200. 11.17.2024.<br>
+                        - 3주년. 04.01.2025.<br>
+                        - 옾스 Up 300. 03.18.2026<br>
+                        - 4주년. 04.01.2026.<br>
+                    </div>
                 </div>
             </div>
         </section>
