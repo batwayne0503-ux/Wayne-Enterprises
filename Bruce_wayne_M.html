@@ -27,9 +27,7 @@
     <style>
         .serif-font { font-family: 'Times New Roman', serif; }
         .pt-safe { padding-top: env(safe-area-inset-top); }
-        
-        /* ⭕ body 내부의 흰색 배경 강제 지정을 삭제하고 기본 폰트와 컬러만 세팅 */
-        body { font-family: serif; color: #111827; margin: 0; }
+        body { font-family: serif; background-color: #ffffff; color: #111827; margin: 0; }
         
         /* 초기 스크롤 원천 차단 */
         .scroll-locked { overflow: hidden !important; height: 100vh !important; }
@@ -76,26 +74,28 @@
             100% { transform: translate(var(--tw-x), var(--tw-y)) scale(1.6) rotate(var(--tw-rot)); opacity: 0; }
         }
 
-        /* PC 화면 전체 배경을 아주 어두운 밤색으로 채워, 가운데 흰색 앱이 돋보이게 만듭니다. */
+        /* ⭕ [핵심 추가] PC 화면일 때만 #home 섹션의 배경을 오너님이 준 파일로 교체하는 마법 */
         @media (min-width: 768px) {
-            html {
-                background-color: #0b0c10;
+            #home {
+                background-image: url('image/pc_main_bg.jpg') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
             }
+            /* 배경이 묵직해졌으므로 PC에서는 글자색을 흰색 계열로 반전시켜 시인성 확보 */
+            #home h1 { color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.7); }
+            #home p { color: #e2e8f0 !important; }
         }
     </style>
 </head>
-<body class="bg-gray-950 scroll-locked">
+<body class="bg-white scroll-locked">
 
     <div id="intro-overlay">
         <img src="image/the_wayne_emblem.png" id="wayne-emblem" alt="Wayne Emblem">
         <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
     </div>
 
-    <div class="hidden md:block fixed inset-0 z-0 w-screen h-screen" style="background-color: #000000;">
-        <img src="image/pc_main_bg.jpg" alt="Wayne Enterprise Background" class="w-full h-full object-contain">
-    </div>
-
-    <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700 w-full md:max-w-md md:mx-auto md:relative md:z-10">
+    <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700">
     
         <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
             <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
@@ -121,7 +121,7 @@
             </div>
 
             <div class="relative z-20 w-full pl-8 pt-[15vh]">
-                <h1 class="text-[45px] md:text-[55px] font-bold tracking-tighter leading-none text-black !important" style="font-family: 'Tinos', 'Times New Roman', Times, serif !important;">
+                <h1 class="text-[45px] md:text-[55px] font-bold tracking-tighter leading-none text-black" style="font-family: 'Tinos', 'Times New Roman', Times, serif !important;">
                     BRUCE WAYNE
                 </h1>
             </div>
@@ -131,7 +131,7 @@
                      onclick="showCharacter()" 
                      class="w-auto h-[60dvh] md:h-[70dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%]">
                 
-                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white/20 via-white/10 to-transparent md:from-black/40 md:via-transparent md:to-transparent z-20 pointer-events-none"></div>
             </div>
         
             <div class="relative z-30 w-full text-center pb-[8dvh]">
@@ -227,7 +227,7 @@
                 <div class="grid grid-cols-2 gap-4">
     
                     <div class="flex flex-col items-center cursor-pointer" 
-                         onclick="openTextModal('HIStory 아카이브', `
+                         onclick="openTextModal('그의 지난 시간들', `
                                 <p style='color:#666; font-size:16px; margin-bottom:18px;'>그의 지난 이야기들 속으로 들어가 보세요.</p>
                                 <ul style='list-style-type:disc; padding-left:20px; line-height:2.2; font-size:17px; font-weight:bold;'>
                                     <li><a href='the_wayne_murdered.html' style='color:#111827; text-decoration:underline;'>The Wayne Murdered</a></li>
@@ -242,7 +242,7 @@
                         </div>
 
                     <div class="flex flex-col items-center cursor-pointer" 
-                         onclick="openTextModal('Quote 캐입글', `
+                         onclick="openTextModal('캐입글 모음', `
                             <p style='color:#666; font-size:17px; margin-bottom:18px;'>읽어 보실 캐입글을 선택해 주세요.</p>
                             <ul style='list-style-type:disc; padding-left:20px; line-height:2.2; font-size:17px; font-weight:bold;'>
                                 <li><a href='prologue_anima.html' style='color:#111827; text-decoration:underline;'>프롤로그: 아니마</a></li>
@@ -274,7 +274,7 @@
                                     <li>Friedrich Nietzsche(철학)</li> 
                                     <li>Carl Jung(심리학)</li> 
                                     <li>그림자 바이러스(심리학)</li>
-                                    <li>배트맨 80주년 기념 아트북(원작과 설정집)</li>
+                                    <li>배트맨 80주년 기념 아트북(원작 and 설정집)</li>
                                 </ul>
                             </div>
                         `)">
@@ -420,7 +420,6 @@
                         document.body.classList.remove('scroll-locked');
                         if(overlay) overlay.style.display = 'none';
                         
-                        // ⭕ 인트로가 완전히 끝나면 모바일 메인 래퍼의 투명도를 걷어내는 핵심 코드 복구
                         const wrapper = document.getElementById('main-content-wrapper');
                         if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
                     }, 1000);
