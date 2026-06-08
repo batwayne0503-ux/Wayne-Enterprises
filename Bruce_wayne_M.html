@@ -61,10 +61,10 @@
 </head>
 <body class="bg-white scroll-locked">
 
-    <body class="bg-gray-950 text-white overflow-hidden"> <div id="intro-overlay">
-            <img src="the_wayne_emblem.png" id="wayne-emblem" alt="Wayne Emblem">
-            <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
-        </div>
+    <div id="intro-overlay">
+        <img src="the_wayne_emblem.png" id="wayne-emblem" alt="Wayne Emblem">
+        <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
+    </div>
     
     <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
         <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
@@ -236,7 +236,7 @@
                                     <li>Based on DC Comics<br>
                                     첫등장. 디텍티브 코믹스 #27.<strong>1939.03</strong><br>
                                     원작자. Bill Finger and Bob Kane</li>
-                                    Inspired by.<br>
+                                    <li>Inspired by.<br>
                                     <li>배트맨 모던 에이지 시리즈(영화)</li> 
                                     <li>다크 나이트 트릴로지(영화)</li>
                                     <li>DC 확장 유니버스(영화)</li> 
@@ -286,17 +286,10 @@
         }
 
         function unlockScroll() {
-            // 나머지 섹션 표시
             const wrapper = document.getElementById('main-content-wrapper');
             wrapper.classList.remove('opacity-0', 'pointer-events-none');
-            
-            // 스크롤 잠금 해제
             document.body.classList.remove('scroll-locked');
-            
-            // 패널 닫기
             document.getElementById('character-panel').classList.remove('active');
-            
-            // WHO 섹션으로 부드러운 이동
             document.getElementById('who').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -305,168 +298,152 @@
             content.classList.toggle('show');
         }
 
-        // 스크롤 시 현재 보고 있는 섹션의 상단 메뉴를 노란색으로 활성화 (ScrollSpy)
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('header nav a');
-    
             let currentSectionId = '';
     
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                // 화면의 1/3 지점을 기준으로 현재 섹션을 판별
                 if (window.scrollY >= sectionTop - (window.innerHeight / 3)) {
                     currentSectionId = section.getAttribute('id');
                 }
             });
 
-            // 모든 네비게이션 링크의 색상을 회색으로 초기화
             navLinks.forEach(link => {
-                link.classList.remove('text-[#FACC15]'); // 노란색 제거
+                link.classList.remove('text-[#FACC15]');
                 link.classList.add('text-gray-400');
         
-                // 현재 섹션과 일치하는 메뉴만 노란색으로 점멸(활성화)
                 if (link.getAttribute('href') === `#${currentSectionId}`) {
                     link.classList.remove('text-gray-400');
                     link.classList.add('text-[#FACC15]', 'transition-colors', 'duration-300');
                 }
             });
         });
-            // 기존 스크립트 내부의 openTextModal, closeTextModal을 이 코드로 교체
 
-            window.openTextModal = function(title, content) {
-                const viewer = document.getElementById('text-viewer');
-                const titleTarget = document.getElementById('text-viewer-title');
-                const contentTarget = document.getElementById('text-viewer-content');
+        window.openTextModal = function(title, content) {
+            const viewer = document.getElementById('text-viewer');
+            const titleTarget = document.getElementById('text-viewer-title');
+            const contentTarget = document.getElementById('text-viewer-content');
 
-                if(viewer && titleTarget && contentTarget) {
-                    titleTarget.innerHTML = title;
-                    contentTarget.innerHTML = content; // ⭕ 목록 HTML 텍스트를 그대로 박스 안에 주입
-                    viewer.classList.remove('hidden');
-                    setTimeout(() => { 
-                        viewer.classList.remove('opacity-0'); 
-                        viewer.querySelector('.bg-white').classList.remove('scale-95');
-                        viewer.querySelector('.bg-white').classList.add('scale-100');
-                    }, 10);
-                    document.body.style.overflow = 'hidden';
-                }
-            };
+            if(viewer && titleTarget && contentTarget) {
+                titleTarget.innerHTML = title;
+                contentTarget.innerHTML = content;
+                viewer.classList.remove('hidden');
+                setTimeout(() => { 
+                    viewer.classList.remove('opacity-0'); 
+                    viewer.querySelector('.bg-white').classList.remove('scale-95');
+                    viewer.querySelector('.bg-white').classList.add('scale-100');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+        };
 
-            window.closeTextModal = function() {
-                const viewer = document.getElementById('text-viewer');
-                if(viewer) {
-                    viewer.classList.add('opacity-0');
-                    setTimeout(() => { 
-                        viewer.classList.add('hidden'); 
-                        if(!document.body.classList.contains('scroll-locked')) {
-                            document.body.style.overflow = 'auto'; 
-                        }
-                    }, 300);
-                }
-            };
-            // ⭕ 스크립트 내부에 추가할 '주소창 해시(#) 감지 센서'
-            window.addEventListener('DOMContentLoaded', () => {
-                if (window.location.hash) {
-                    const hash = window.location.hash; // 예: "#etc"
-                    const wrapper = document.getElementById('main-content-wrapper');
-                    if (wrapper) {
-                        wrapper.classList.remove('opacity-0', 'pointer-events-none');
+        window.closeTextModal = function() {
+            const viewer = document.getElementById('text-viewer');
+            if(viewer) {
+                viewer.classList.add('opacity-0');
+                setTimeout(() => { 
+                    viewer.classList.add('hidden'); 
+                    if(!document.body.classList.contains('scroll-locked')) {
+                        document.body.style.overflow = 'auto'; 
                     }
-                    document.body.classList.remove('scroll-locked');
-        
-                    const targetSection = document.querySelector(hash);
-                    if (targetSection) {
-                        setTimeout(() => {
-                            targetSection.scrollIntoView({ behavior: 'auto' });
-                        }, 50);
-                    }
+                }, 300);
+            }
+        };
+
+        // ⭕ [통합 버전] 주소창 감지 센서 및 시네마틱 오프닝 독립 구동
+        window.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('intro-overlay');
+            const emblem = document.getElementById('wayne-emblem');
+            const batContainer = document.getElementById('bat-container');
+
+            // 1. 주소창 뒤에 #이 붙어 들어왔다면 (예: #etc, #about) 오프닝을 건너뛰고 즉시 본문을 해제합니다.
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                const wrapper = document.getElementById('main-content-wrapper');
+                if (wrapper) {
+                    wrapper.classList.remove('opacity-0', 'pointer-events-none');
                 }
-
-                // ⭕ 메인 페이지 자바스크립트 로직에 통합할 오프닝 연출 스크립트
-                window.addEventListener('load', () => {
-                    const overlay = document.getElementById('intro-overlay');
-                    const emblem = document.getElementById('wayne-emblem');
-                    const batContainer = document.getElementById('bat-container');
-
-                    // 1. 0.3초 뒤 엠블럼 웅장하게 페이드 인
+                document.body.classList.remove('scroll-locked');
+                if (overlay) overlay.style.display = 'none';
+                
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
                     setTimeout(() => {
-                        if(emblem) {
+                        targetSection.scrollIntoView({ behavior: 'auto' });
+                    }, 200); // 딜레이 200ms로 안전 복귀 보장
+                }
+            } 
+            // 2. 아무것도 없이 첫 메인 입장이라면 웅장한 시네마틱 인트로 실행
+            else {
+                // 0.3초 뒤 엠블럼 페이드 인
+                setTimeout(() => {
+                    if(emblem) {
                         emblem.style.opacity = '1';
                         emblem.style.transform = 'scale(1)';
-                        }
-                    }, 300);
-
-                    // 2. 2.3초 뒤 엠블럼 비상 + 하얀 장막 걷히기 + 박쥐 스웜 출격
-                    setTimeout(() => {
-                        if(emblem) emblem.classList.add('fly-up');
-                        if(overlay) overlay.style.transform = 'translateY(-100%)';
-        
-                        // 박쥐 떼 소환!
-                        spawnBatSwarm();
-
-                        // 3. 인트로 무대가 완전히 천장 위로 넘어간 뒤(1초 후) 락 해제 및 클린업
-                        setTimeout(() => {
-                            // 단, 주소창에 #about이나 #etc가 없을 때만 스크롤을 잠금 해제(기존 로직 방해 금지)
-                            if (!window.location.hash) {
-                                document.body.classList.remove('overflow-hidden');
-                                // 기존 첫 화면 터치 유도용 클래스가 있다면 여기서 같이 컨트롤 가능
-                            }
-                            if(overlay) overlay.style.display = 'none'; // 메모리 확보를 위해 아예 제거
-                        }, 1000);
-
-                    }, 2300);
-
-                    // =============================================
-                    // 🦇 정교한 정삼각형/박쥐 실루엣형 SVG 스웜 생성기
-                    // =============================================
-                    function spawnBatSwarm() {
-                        if(!batContainer) return;
-                        const batCount = 35; // 날아오를 박쥐 마리 수
-        
-                        // 정교하게 다듬어진 샤프한 배트 윙 실루엣 가상 Path
-                        const batPath = "M12 6.5c-1.35-1.2-3.83-2-6-2-1.85 0-3.48.57-4.5 1.5C2.5 7 " +
-                                        "4 10.5 5.5 11c1.5.5 3 0 4.5-1.5.5-.5 1-1.5 2-1 .5.25.5 1.5.5 2 " +
-                                        "0-.5 0-1.75.5-2 .5-.25 1 .75 1.5 1 1.5 1.5 3 2 4.5 1.5 1.5-.5 " +
-                                        "3-4 4-5-.98-.93-2.65-1.5-4.5-1.5-2.17 0-4.65.8-6 2z";
-
-                        for (let i = 0; i < batCount; i++) {
-                            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                            svg.setAttribute("viewBox", "0 0 24 24");
-                            svg.classList.add('bat');
-
-                            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                            path.setAttribute("d", batPath);
-                            svg.appendChild(path);
-
-                            // 화면 중앙 근처에서 발사 세팅
-                            const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 160;
-                            const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 100;
-                            svg.style.left = startX + 'px';
-                            svg.style.top = startY + 'px';
-
-                            // 사방 공간 및 상단 좌우로 흩어지며 승천하는 궤적 계산
-                            const destX = (Math.random() - 0.5) * window.innerWidth * 1.8;
-                            const destY = -window.innerHeight * 1.3; 
-                            const rot = (Math.random() - 0.5) * 120; // 스핀 각도
-
-                            svg.style.setProperty('--tw-x', destX + 'px');
-                            svg.style.setProperty('--tw-y', destY + 'px');
-                            svg.style.setProperty('--tw-rot', rot + 'deg');
-
-                            // 박쥐 크기 불규칙성 부여 (원근감)
-                            const size = Math.random() * 25 + 12; // 12px ~ 37px
-                            svg.style.width = size + 'px';
-                            svg.style.height = size + 'px';
-
-                            // 날아가는 속도 타이밍 엇박자 연출 (리얼리티 극대화)
-                            const duration = Math.random() * 0.8 + 1.2; // 1.2초 ~ 2초
-                            const delay = Math.random() * 0.4; // 레이어 순차 출발
-                            svg.style.animation = `batFly ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s forwards`;
-
-                            batContainer.appendChild(svg);
-                        }
                     }
-                });
+                }, 300);
+
+                // 2.3초 뒤 비상 및 장막 해제
+                setTimeout(() => {
+                    if(emblem) emblem.classList.add('fly-up');
+                    if(overlay) overlay.style.transform = 'translateY(-100%)';
+                    
+                    spawnBatSwarm();
+
+                    // 장막이 완전히 올라간 후 청소
+                    setTimeout(() => {
+                        document.body.classList.remove('scroll-locked');
+                        if(overlay) overlay.style.display = 'none';
+                    }, 1000);
+
+                }, 2300);
+            }
+
+            // 🦇 박쥐 군단 생성 함수
+            function spawnBatSwarm() {
+                if(!batContainer) return;
+                const batCount = 35;
+                const batPath = "M12 6.5c-1.35-1.2-3.83-2-6-2-1.85 0-3.48.57-4.5 1.5C2.5 7 " +
+                                "4 10.5 5.5 11c1.5.5 3 0 4.5-1.5.5-.5 1-1.5 2-1 .5.25.5 1.5.5 2 " +
+                                "0-.5 0-1.75.5-2 .5-.25 1 .75 1.5 1 1.5 1.5 3 2 4.5 1.5 1.5-.5 " +
+                                "3-4 4-5-.98-.93-2.65-1.5-4.5-1.5-2.17 0-4.65.8-6 2z";
+
+                for (let i = 0; i < batCount; i++) {
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("viewBox", "0 0 24 24");
+                    svg.classList.add('bat');
+
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", batPath);
+                    svg.appendChild(path);
+
+                    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 160;
+                    const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 100;
+                    svg.style.left = startX + 'px';
+                    svg.style.top = startY + 'px';
+
+                    const destX = (Math.random() - 0.5) * window.innerWidth * 1.8;
+                    const destY = -window.innerHeight * 1.3; 
+                    const rot = (Math.random() - 0.5) * 120;
+
+                    svg.style.setProperty('--tw-x', destX + 'px');
+                    svg.style.setProperty('--tw-y', destY + 'px');
+                    svg.style.setProperty('--tw-rot', rot + 'deg');
+
+                    const size = Math.random() * 25 + 12;
+                    svg.style.width = size + 'px';
+                    svg.style.height = size + 'px';
+
+                    const duration = Math.random() * 0.8 + 1.2;
+                    const delay = Math.random() * 0.4;
+                    svg.style.animation = `batFly ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s forwards`;
+
+                    batContainer.appendChild(svg);
+                }
+            }
+        });
     </script>
 </body>
 </html>
