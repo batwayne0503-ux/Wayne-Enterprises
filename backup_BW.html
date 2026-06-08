@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko" class="scroll-smooth">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQ2DMB37MV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QQ2DMB37MV');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bruce Wayne | Mobile Profile</title>
+    <title>Bruce Wayne</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="apple-touch-icon" href="image/the_wayne_emblem.png">
+    <link rel="icon" href="image/the_wayne_emblem.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bruce Wayne">
+    <meta property="og:description" content="사교계의 정점에 서 있는 고결하고 묵직한 밤의 수호자.">
+    <meta property="og:image" content="https://batwayne0503-ux.github.io/image/the_wayne_emblem.png">
+    <meta property="og:url" content="https://batwayne0503-ux.github.io/Bruce_wayne_M.html">
+    
     <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
     <style>
         .serif-font { font-family: 'Times New Roman', serif; }
@@ -32,7 +48,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: white;
             display: flex; justify-content: center; align-items: center;
-            z-index: 99999; /* 모든 모달, 네비보다 무조건 맨 위 */
+            z-index: 99999;
             transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1), opacity 1s ease-out;
             overflow: hidden;
         }
@@ -48,7 +64,7 @@
         }
         .bat {
             position: absolute;
-            fill: #0f172a; /* 슬레이트 블랙 (메인 배경색과 어우러지게) */
+            fill: #0f172a;
             opacity: 0;
             pointer-events: none;
         }
@@ -56,6 +72,39 @@
             0% { transform: translate(0, 0) scale(0.3) rotate(0deg); opacity: 0; }
             15% { opacity: 0.9; }
             100% { transform: translate(var(--tw-x), var(--tw-y)) scale(1.6) rotate(var(--tw-rot)); opacity: 0; }
+        }
+
+        /* ⭕ [핵심 추가] PC 화면일 때만 #home 섹션의 배경을 오너님이 준 파일로 교체하는 마법 */
+        /* 💻 PC 화면 최적화 전용 방 (이 버전으로 통째로 교체해 주세요) */
+        @media (min-width: 768px) {
+            #home {
+                background-image: url('image/pc_main_bg.jpg') !important;
+                background-size: cover !important;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
+            }
+            #home h1 { color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.7); }
+            #home p { color: #e2e8f0 !important; }
+
+            /* ⭕ [강력 수정] 이미지를 감싸는 부모 박스 자체를 고정 풀고 최하단 바닥으로 챡 매장시킵니다. */
+            #home .flex-grow {
+                position: absolute !important;
+                bottom: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                height: 75vh !important; /* PC 모니터 화면에 맞게 박스 높이 확보 */
+                display: flex !important;
+                justify-content: flex-end !important;
+                align-items: flex-end !important; /* 내부의 profilemain.png를 완벽히 바닥 밀착 */
+                z-index: 10 !important;
+            }
+
+            /* 이미지 자체도 PC 해상도에 맞춰 묵직하게 바닥 라인을 맞추도록 유연하게 높이 설정 */
+            #home img[src*="profilemain.png"] {
+                height: 100% !important;
+                max-height: 75vh !important;
+                object-contain: bottom !important;
+            }
         }
     </style>
 </head>
@@ -65,53 +114,58 @@
         <img src="image/the_wayne_emblem.png" id="wayne-emblem" alt="Wayne Emblem">
         <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
     </div>
-    
-    <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
-        <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
-    </div>
 
-    <header class="fixed top-0 w-full z-[100] pt-safe px-6 py-4 flex justify-between items-center bg-gray-950 text-white shadow-md">
-        <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank">
-            <img src="image/kakaologo.png" class="w-6 h-6 opacity-80">
-        </a>
-        <nav class="flex space-x-4 text-[10px] tracking-widest uppercase font-semibold text-gray-300">
-            <a href="#home">HOME</a>
-            <a href="#who">WHO</a>
-            <a href="#about">ABOUT</a>
-            <a href="#etc">ETC</a>
-        </nav>
-        <a href="index.html" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
-    </header>
-
-    <section id="home" class="h-[100dvh] relative overflow-hidden bg-white flex flex-col justify-between">
-
-        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
-            <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
-        </div>
-
-        <div class="relative z-20 w-full pl-8 pt-[15vh]">
-            <h1 class="text-[45px] md:text-[55px] font-bold tracking-tighter leading-none text-black !important" style="font-family: 'Tinos', 'Times New Roman', Times, serif !important;">
-                BRUCE WAYNE
-            </h1>
-        </div>
-        <div class="relative z-10 w-full flex-grow flex justify-end items-end overflow-hidden">
-        
-            <img src="image/profilemain.png" 
-                 onclick="showCharacter()" 
-                 class="w-auto h-[60dvh] md:h-[70dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%]">
-            
-            <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
-        </div>
-    
-        <div class="relative z-30 w-full text-center pb-[8dvh]">
-            <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans">
-                TOUCH TO PROFILE
-            </p>
-        </div>
-
-    </section>
-    
     <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700">
+    
+        <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
+        </div>
+
+        <header class="fixed top-0 w-full z-[100] pt-safe px-6 py-4 flex justify-between items-center bg-gray-950 text-white shadow-md">
+            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank">
+                <img src="image/kakaologo.png" class="w-6 h-6 opacity-80">
+            </a>
+            <nav class="flex space-x-4 text-[10px] tracking-widest uppercase font-semibold text-gray-300">
+                <a href="#home">HOME</a>
+                <a href="#who">WHO</a>
+                <a href="#about">ABOUT</a>
+                <a href="#etc">ETC</a>
+            </nav>
+            <a href="index.html" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
+        </header>
+
+        <section id="home" class="h-[100dvh] relative overflow-hidden bg-white flex flex-col justify-between">
+
+            <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
+            </div>
+
+            <div class="relative z-20 w-full pl-8 pt-[15vh]">
+                <h1 class="text-[45px] md:text-[55px] font-bold tracking-tighter leading-none text-black" style="font-family: 'Tinos', 'Times New Roman', Times, serif !important;">
+                    BRUCE WAYNE
+                </h1>
+            </div>
+
+            <div class="relative z-10 w-full flex-grow flex justify-end items-end overflow-hidden">
+    
+                <img src="image/profilemain.png" 
+                     onclick="showCharacter()" 
+                     class="block md:hidden w-auto h-[60dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%] z-10">
+        
+                <img src="image/profilemain.png" 
+                     onclick="showCharacter()" 
+                     class="hidden md:block fixed bottom-0 right-0 h-[70vh] object-contain object-bottom cursor-pointer active:scale-95 transition-transform z-10">
+        
+                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent md:from-black/40 md:via-transparent md:to-transparent z-20 pointer-events-none"></div>
+            </div>
+
+            <div class="relative z-30 w-full text-center pb-[8dvh]">
+                <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans">
+                    TOUCH TO PROFILE
+                </p>
+            </div>
+
+        </section>
         
         <section id="who" class="min-h-screen bg-gray-950 text-white px-8 pt-32 pb-20 flex flex-col justify-center relative z-20">
             <div class="text-right mb-24">
@@ -188,7 +242,7 @@
             </div>
         </section>
 
-        <section id="etc" class="min-h-screen bg-white text-gray-900 px-6 pt-32 pb-20 relative overflow-hidden">
+        <section id="etc" class="min-h-screen bg-white text-gray-900 px-6 pt-32 pb-20 relative overflow-hidden max-w-md mx-auto w-full">
             <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
                 <img src="image/ubermensch.png" class="w-full max-w-sm blur-lg scale-125">
             </div>
@@ -198,7 +252,7 @@
                 <div class="grid grid-cols-2 gap-4">
     
                     <div class="flex flex-col items-center cursor-pointer" 
-                         onclick="openTextModal('HIStory 아카이브', `
+                         onclick="openTextModal('그의 지난 시간들', `
                                 <p style='color:#666; font-size:16px; margin-bottom:18px;'>그의 지난 이야기들 속으로 들어가 보세요.</p>
                                 <ul style='list-style-type:disc; padding-left:20px; line-height:2.2; font-size:17px; font-weight:bold;'>
                                     <li><a href='the_wayne_murdered.html' style='color:#111827; text-decoration:underline;'>The Wayne Murdered</a></li>
@@ -213,7 +267,7 @@
                         </div>
 
                     <div class="flex flex-col items-center cursor-pointer" 
-                         onclick="openTextModal('Quote 캐입글', `
+                         onclick="openTextModal('캐입글 모음', `
                             <p style='color:#666; font-size:17px; margin-bottom:18px;'>읽어 보실 캐입글을 선택해 주세요.</p>
                             <ul style='list-style-type:disc; padding-left:20px; line-height:2.2; font-size:17px; font-weight:bold;'>
                                 <li><a href='prologue_anima.html' style='color:#111827; text-decoration:underline;'>프롤로그: 아니마</a></li>
@@ -245,7 +299,7 @@
                                     <li>Friedrich Nietzsche(철학)</li> 
                                     <li>Carl Jung(심리학)</li> 
                                     <li>그림자 바이러스(심리학)</li>
-                                    <li>배트맨 80주년 기념 아트북(원작과 설정집)</li>
+                                    <li>배트맨 80주년 기념 아트북(원작 and 설정집)</li>
                                 </ul>
                             </div>
                         `)">
@@ -352,13 +406,11 @@
             }
         };
 
-        // ⭕ [통합 버전] 주소창 감지 센서 및 시네마틱 오프닝 독립 구동
         window.addEventListener('DOMContentLoaded', () => {
             const overlay = document.getElementById('intro-overlay');
             const emblem = document.getElementById('wayne-emblem');
             const batContainer = document.getElementById('bat-container');
 
-            // 1. 주소창 뒤에 #이 붙어 들어왔다면 (예: #etc, #about) 오프닝을 건너뛰고 즉시 본문을 해제합니다.
             if (window.location.hash) {
                 const hash = window.location.hash;
                 const wrapper = document.getElementById('main-content-wrapper');
@@ -372,12 +424,10 @@
                 if (targetSection) {
                     setTimeout(() => {
                         targetSection.scrollIntoView({ behavior: 'auto' });
-                    }, 200); // 딜레이 200ms로 안전 복귀 보장
+                    }, 200);
                 }
             } 
-            // 2. 아무것도 없이 첫 메인 입장이라면 웅장한 시네마틱 인트로 실행
             else {
-                // 0.3초 뒤 엠블럼 페이드 인
                 setTimeout(() => {
                     if(emblem) {
                         emblem.style.opacity = '1';
@@ -385,23 +435,23 @@
                     }
                 }, 300);
 
-                // 2.3초 뒤 비상 및 장막 해제
                 setTimeout(() => {
                     if(emblem) emblem.classList.add('fly-up');
                     if(overlay) overlay.style.transform = 'translateY(-100%)';
                     
                     spawnBatSwarm();
 
-                    // 장막이 완전히 올라간 후 청소
                     setTimeout(() => {
                         document.body.classList.remove('scroll-locked');
                         if(overlay) overlay.style.display = 'none';
+                        
+                        const wrapper = document.getElementById('main-content-wrapper');
+                        if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
                     }, 1000);
 
                 }, 2300);
             }
 
-            // 🦇 박쥐 군단 생성 함수
             function spawnBatSwarm() {
                 if(!batContainer) return;
                 const batCount = 35;
