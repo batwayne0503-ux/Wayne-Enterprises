@@ -83,12 +83,21 @@
         }
     </style>
 </head>
+    <div id="intro-overlay"> ... </div>
+    <div class="fixed inset-0 z-0 ..."> ... </div>
+    
 <body class="bg-white scroll-locked">
 
     <div id="intro-overlay">
         <img src="image/the_wayne_emblem.png" id="wayne-emblem" alt="Wayne Emblem">
         <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
     </div>
+
+    <div class="hidden md:block fixed inset-0 z-0 w-screen h-screen" style="background-color: #000000;">
+        <img src="image/pc_main_bg.jpg" alt="Wayne Enterprise Background" class="w-full h-full object-contain">
+    </div>
+
+    <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700 w-full md:max-w-md md:mx-auto md:relative md:z-10">
     
     <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
         <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
