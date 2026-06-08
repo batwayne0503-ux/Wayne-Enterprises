@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bruce Wayne | Mobile Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .serif-font { font-family: 'Times New Roman', serif; }
+        .pt-safe { padding-top: env(safe-area-inset-top); }
+        body { font-family: serif; background-color: #ffffff; color: #111827; margin: 0; }
+        
+        /* 초기 스크롤 원천 차단 */
+        .scroll-locked { overflow: hidden !important; height: 100vh !important; }
+        
+        /* 캐릭터 패널 애니메이션 */
+        #character-panel { 
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+            transform: translateY(100%); 
+        }
+        #character-panel.active { transform: translateY(0); }
+
+        /* 드롭다운 애니메이션 */
+        .dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .dropdown-content.show { max-height: 1000px; }
+
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: white;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 99999; /* 모든 모달, 네비보다 무조건 맨 위 */
+            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1), opacity 1s ease-out;
+            overflow: hidden;
+        }
+        #wayne-emblem {
+            max-width: 180px;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 1.2s ease-in, transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .fly-up {
+            transform: translateY(-140%) scale(0.7) !important;
+            opacity: 0 !important;
+        }
+        .bat {
+            position: absolute;
+            fill: #0f172a; /* 슬레이트 블랙 (메인 배경색과 어우러지게) */
+            opacity: 0;
+            pointer-events: none;
+        }
+        @keyframes batFly {
+            0% { transform: translate(0, 0) scale(0.3) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.9; }
+            100% { transform: translate(var(--tw-x), var(--tw-y)) scale(1.6) rotate(var(--tw-rot)); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-white scroll-locked">
+
+    <div id="intro-overlay">
+        <img src="image/the_wayne_emblem.png" id="wayne-emblem" alt="Wayne Emblem">
+        <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
+    </div>
+    
+    <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
+        <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
+    </div>
+
+    <header class="fixed top-0 w-full z-[100] pt-safe px-6 py-4 flex justify-between items-center bg-gray-950 text-white shadow-md">
+        <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank">
+            <img src="image/kakaologo.png" class="w-6 h-6 opacity-80">
+        </a>
+        <nav class="flex space-x-4 text-[10px] tracking-widest uppercase font-semibold text-gray-300">
+            <a href="#home">HOME</a>
+            <a href="#who">WHO</a>
+            <a href="#about">ABOUT</a>
+            <a href="#etc">ETC</a>
+        </nav>
+        <a href="index.html" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
+    </header>
+
+    <section id="home" class="h-[100dvh] relative overflow-hidden bg-white flex flex-col justify-between">
+
+        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
+        </div>
+
+        <div class="relative z-20 w-full pl-8 pt-[15vh]">
+            <h1 class="text-[45px] md:text-[55px] font-bold tracking-tighter leading-none text-black !important" style="font-family: 'Tinos', 'Times New Roman', Times, serif !important;">
+                BRUCE WAYNE
+            </h1>
+        </div>
+        <div class="relative z-10 w-full flex-grow flex justify-end items-end overflow-hidden">
+        
+            <img src="image/profilemain.png" 
+                 onclick="showCharacter()" 
+                 class="w-auto h-[60dvh] md:h-[70dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%]">
+            
+            <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
+        </div>
+    
+        <div class="relative z-30 w-full text-center pb-[8dvh]">
+            <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans">
+                TOUCH TO PROFILE
+            </p>
+        </div>
+
+    </section>
+    
+    <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700">
+        
+        <section id="who" class="min-h-screen bg-gray-950 text-white px-8 pt-32 pb-20 flex flex-col justify-center relative z-20">
+            <div class="text-right mb-24">
+                <p class="text-gray-500 text-xs mb-2 uppercase tracking-widest font-sans">- Crow</p>
+                <p class="text-lg leading-relaxed serif-font italic">사교계의 정점에 서 있는<br>고결하고 묵직한 밤의 수호자.</p>
+            </div>
+            <div class="text-left">
+                <p class="text-gray-500 text-xs mb-2 uppercase tracking-widest font-sans">- Anonymous</p>
+                <p class="text-lg leading-relaxed serif-font italic">발 없는 박쥐가 있다.<br>날아다니다가 지치면 바람 속에서 잠이 든다.<br>평생에 딱 한 번 땅에 착륙하는데 그건 바로 죽을 때다.</p>
+            </div>
+        </section>
+
+        <section id="about" class="min-h-screen bg-gray-950 text-white px-8 pt-32 pb-20 flex flex-col items-center relative z-20">
+            <h2 class="text-3xl font-bold mb-16 text-center serif-font tracking-widest">ABOUT</h2>
+            <div class="w-full max-w-sm space-y-6">
+                <div class="border-b border-gray-800 pb-6 text-center">
+                    <button onclick="toggleAbout('d1')" class="w-full text-center font-medium tracking-wide">역극 안내</button>
+                    <div id="d1" class="dropdown-content text-sm text-gray-400 pt-4 px-4 leading-relaxed space-y-3">
+                        <li>글을 쓰는 비중과 찾아가는 비중이 비슷합니다.<br>선친 여부와 상관없이 선교류를 지향하고 있습니다.</li>
+                        <li>흥미가 당기시는 주제라면 편히 와서 서사를 이어주시면 좋겠습니다.<br>
+                        공역을 진행하기도 하며, 사진이 첨부된 글을 쓰거나 SNS캐입도 있습니다. 기호로는 S. 혹은 휴대폰 이모지를 이용합니다.</li>
+                        <li>흔적을 남기지 않더라도 탐라를 자주 읽고 있습니다.</li>
+                        <li>지난 역극에 대한 뒷북 OK, 친분이 생기고 난 후엔 언제든지 마음껏 부르셔도 좋습니다.</li>
+                        <li>서사 없는 수위는 하지 않습니다. 취향은 남들 가리는 거만 가립니다.<br>
+                        먼저 수위성이 짙은 이야기(섹드립)는 잘 하지 않습니다. <del class="text-gray-500">어쩌다 한 번 재밌자고 합니다.</del></li>
+                    </div>
+                </div>
+                <div class="border-b border-gray-800 pb-6 text-center">
+                    <button onclick="toggleAbout('d2')" class="w-full text-center font-medium tracking-wide">초면/구면 안내</button>
+                        <div id="d2" class="dropdown-content text-sm text-gray-400 pt-4 px-4 leading-relaxed">
+                            <ol class="list-decimal pl-5 space-y-4">
+                                <li>웨인 재단과 친구가 되어 있으신 경우, 여러분 캐릭터의 신상에 대해 서류로 이미 알고 있다는 설정이 기본입니다.</li>
+                                <li>위의 사항에 해당되지 않는 분들을 초면으로 인지합니다.</li>
+                                <li>히어로 설정인 분들에겐 ‘이미 은퇴했으나 그 영향력이 아직도 후대에 미쳐서 여전히 귀감이 되는 사람’, 혹은 히어로 협회의 최대 후원자 정도로 생각해 주시면 됩니다. (원작의 배트맨 주식회사 설정)<br>
+                                <span class="block mt-1 text-gray-500 text-[13px]">은퇴하더니 물러졌다고 생각하셔도 좋고, 존중의 대상으로 생각하셔도 좋습니다.</span></li>
+                                <li>빌런 설정인 분들은 여러분 재량껏 대해주시면 됩니다.</li>
+                                <li>옆집 거주 설정인 분들의 경우 그의 펜트하우스가 있는 건물 내에서 마주쳤다는 설정입니다.</li>
+                                <li>이 외의 분들은 프로필을 읽고, 원하시는대로 대해주시면 됩니다.</li>
+                            </ol>
+                        </div>
+                </div>
+                <div class="border-b border-gray-800 pb-6 text-center">
+                    <button onclick="toggleAbout('d3')" class="w-full text-center font-medium tracking-wide">당부의 말씀</button>
+                    <div id="d3" class="dropdown-content text-sm text-gray-400 pt-4 px-4 leading-relaxed space-y-3">
+                        <li>특정 영화나 코믹스 설정만을 가지고 굴러가는 봇이 아닌, 배트맨의 여러 미디어 믹스 스토리와 설정을 혼합한<br>독자적 세계관을 가지고 있습니다.</li>
+                        <li>개인해석을 상당 부분 포함하고 있으며 따라서, 여러분이 생각하시는 혹은 알고 있는 배트맨/브루스 웨인과 괴리감이나 차이점이 존재 할 수 있습니다.</li>
+                        <li>향후에 개봉하는 배트맨과 연관된 극장영화에 대해서는 영화가 다루는 시점에 따라 이를 본 브루스 웨인의 과거사 중 하나로 편입할 수도 있습니다.<br>
+                            예를 들어 2022년에 개봉했던 더 배트맨은 배트맨의 활동 초기를 다루고 있으므로 과거사로 이용하고 있습니다.<br>
+                            반면, 2024년에 개봉했던 조커: 폴리 아 되는 고담의 영화인들이 조커라는 빌런에 대해 창작을 가미해 만든 허구의 영화로 취급합니다.</li>
+                        <li>오너 성향상 오너글을 쓰지 않습니다. 다른 분의 오너글엔 아주 가끔씩 등장합니다. 하실 말씀이 있거나 저와 설정 조율이 필요하다면 쪽지나 언급을 부탁드립니다.</li>
+                        <li><strong>저는 늘 여러분의 설정을 정독한 후, 친신을 겁니다.</strong></li>
+                    </div>
+                </div>
+                <div class="border-b border-gray-800 pb-6 text-center">
+                    <button onclick="toggleAbout('d4')" class="w-full text-center font-medium tracking-wide">구동 역사</button>
+                    <div id="d4" class="dropdown-content text-sm text-gray-400 pt-4 px-4 leading-relaxed space-y-3">
+                        - St, 04.01.2022.~<br>
+                        - 1주년. 04.01.2023.<br>
+                        - 정체 공개. 04.23.2023.<br>
+                        - 옾스 Up 100. 12.29.2023.<br>
+                        - 2주년. 04.01.2024.<br>
+                        - 할리우드 명예의 거리 등재: 09.26.2024.<br>
+                        - 옾스 Up 200. 11.17.2024.<br>
+                        - 3주년. 04.01.2025.<br>
+                        - 옾스 Up 300. 03.18.2026<br>
+                        - 4주년. 04.01.2026.<br>
+                    </div>
+                </div>
+                <div class="border-b border-gray-800 pb-6 text-center">
+                    <a href="tmi.html" class="block w-full text-center font-medium tracking-wide text-white hover:text-[#FACC15] active:text-[#FACC15] transition-colors">
+                        Tmi of Wayne 🔗
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="etc" class="min-h-screen bg-white text-gray-900 px-6 pt-32 pb-20 relative overflow-hidden">
+            <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <img src="image/ubermensch.png" class="w-full max-w-sm blur-lg scale-125">
+            </div>
+    
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-16 text-center serif-font tracking-widest">ETC</h2>
+                <div class="grid grid-cols-2 gap-4">
+    
+                    <div class="flex flex-col items-center cursor-pointer" 
+                         onclick="openTextModal('HIStory 아카이브', `
+                                <p style='color:#666; font-size:16px; margin-bottom:18px;'>그의 지난 이야기들 속으로 들어가 보세요.</p>
+                                <ul style='list-style-type:disc; padding-left:20px; line-height:2.2; font-size:17px; font-weight:bold;'>
+                                    <li><a href='the_wayne_murdered.html' style='color:#111827; text-decoration:underline;'>The Wayne Murdered</a></li>
+                                    <li><a href='long_halloween.html' style='color:#111827; text-decoration:underline;'>그는 어쩌다 박쥐가 되었나</a></li>
+                                    <li><a href='records.html' style='color:#111827; text-decoration:underline;'>지난 밤의 기록들</a></li>
+                                    <li><a href='https://walkoffame.com/31056-2/' target='_blank' style='color:#3b82f6; text-decoration:underline;'>헐리우드 명예의 전당 🔗</a></li>
+                                    <li><a href='https://strong-zone-db6.notion.site/Regacy-of-The-Wayne-8364965bfdd14146900a55f9906a22ab?source=copy_link' target='_blank' style='color:#3b82f6; text-decoration:underline;'>웨인가의 유산 🔗</a></li>
+                                </ul>
+                            `)">
+                            <img src="image/HIStory.JPG" class="w-full aspect-square object-cover shadow-lg">
+                            <p class="mt-3 text-[14px] font-bold uppercase tracking-tighter">HIStory</p>
+                        </div>
+
+                    <div class="flex flex-col items-center cursor-pointer" 
+                         onclick="openTextModal('Quote 캐입글', `
+                            <p style='color:#666; font-size:17px; margin-bottom:18px;'>읽어 보실 캐입글을 선택해 주세요.</p>
+                            <ul style='list-style-type:disc; padding-left:20px; line-height:2.2; font-size:17px; font-weight:bold;'>
+                                <li><a href='prologue_anima.html' style='color:#111827; text-decoration:underline;'>프롤로그: 아니마</a></li>
+                                <li><a href='dawn_of_cawl.html' style='color:#111827; text-decoration:underline;'>에피소드 1: Dawn of Cawl</a></li>
+                            </ul>
+                        `)">
+                        <img src="image/Quote_re.jpg" class="w-full aspect-square object-cover shadow-lg">
+                        <p class="mt-3 text-[14px] font-bold uppercase tracking-tighter">Quote</p>
+                    </div>
+
+                    <a href="https://story.kakao.com/batwayne0503/kZMRDA3ZZaa" target="_blank" class="flex flex-col items-center">
+                        <img src="image/dodle.JPG" class="w-full aspect-square object-cover shadow-lg">
+                        <p class="mt-3 text-[14px] font-bold uppercase tracking-tighter underline underline-offset-4">dodle</p>
+                    </a>
+
+                    <div class="flex flex-col items-center cursor-pointer" 
+                         onclick="openTextModal('영감의 원천들', `
+                            <div style='color:#111827;'>
+                                <ul style='list-style-type:disc; padding-left:20px; line-height:2.0; font-size:17px; font-weight:bold;'>
+                                    <li>Based on DC Comics<br>
+                                    첫등장. 디텍티브 코믹스 #27.<strong>1939.03</strong><br>
+                                    원작자. Bill Finger and Bob Kane</li>
+                                    <li>Inspired by.<br>
+                                    <li>배트맨 모던 에이지 시리즈(영화)</li> 
+                                    <li>다크 나이트 트릴로지(영화)</li>
+                                    <li>DC 확장 유니버스(영화)</li> 
+                                    <li>The Batman SAGA(영화)</li>
+                                    <li>아캄 버스(게임)</li>
+                                    <li>Friedrich Nietzsche(철학)</li> 
+                                    <li>Carl Jung(심리학)</li> 
+                                    <li>그림자 바이러스(심리학)</li>
+                                    <li>배트맨 80주년 기념 아트북(원작과 설정집)</li>
+                                </ul>
+                            </div>
+                        `)">
+                        <img src="image/inspired.jpg" class="w-full aspect-square object-cover shadow-lg">
+                        <p class="mt-3 text-[14px] font-bold uppercase tracking-tighter">Inspired</p>
+                    </div>
+
+                </div>
+        </section>
+    </div>
+
+    <div id="character-panel" class="fixed inset-0 z-[200] bg-gray-900 text-white flex flex-col items-center justify-center p-8 text-center">
+        <h2 class="text-3xl font-bold mb-10 serif-font tracking-widest">Character</h2>
+        <div class="space-y-6 text-center font-sans tracking-tight">
+            <p class="text-lg">[부드러운 카리스마] · [아이와 동물에 약함]<br>[워커홀릭]</p>
+            <div class="flex justify-center gap-3 text-sm text-gray-400">
+                <span>[190cm] · [93kg] · [42세] · [HL only]</span>
+            </div>
+        </div>
+        <button onclick="unlockScroll()" class="mt-16 border border-white px-10 py-3 uppercase text-xs tracking-[0.2em] font-bold hover:bg-white hover:text-gray-950 transition-colors">
+            더 읽어보기
+        </button>
+    </div>
+
+    <div id="text-viewer" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-sm flex justify-center items-center opacity-0 transition-opacity duration-300" onclick="closeTextModal()">
+        <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-[85vw] w-full max-h-[70vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-black" onclick="closeTextModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h3 id="text-viewer-title" class="text-xl font-bold mb-4 serif-font border-b border-gray-200 pb-2"></h3>
+            <div id="text-viewer-content" class="text-sm leading-relaxed text-gray-600"></div>
+        </div>
+    </div>
+    
+    <script>
+        function showCharacter() {
+            document.getElementById('character-panel').classList.add('active');
+        }
+
+        function unlockScroll() {
+            const wrapper = document.getElementById('main-content-wrapper');
+            wrapper.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('scroll-locked');
+            document.getElementById('character-panel').classList.remove('active');
+            document.getElementById('who').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleAbout(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('show');
+        }
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('header nav a');
+            let currentSectionId = '';
+    
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - (window.innerHeight / 3)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-[#FACC15]');
+                link.classList.add('text-gray-400');
+        
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.remove('text-gray-400');
+                    link.classList.add('text-[#FACC15]', 'transition-colors', 'duration-300');
+                }
+            });
+        });
+
+        window.openTextModal = function(title, content) {
+            const viewer = document.getElementById('text-viewer');
+            const titleTarget = document.getElementById('text-viewer-title');
+            const contentTarget = document.getElementById('text-viewer-content');
+
+            if(viewer && titleTarget && contentTarget) {
+                titleTarget.innerHTML = title;
+                contentTarget.innerHTML = content;
+                viewer.classList.remove('hidden');
+                setTimeout(() => { 
+                    viewer.classList.remove('opacity-0'); 
+                    viewer.querySelector('.bg-white').classList.remove('scale-95');
+                    viewer.querySelector('.bg-white').classList.add('scale-100');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        window.closeTextModal = function() {
+            const viewer = document.getElementById('text-viewer');
+            if(viewer) {
+                viewer.classList.add('opacity-0');
+                setTimeout(() => { 
+                    viewer.classList.add('hidden'); 
+                    if(!document.body.classList.contains('scroll-locked')) {
+                        document.body.style.overflow = 'auto'; 
+                    }
+                }, 300);
+            }
+        };
+
+        // ⭕ [통합 버전] 주소창 감지 센서 및 시네마틱 오프닝 독립 구동
+        window.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('intro-overlay');
+            const emblem = document.getElementById('wayne-emblem');
+            const batContainer = document.getElementById('bat-container');
+
+            // 1. 주소창 뒤에 #이 붙어 들어왔다면 (예: #etc, #about) 오프닝을 건너뛰고 즉시 본문을 해제합니다.
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                const wrapper = document.getElementById('main-content-wrapper');
+                if (wrapper) {
+                    wrapper.classList.remove('opacity-0', 'pointer-events-none');
+                }
+                document.body.classList.remove('scroll-locked');
+                if (overlay) overlay.style.display = 'none';
+                
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'auto' });
+                    }, 200); // 딜레이 200ms로 안전 복귀 보장
+                }
+            } 
+            // 2. 아무것도 없이 첫 메인 입장이라면 웅장한 시네마틱 인트로 실행
+            else {
+                // 0.3초 뒤 엠블럼 페이드 인
+                setTimeout(() => {
+                    if(emblem) {
+                        emblem.style.opacity = '1';
+                        emblem.style.transform = 'scale(1)';
+                    }
+                }, 300);
+
+                // 2.3초 뒤 비상 및 장막 해제
+                setTimeout(() => {
+                    if(emblem) emblem.classList.add('fly-up');
+                    if(overlay) overlay.style.transform = 'translateY(-100%)';
+                    
+                    spawnBatSwarm();
+
+                    // 장막이 완전히 올라간 후 청소
+                    setTimeout(() => {
+                        document.body.classList.remove('scroll-locked');
+                        if(overlay) overlay.style.display = 'none';
+                    }, 1000);
+
+                }, 2300);
+            }
+
+            // 🦇 박쥐 군단 생성 함수
+            function spawnBatSwarm() {
+                if(!batContainer) return;
+                const batCount = 35;
+                const batPath = "M12 6.5c-1.35-1.2-3.83-2-6-2-1.85 0-3.48.57-4.5 1.5C2.5 7 " +
+                                "4 10.5 5.5 11c1.5.5 3 0 4.5-1.5.5-.5 1-1.5 2-1 .5.25.5 1.5.5 2 " +
+                                "0-.5 0-1.75.5-2 .5-.25 1 .75 1.5 1 1.5 1.5 3 2 4.5 1.5 1.5-.5 " +
+                                "3-4 4-5-.98-.93-2.65-1.5-4.5-1.5-2.17 0-4.65.8-6 2z";
+
+                for (let i = 0; i < batCount; i++) {
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("viewBox", "0 0 24 24");
+                    svg.classList.add('bat');
+
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", batPath);
+                    svg.appendChild(path);
+
+                    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 160;
+                    const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 100;
+                    svg.style.left = startX + 'px';
+                    svg.style.top = startY + 'px';
+
+                    const destX = (Math.random() - 0.5) * window.innerWidth * 1.8;
+                    const destY = -window.innerHeight * 1.3; 
+                    const rot = (Math.random() - 0.5) * 120;
+
+                    svg.style.setProperty('--tw-x', destX + 'px');
+                    svg.style.setProperty('--tw-y', destY + 'px');
+                    svg.style.setProperty('--tw-rot', rot + 'deg');
+
+                    const size = Math.random() * 25 + 12;
+                    svg.style.width = size + 'px';
+                    svg.style.height = size + 'px';
+
+                    const duration = Math.random() * 0.8 + 1.2;
+                    const delay = Math.random() * 0.4;
+                    svg.style.animation = `batFly ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s forwards`;
+
+                    batContainer.appendChild(svg);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
