@@ -145,15 +145,20 @@
                     BRUCE WAYNE
                 </h1>
             </div>
+
             <div class="relative z-10 w-full flex-grow flex justify-end items-end overflow-hidden">
-            
+    
                 <img src="image/profilemain.png" 
                      onclick="showCharacter()" 
-                     class="w-auto h-[60dvh] md:h-[70dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%]">
-                
-                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white/20 via-white/10 to-transparent md:from-black/40 md:via-transparent md:to-transparent z-20 pointer-events-none"></div>
-            </div>
+                     class="block md:hidden w-auto h-[60dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%] z-10">
         
+                <img src="image/profilemain.png" 
+                     onclick="showCharacter()" 
+                     class="hidden md:block fixed bottom-0 right-0 h-[70vh] object-contain object-bottom cursor-pointer active:scale-95 transition-transform z-10">
+        
+                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent md:from-black/40 md:via-transparent md:to-transparent z-20 pointer-events-none"></div>
+            </div>
+
             <div class="relative z-30 w-full text-center pb-[8dvh]">
                 <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans">
                     TOUCH TO PROFILE
