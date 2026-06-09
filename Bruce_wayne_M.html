@@ -31,6 +31,12 @@
         
         /* 초기 스크롤 원천 차단 */
         .scroll-locked { overflow: hidden !important; height: 100vh !important; }
+
+        /* 🔒 초기 상태에서는 화면에 스크롤바 자체를 완전히 지워버립니다 */
+        html, body {
+            overflow: hidden; /* 로딩 직후 스크롤 불가능 상태 */
+            height: 100%;
+        }
         
         /* 캐릭터 패널 애니메이션 */
         #character-panel { 
@@ -405,50 +411,38 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const overlay = document.getElementById('intro-overlay');
-            const emblem = document.getElementById('wayne-emblem');
+            const emblem = document.getElementById('wayne-emblem');    
             const batContainer = document.getElementById('bat-container');
 
+            // [체크] 주소창에 해시값이 들고 들어와도 오프닝 스킵 없이 무조건 잠그고 시작합니다.
             if (window.location.hash) {
-                const hash = window.location.hash;
-                const wrapper = document.getElementById('main-content-wrapper');
-                if (wrapper) {
-                    wrapper.classList.remove('opacity-0', 'pointer-events-none');
-                }
-                document.body.classList.remove('scroll-locked');
-                if (overlay) overlay.style.display = 'none';
-                
-                const targetSection = document.querySelector(hash);
-                if (targetSection) {
-                    setTimeout(() => {
-                        targetSection.scrollIntoView({ behavior: 'auto' });
-                    }, 200);
-                }
+                // 해시가 있을 때 자동 해제되던 구 코드를 완전히 삭제했습니다.
             } 
-            else {
+
+            // 1단계: 0.3초 뒤 엠블럼 등장
+            setTimeout(() => {
+                if(emblem) {
+                    emblem.style.opacity = '1';
+                    emblem.style.transform = 'scale(1)';
+                }
+            }, 300);
+
+            // 2단계: 2.3초 뒤 흰 화면 장막 걷히며 박쥐 비상
+            setTimeout(() => {
+                if(emblem) emblem.classList.add('fly-up');
+                if(overlay) overlay.style.transform = 'translateY(-100%)';
+        
+                spawnBatSwarm();
+
+                // 3단계: 3.3초 뒤 오프닝 레이어 뒷정리 (★주의: 여기서 스크롤 해제 코드를 완전히 박멸했습니다!)
                 setTimeout(() => {
-                    if(emblem) {
-                        emblem.style.opacity = '1';
-                        emblem.style.transform = 'scale(1)';
-                    }
-                }, 300);
+                    if(overlay) overlay.style.display = 'none';
+                    // 이제 오프닝이 끝나도 body의 'scroll-locked'는 그대로 유지되므로 화면이 철통 잠금됩니다.
+                }, 1000);
 
-                setTimeout(() => {
-                    if(emblem) emblem.classList.add('fly-up');
-                    if(overlay) overlay.style.transform = 'translateY(-100%)';
-                    
-                    spawnBatSwarm();
+            }, 2300);
 
-                    setTimeout(() => {
-                        document.body.classList.remove('scroll-locked');
-                        if(overlay) overlay.style.display = 'none';
-                        
-                        const wrapper = document.getElementById('main-content-wrapper');
-                        if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
-                    }, 1000);
-
-                }, 2300);
-            }
-
+            // [기존 박쥐 생성 함수 - 그대로 유지]
             function spawnBatSwarm() {
                 if(!batContainer) return;
                 const batCount = 35;
@@ -459,7 +453,7 @@
 
                 for (let i = 0; i < batCount; i++) {
                     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                    svg.setAttribute("viewBox", "0 0 24 24");
+                    svg.setAttribute("viewBox", "0 0 24 24");    
                     svg.classList.add('bat');
 
                     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
