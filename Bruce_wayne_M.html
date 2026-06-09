@@ -344,10 +344,28 @@
 
         function unlockScroll() {
             const wrapper = document.getElementById('main-content-wrapper');
-            wrapper.classList.remove('opacity-0', 'pointer-events-none');
+    
+            // 1. 먼저 메인 화면의 장막과 포인터 이벤트를 정상화합니다.
+            if (wrapper) {
+                wrapper.classList.remove('opacity-0', 'pointer-events-none');
+            }
+    
+            // 2. 🔒 바디의 스크롤 족쇄를 완전히 파괴하여 해제합니다.
             document.body.classList.remove('scroll-locked');
-            document.getElementById('character-panel').classList.remove('active');
-            document.getElementById('who').scrollIntoView({ behavior: 'smooth' });
+    
+            // 3. 팝업 패널이 열려있다면 닫아줍니다.
+            const panel = document.getElementById('character-panel');
+            if (panel) {
+                panel.classList.remove('active');
+            }
+    
+            // ⭕ [충돌 차단] 잠금이 풀린 후 브라우저가 완전히 안정화된 뒤 부드럽게 밀어줍니다.
+            setTimeout(() => {
+                const whoSection = document.getElementById('who');
+                if (whoSection) {
+                    whoSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 50); 
         }
 
         function toggleAbout(id) {
@@ -355,14 +373,19 @@
             content.classList.toggle('show');
         }
 
+        // 🧭 상단 메뉴 활성화(노란 불빛) 감지 센서 정밀 튜닝
         window.addEventListener('scroll', () => {
+            // body에 scroll-locked가 아직 걸려있는 인트로 상태라면 센서 작동을 아예 원천 차단합니다.
+            if (document.body.classList.contains('scroll-locked')) return;
+
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('header nav a');
             let currentSectionId = '';
     
+            // ⭕ 화면 중앙(innerHeight / 2)을 기준으로 현재 섹션을 정밀 타격 계산합니다.
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - (window.innerHeight / 3)) {
+                if (window.scrollY >= sectionTop - (window.innerHeight / 2)) {
                     currentSectionId = section.getAttribute('id');
                 }
             });
@@ -413,7 +436,7 @@
             const overlay = document.getElementById('intro-overlay');
             const emblem = document.getElementById('wayne-emblem');
             const batContainer = document.getElementById('bat-container');
-            const wrapper = document.getElementById('main-content-wrapper'); // 👈 메인 래퍼 장전
+            const wrapper = document.getElementById('main-content-wrapper');
 
             // 1단계: 0.3초 뒤 엠블럼 등장
             setTimeout(() => {
@@ -434,11 +457,8 @@
                 setTimeout(() => {
                     if(overlay) overlay.style.display = 'none';
             
-                    /* ⭕ [핵심 교정] 박쥐가 다 날아가면 메인 화면(홈 화면)을 투명도 100%로 선명하게 띄워줍니다! */
+                    /* 박쥐가 다 날아가면 홈 화면을 투명도 100%로 선명하게 오픈 */
                     if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
-            
-                    /* ★주의: 여기에 존재하던 body 잠금 해제(remove('scroll-locked')) 코드는 완전히 삭제 상태를 유지합니다. */
-                    /* 즉, 화면은 다 보이지만 유저가 터치하기 전까지 스크롤은 여전히 꽁꽁 잠겨있게 됩니다. */
                 }, 1000);
 
             }, 2300);
