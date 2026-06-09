@@ -29,8 +29,13 @@
         .pt-safe { padding-top: env(safe-area-inset-top); }
         body { font-family: serif; background-color: #ffffff; color: #111827; margin: 0; }
         
-        /* 초기 스크롤 원천 차단 */
-        .scroll-locked { overflow: hidden !important; height: 100vh !important; }
+        /* ⭕ [교정] 초기 스크롤바 봉쇄 전용 락 - 잠금이 풀리기 전까지만 작동하도록 제한을 겁니다 */
+        html.scroll-locked, body.scroll-locked { 
+            overflow: hidden !important; 
+            height: 100vh !important; 
+            position: fixed !important; 
+            width: 100% !important;
+        }
         
         /* 캐릭터 패널 애니메이션 */
         #character-panel { 
@@ -74,36 +79,20 @@
             100% { transform: translate(var(--tw-x), var(--tw-y)) scale(1.6) rotate(var(--tw-rot)); opacity: 0; }
         }
 
-        /* ⭕ [핵심 추가] PC 화면일 때만 #home 섹션의 배경을 오너님이 준 파일로 교체하는 마법 */
-        /* 💻 PC 화면 최적화 전용 방 (이 버전으로 통째로 교체해 주세요) */
+        /* 💻 PC 화면 최적화 전용 방 */
         @media (min-width: 768px) {
             #home {
                 background-image: url('image/pc_main_bg.jpg') !important;
                 background-size: cover !important;
-                background-position: center !important;
+                background-position: 50% 50% !important;
                 background-repeat: no-repeat !important;
             }
             #home h1 { color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.7); }
             #home p { color: #e2e8f0 !important; }
 
-            /* ⭕ [강력 수정] 이미지를 감싸는 부모 박스 자체를 고정 풀고 최하단 바닥으로 챡 매장시킵니다. */
-            #home .flex-grow {
-                position: absolute !important;
-                bottom: 0 !important;
-                right: 0 !important;
-                width: 100% !important;
-                height: 75vh !important; /* PC 모니터 화면에 맞게 박스 높이 확보 */
-                display: flex !important;
-                justify-content: flex-end !important;
-                align-items: flex-end !important; /* 내부의 profilemain.png를 완벽히 바닥 밀착 */
-                z-index: 10 !important;
-            }
-
-            /* 이미지 자체도 PC 해상도에 맞춰 묵직하게 바닥 라인을 맞추도록 유연하게 높이 설정 */
-            #home img[src*="profilemain.png"] {
-                height: 100% !important;
-                max-height: 75vh !important;
-                object-contain: bottom !important;
+            #home .absolute.inset-0.z-0 img[src*="ubermensch.png"] {
+                transform: translate(-20px, 0px) scale(1) !important;
+                transition: transform 0.3s ease;
             }
         }
     </style>
@@ -115,27 +104,36 @@
         <div id="bat-container" class="absolute inset-0 pointer-events-none"></div>
     </div>
 
-    <div id="main-content-wrapper" class="opacity-0 pointer-events-none transition-opacity duration-700">
+    <div id="main-content-wrapper" class="opacity-0 pointer-events-none w-full min-h-screen">
     
         <div class="fixed inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
             <img src="image/ubermensch.png" class="w-3/4 max-w-sm">
         </div>
 
         <header class="fixed top-0 w-full z-[100] pt-safe px-6 py-4 flex justify-between items-center bg-gray-950 text-white shadow-md">
-            <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank">
-                <img src="image/kakaologo.png" class="w-6 h-6 opacity-80">
-            </a>
-            <nav class="flex space-x-4 text-[10px] tracking-widest uppercase font-semibold text-gray-300">
-                <a href="#home">HOME</a>
-                <a href="#who">WHO</a>
-                <a href="#about">ABOUT</a>
-                <a href="#etc">ETC</a>
-            </nav>
-            <a href="index.html" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
+            <div class="flex items-center space-x-3.5 md:space-x-4">
+                <a href="https://story.kakao.com/batwayne0503/2MqO79yjWZ8" target="_blank">
+                    <img src="image/kakaologo.png" class="w-5 h-5 md:w-6 md:h-6 object-contain">
+                </a>
+                <a href="https://open.kakao.com/o/sg8WyyPg" target="_blank" rel="noopener noreferrer" class="opacity-80 hover:opacity-100 active:scale-95 transition-all">
+                    <img src="image/openchat.png" alt="Open Chat" class="w-5 h-5 md:w-6 md:h-6 object-contain">
+                </a>
+                <a href="https://curious.quizby.me/Wayne53" target="_blank" rel="noopener noreferrer" class="opacity-80 hover:opacity-100 active:scale-95 transition-all">
+                    <img src="image/curious.png" alt="Curious" class="w-5 h-5 md:w-6 md:h-6 object-contain">
+                </a>
+            </div> 
+            <div class="flex items-center space-x-6">
+                <nav class="flex space-x-4 text-[10px] tracking-widest uppercase font-semibold text-gray-300">
+                    <a href="#home">HOME</a>
+                    <a href="#who">WHO</a>
+                    <a href="#about">ABOUT</a>
+                    <a href="#etc">ETC</a>
+                </nav>
+                <a href="index.html" class="text-[10px] uppercase font-semibold text-gray-300 hover:text-white">&larr; MAIN</a>
+            </div>
         </header>
 
         <section id="home" class="h-[100dvh] relative overflow-hidden bg-white flex flex-col justify-between">
-
             <div class="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
                 <img src="image/ubermensch.png" class="w-[80%] max-w-sm">
             </div>
@@ -146,25 +144,23 @@
                 </h1>
             </div>
 
-            <div class="relative z-10 w-full flex-grow flex justify-end items-end overflow-hidden">
-    
+            <div class="absolute bottom-0 right-0 z-10 w-full md:w-full flex justify-end items-end overflow-hidden">
                 <img src="image/profilemain.png" 
                      onclick="showCharacter()" 
                      class="block md:hidden w-auto h-[60dvh] max-h-full object-contain object-right-bottom cursor-pointer active:scale-95 transition-transform mr-[-5%] z-10">
         
                 <img src="image/profilemain.png" 
                      onclick="showCharacter()" 
-                     class="hidden md:block fixed bottom-0 right-0 h-[70vh] object-contain object-bottom cursor-pointer active:scale-95 transition-transform z-10">
+                     class="hidden md:block w-auto h-[75vh] object-contain object-bottom cursor-pointer active:scale-95 transition-transform z-10 mr-0">
         
-                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent md:from-black/40 md:via-transparent md:to-transparent z-20 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white via-white/80 to-transparent md:from-black/50 md:via-black/20 md:to-transparent z-20 pointer-events-none"></div>
             </div>
 
-            <div class="relative z-30 w-full text-center pb-[8dvh]">
-                <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans">
+            <div onclick="unlockScroll()" class="relative z-30 w-full text-center pb-[8dvh] cursor-pointer">
+                <p class="text-[10px] text-black tracking-[0.3em] font-bold uppercase animate-pulse font-sans md:text-white">
                     TOUCH TO PROFILE
                 </p>
             </div>
-
         </section>
         
         <section id="who" class="min-h-screen bg-gray-950 text-white px-8 pt-32 pb-20 flex flex-col justify-center relative z-20">
@@ -308,6 +304,7 @@
                     </div>
 
                 </div>
+            </div>
         </section>
     </div>
 
@@ -341,10 +338,26 @@
 
         function unlockScroll() {
             const wrapper = document.getElementById('main-content-wrapper');
-            wrapper.classList.remove('opacity-0', 'pointer-events-none');
+    
+            if (wrapper) {
+                wrapper.classList.remove('opacity-0', 'pointer-events-none');
+            }
+    
+            // ⭕ [교정] 최상단 태그(html, body) 둘 다 얽매여있던 고정 명찰을 칼같이 해제합니다.
+            document.documentElement.classList.remove('scroll-locked');
             document.body.classList.remove('scroll-locked');
-            document.getElementById('character-panel').classList.remove('active');
-            document.getElementById('who').scrollIntoView({ behavior: 'smooth' });
+    
+            const panel = document.getElementById('character-panel');
+            if (panel) {
+                panel.classList.remove('active');
+            }
+    
+            setTimeout(() => {
+                const whoSection = document.getElementById('who');
+                if (whoSection) {
+                    whoSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 50); 
         }
 
         function toggleAbout(id) {
@@ -353,13 +366,15 @@
         }
 
         window.addEventListener('scroll', () => {
+            if (document.body.classList.contains('scroll-locked')) return;
+
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('header nav a');
             let currentSectionId = '';
     
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - (window.innerHeight / 3)) {
+                if (window.scrollY >= sectionTop - (window.innerHeight / 2)) {
                     currentSectionId = section.getAttribute('id');
                 }
             });
@@ -410,47 +425,31 @@
             const overlay = document.getElementById('intro-overlay');
             const emblem = document.getElementById('wayne-emblem');
             const batContainer = document.getElementById('bat-container');
+            const wrapper = document.getElementById('main-content-wrapper');
 
-            if (window.location.hash) {
-                const hash = window.location.hash;
-                const wrapper = document.getElementById('main-content-wrapper');
-                if (wrapper) {
-                    wrapper.classList.remove('opacity-0', 'pointer-events-none');
+            // ⭕ [교정] 시작할 때 확실하게 html과 body 둘 다 락 명찰을 채워 원천 봉쇄합니다.
+            document.documentElement.classList.add('scroll-locked');
+            document.body.classList.add('scroll-locked');
+
+            setTimeout(() => {
+                if(emblem) {
+                    emblem.style.opacity = '1';
+                    emblem.style.transform = 'scale(0.85)';
                 }
-                document.body.classList.remove('scroll-locked');
-                if (overlay) overlay.style.display = 'none';
-                
-                const targetSection = document.querySelector(hash);
-                if (targetSection) {
-                    setTimeout(() => {
-                        targetSection.scrollIntoView({ behavior: 'auto' });
-                    }, 200);
-                }
-            } 
-            else {
-                setTimeout(() => {
-                    if(emblem) {
-                        emblem.style.opacity = '1';
-                        emblem.style.transform = 'scale(1)';
-                    }
-                }, 300);
+            }, 300);
+
+            setTimeout(() => {
+                if(emblem) emblem.classList.add('fly-up');
+                if(overlay) overlay.style.transform = 'translateY(-100%)';
+        
+                spawnBatSwarm();
 
                 setTimeout(() => {
-                    if(emblem) emblem.classList.add('fly-up');
-                    if(overlay) overlay.style.transform = 'translateY(-100%)';
-                    
-                    spawnBatSwarm();
+                    if(overlay) overlay.style.display = 'none';
+                    if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
+                }, 1000);
 
-                    setTimeout(() => {
-                        document.body.classList.remove('scroll-locked');
-                        if(overlay) overlay.style.display = 'none';
-                        
-                        const wrapper = document.getElementById('main-content-wrapper');
-                        if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
-                    }, 1000);
-
-                }, 2300);
-            }
+            }, 2300);
 
             function spawnBatSwarm() {
                 if(!batContainer) return;
@@ -462,7 +461,7 @@
 
                 for (let i = 0; i < batCount; i++) {
                     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                    svg.setAttribute("viewBox", "0 0 24 24");
+                    svg.setAttribute("viewBox", "0 0 24 24");    
                     svg.classList.add('bat');
 
                     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
