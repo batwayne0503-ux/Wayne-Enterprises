@@ -411,13 +411,9 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const overlay = document.getElementById('intro-overlay');
-            const emblem = document.getElementById('wayne-emblem');    
+            const emblem = document.getElementById('wayne-emblem');
             const batContainer = document.getElementById('bat-container');
-
-            // [체크] 주소창에 해시값이 들고 들어와도 오프닝 스킵 없이 무조건 잠그고 시작합니다.
-            if (window.location.hash) {
-                // 해시가 있을 때 자동 해제되던 구 코드를 완전히 삭제했습니다.
-            } 
+            const wrapper = document.getElementById('main-content-wrapper'); // 👈 메인 래퍼 장전
 
             // 1단계: 0.3초 뒤 엠블럼 등장
             setTimeout(() => {
@@ -434,10 +430,15 @@
         
                 spawnBatSwarm();
 
-                // 3단계: 3.3초 뒤 오프닝 레이어 뒷정리 (★주의: 여기서 스크롤 해제 코드를 완전히 박멸했습니다!)
+                // 3단계: 3.3초 뒤 박쥐 비상 종료 시점
                 setTimeout(() => {
                     if(overlay) overlay.style.display = 'none';
-                    // 이제 오프닝이 끝나도 body의 'scroll-locked'는 그대로 유지되므로 화면이 철통 잠금됩니다.
+            
+                    /* ⭕ [핵심 교정] 박쥐가 다 날아가면 메인 화면(홈 화면)을 투명도 100%로 선명하게 띄워줍니다! */
+                    if (wrapper) wrapper.classList.remove('opacity-0', 'pointer-events-none');
+            
+                    /* ★주의: 여기에 존재하던 body 잠금 해제(remove('scroll-locked')) 코드는 완전히 삭제 상태를 유지합니다. */
+                    /* 즉, 화면은 다 보이지만 유저가 터치하기 전까지 스크롤은 여전히 꽁꽁 잠겨있게 됩니다. */
                 }, 1000);
 
             }, 2300);
